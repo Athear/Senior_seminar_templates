@@ -1,0 +1,121 @@
+% This is a sample document using the University of Minnesota, Morris, Computer Science
+% Senior Seminar modification of the ACM sig-alternate style. Much of this content is taken
+% directly from the ACM sample document illustrating the use of the sig-alternate class. Certain
+% parts that we never use have been removed to simplify the example, and a few additional
+% components have been added.
+
+% See https://github.com/UMM-CSci/Senior_seminar_templates for more info and to make
+% suggestions and corrections.
+
+\documentclass{sig-alternate}
+\usepackage{color}
+
+%%%% User-defined macros
+\newcommand{\lam}{\lambda}
+\newcommand{\mycomment}[1]{\textcolor{red}{#1}}
+%%%%% Uncomment the following line and comment out the previous one
+%%%%% to remove all comments
+%%%%% NOTE: comments still occupy a line even if invisible;
+%%%%% Don't write them as a separate paragraph
+%\newcommand{\mycomment}[1]{}
+
+\begin{document}
+
+% --- Author Metadata here ---
+%%% REMEMBER TO CHANGE THE SEMESTER AND YEAR
+\conferenceinfo{UMM CSci Senior Seminar Conference, December 2013}{Morris, MN}
+
+\title{System of Programming Language Interoperability}
+
+\numberofauthors{1}
+
+\author{
+% The command \alignauthor (no curly braces needed) should
+% precede each author name, affiliation/snail-mail address and
+% e-mail address. Additionally, tag each line of
+% affiliation/address with \affaddr, and tag the
+% e-mail address with \email.
+\alignauthor
+Todd Malone\\
+	\affaddr{Division of Science and Mathematics}\\
+	\affaddr{University of Minnesota, Morris}\\
+	\affaddr{Morris, Minnesota, USA 56267}\\
+	\email{malon153@morris.umn.edu}
+}
+
+\maketitle
+\begin{abstract}
+\mycomment{A discussion of systems and methods for the interop of programming languages}
+\end{abstract}
+
+% A category with the (minimum) three required fields
+\category{H.4}{Information Systems Applications}{Miscellaneous}
+%A category including the fourth, optional field follows...
+\category{D.2.8}{Software Engineering}{Metrics}[complexity measures, performance measures]
+
+\terms{Delphi theory}
+
+\keywords{ACM proceedings, \LaTeX, text tagging}
+
+\section{Introduction}
+Introduction will introduce what Interop is, what it means to be interoperable, and
+why it is important to people.
+
+\section{Achieving Interoperability}\label{difficulties}
+\mycomment{this section needs a better name}
+Section will discuss why interoperability is hard.
+To a large degree, this will concern 
+\begin{itemize}
+	\item data-level (Syntactic and Semantic)
+	\item communication level (protocols)
+	\item some other things, involving systems or networks.
+\end{itemize}
+
+\section{Virtual Machine Systems}\label{VM}
+Here, I will detail how VMs handle the issue of multiple programming languages.
+From my current understanding, this is mainly done through a shared low-level language \footnote{such as Java's bytecode, or the .NET Common Intermediate Language}
+
+\section{Markup Language Solutions}\label{ML}
+This section will be about Markup Languages, and what they contribute to the discussion of interoperability.
+Presently, I only know of one full system\footnote{Starlink} that uses a markup language at its core. I'll try to discuss Starlink's use of ML here,
+but other MLs should be discussed, even if I don't have distinct systems to cite.
+
+\section{Conclusions}
+This paragraph will end the body of this sample document.
+Remember that you might still have Acknowledgments or
+Appendices; brief samples of these
+follow.  There is still the Bibliography to deal with; and
+we will make a disclaimer about that here: with the exception
+of the reference to the \LaTeX\ book, the citations in
+this paper are to articles which have nothing to
+do with the present subject and are used as
+examples only.
+
+\section{Acknowledgments}
+
+This section is optional; it is a location for you
+to acknowledge grants, funding, editing assistance and
+what have you.
+
+It is common (but by no means necessary) for students to thank
+their advisor, and possibly other faculty, friends, and family who provided
+useful feedback on the paper as it was being written.
+
+In the present case, for example, the
+authors would like to thank Gerald Murray of ACM for
+his help in codifying this \textit{Author's Guide}
+and the \textbf{.cls} and \textbf{.tex} files that it describes.
+
+% The following two commands are all you need in the
+% initial runs of your .tex file to
+% produce the bibliography for the citations in your paper.
+\bibliographystyle{abbrv}
+% sample_paper.bib is the name of the BibTex file containing the
+% bibliography entries. Note that you *don't* include the .bib ending here.
+\bibliography{sample_paper}  
+% You must have a proper ".bib" file
+%  and remember to run:
+% latex bibtex latex latex
+% to resolve all references
+
+\end{document}
