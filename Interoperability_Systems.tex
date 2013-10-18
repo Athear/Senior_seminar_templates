@@ -68,9 +68,15 @@ why it is important to people.
 In order for interop to be a viable option, the languages in question must have some common ground. At at basic level
 this means they should be able to act on similar data types and have access to the same types of files. However, simply dealing with data of the same type does not guarantee successful data sharing, as languages may deal with similar data differently. Ide and Pustejovsky \cite{Ide:2010} suggest a method for dealing with potential type conflicts through the use of metadata. Metadata can describe the type and classification of data in more broadly applicable and translatable fashion.
 
-Of importance, particularly to metadata, but also generally regarding communication protocols, is standardization. 
+Of importance in every level of the transaction is standardization. Metadata, as mentioned, can be a useful tool for data interoperability. In order to actually use it, however, both languages or programs must agree on what tags will represent what data. Standardized metadata sets ensure that programs not built with each other in mind can still interoperate without being fully redesigned. There are several catalogs attempting to form full metadata tag sets, such as the Open Archives Initiative (OAI), the ELRA Universal Catalog, and the NICT Shachi catalog.\cite{Ide:2010}
 
-\subsection*{Difficulties in achieving and maintaining Interop}
+\subsection*{Difficulties in achieving Interop}
+Despite tools available to promote interoperability, there are still difficulties inherent to building an interoperative system. Metadata tags can be a powerful too, but there are some subtleties about languages that should be taken into account.
+
+One of these is the type systems of the languages in question. For instance, converting between the weakly-typed language Groovy and the strongly-type Java might require that all of the Groovy data be labeled, or it's arrays be of only a single type, effectively forcing Groovy into a strong type system. \mycomment{This requires some better introduction. also, look up how groovy does manage its Java interop}
+
+Another area of concern is adherence to standardization.
+As evidenced above, there exist a wide array of possible standards to use. Conformance to one standard does not guarantee connectivity with a system using a different standard, reducing the usefulness of such standards by the number of them in existence.\cite{?}
 
 
 
@@ -85,11 +91,17 @@ Use of a virtual machine as a interoperability platform only makes sense if the 
 
 
 \section{Markup Language Solutions}\label{ML}
-This section will be about Markup Languages, and what they contribute to the discussion of interoperability.
-I'll discuss Starlink, which relies on markup languages at its core for the purpose of multi-system interoperability, and FML, a markup language designed to free the design of fuzzy controlers from system and hardware constraints.
+
+
 
 \subsection*{Distributed Connectivity}
-Markup languages. Yes.
+Markup languages are primarily useful when dealing with systems that span multiple servers or platforms. 
+
+%%TODO: discuss Starlink and its use of MDL to enhance multi-system interoperability
+
+\subsection*{FML and Hardware Independence}
+%%here, discuss FML and its purpose of freeing the design of fuzzy controllers from system and hardware constraints
+
 
 \section{Conclusions}
 
@@ -103,7 +115,7 @@ Markup languages. Yes.
 \bibliographystyle{abbrv}
 % sample_paper.bib is the name of the BibTex file containing the
 % bibliography entries. Note that you *don't* include the .bib ending here.
-\bibliography{bibliography}  
+\bibliography{bibliography}
 % You must have a proper ".bib" file
 %  and remember to run:
 % latex bibtex latex latex
