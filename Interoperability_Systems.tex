@@ -84,6 +84,7 @@ As evidenced above, there exist a wide array of possible standards to use. Confo
 Here, I will detail how VMs handle the issue of multiple programming languages.
 From my current understanding, this is mainly done through a shared low-level language, such as Java's bytecode, or the .NET Common Intermediate Language.
 
+
 \subsection*{Single Platform Language Interoperability}
 Virtual machines can be used as a language interoperability platform when the system in question is meant to be run on a single machine. 
 
@@ -95,13 +96,29 @@ Virtual machines can be used as a language interoperability platform when the sy
 
 
 \subsection*{Distributed Connectivity}
-Markup languages are primarily useful when dealing with systems that span multiple servers or platforms. 
+Markup languages are primarily useful when dealing with systems that span multiple servers or platforms. \mycomment{Need more here}
+
+Markup languages, by their heavily tagged structure, \footnote{\mycomment{EXPLAIN THE HECK OUT OF THIS}} are a perfect match for Ide and Pustejovsky's model of metadata interoperability.\cite{Ide:2010} The tagging system used to describe aspects of a markup language can be adapted to describe data types within other languages and data models.
+
+One system that makes use of this is the Starlink framework\cite{Bromberg:2011}. Starlink's purpose is to facilitate passing messages between languages that do not share a common communication protocol. As such, for each language it must model both the incoming message and the protocols for each language.
+The translation of the message between representations is handled using sets of logical automata, while the representations themselves are done using a specialized markup language they call the Message Description Language. In an MDL, each piece of data is contained within its own set of ML tags , referred to as primitive fields. Primitive fields are themselves contained in another set of tags, called structured fields. These fields can be likened to the metadata labels, with primitive fields standing for syntactic level labels and structured fields standing for semantic level labels. \mycomment{I'm not sure that's strictly true, so look into this}.
+\mycomment{Consider including figure 7 of \cite{Bromberg:2011} here}
+
+\mycomment{Consider using: MDLs are set up in a specific way so that the automata are able to efficiently translate between two MDL representations}
 
 %%TODO: discuss Starlink and its use of MDL to enhance multi-system interoperability
 
 \subsection*{FML and Hardware Independence}
 %%here, discuss FML and its purpose of freeing the design of fuzzy controllers from system and hardware constraints
 
+Markup languages can also be used to divorce programs from hardware dependencies, freeing them to be more interoperable over distributed platforms.
+
+\mycomment{Will need some description of what's nice about fuzzy controllers}
+The Fuzzy Markup Language (FML) is a prime example of this. At present, the best method for implementing fuzzy controllers for a particular system has involved designing specific hardware models based on the system it was being designed for. When dealing with a number of platforms using different hardware, this meant different designs were required to implement the same controller for each. FML attempts to shift the control of fuzzy logic from hardware to software, such that it can be implemented on multiple platforms for little additional cost.
+
+\mycomment{Consider using \cite{Acampora:2013} figure 1 to explain the fuzzy system}
+Once again, 
+While significantly more complicated, FML can be described in a basic sense to be using the XML tags as a means of attaching metadata to data involved in a fuzzy control system. It is more complicated because they use more than the two levels of metadata described by Ide and Pustejovsky. FML is meant to support a fairly complex system, and the models used within that system for determining \textcolor{red}{stuff}. As such, they go beyond modeling primitive data to modeling full data structures. It goes beyond this, but out of the realm of metadata. 
 
 \section{Conclusions}
 
