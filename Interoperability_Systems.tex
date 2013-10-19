@@ -58,11 +58,20 @@ A discussion of systems and methods for the interop of programming languages
 
 \section{Introduction}
 Introduction will introduce what Interop is, what it means to be interoperable, and
-why it is important to people.
+why it is important to people
+
+What is Interoperability? Interoperability, often shortened to Interop, is the ability for two or more systems to work together. It is a very broad definition, describing anything from groups of people to bureaucratic systems to pieces of hardware. Here we will be discussing the interoperability of programming languages and the hardware used to run such programs.
 
 \section{Interoperability}\label{difficulties}
 \mycomment{this section needs a better name}
 
+Why is is interoperability important in computing systems? The two main considerations here are what the languages themselves are designed to accomplish and what hardware the programs being built are meant to run on.
+
+Programming languages have different purposes, and can be applicable in different situations. For instance, the language Erlang is very good at handling messages over distributed systems. But constructing certain data structures in that language can be frustrating. \mycomment{I remember this being a thing, but I don't remember what those structures were. Better check on that} 
+In contrast, Java has a nice suite of built in data structures, which allow for easier construction of further structures as needed. However, getting Java to pass synchronized messages over a network is not fun.
+
+Thus, it would be useful if there were a way to pass messages across the network with Erlang, and use Java to handle some of the more heavy-duty data processing. \mycomment{This is probably a terrible example.}
+What can we do to make this happen?
 
 \subsection*{Requirements for Interop}
 In order for interop to be a viable option, the languages in question must have some common ground. At at basic level
