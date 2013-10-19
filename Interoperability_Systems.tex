@@ -62,6 +62,12 @@ why it is important to people
 
 What is Interoperability? Interoperability, often shortened to Interop, is the ability for two or more systems to work together. It is a very broad definition, describing anything from groups of people to bureaucratic systems to pieces of hardware. Here we will be discussing the interoperability of programming languages and the hardware used to run such programs.
 
+First we will explore why interoperability is subject we are concerned with, as well as what is needed to achieve it and why it is so difficult to do so.
+
+Next, we will take a look at two types of systems that help achieve interop. The first type will be virtual machines. What are virtual machines, and what about them makes them useful for this discussion? The Java Virtual Machine and the .NET framework provide examples.
+
+Then we'll look at markup languages as a method of interoperability. 
+
 \section{Interoperability}\label{difficulties}
 \mycomment{this section needs a better name}
 
@@ -104,12 +110,23 @@ Languages designed to run on a virtual machine have access to standardized libra
 
 The .NET framework has an advantage over the JVM in terms of standards. When the JVM was designed, it was designed as a platform only for Java, and thus didn't take into consideration that there could be other languages running on it. However, .NET was built from the ground up as a suite for multiple languages, and thus incorporated cross-language standards early in its life.
 
+Regardless, both have a core language and shared data types. Languages on both have access to methods and objects in other languages on the same system. This is more difficult on the JVM, as most languages likely have to go through Java to achieve this, while .NET languages have nearly direct access.\mycomment{not quite that much.} The common compiled language (bytecode and CIL) means that once a program utilizing multiple languages has been written and compiled, execution of all parts of the program can be handled the same way.
+
+\subsubsection*{Restrictions}
+Of course, this is only of practical use if program in question is simple enough to be run on a single machine. In practice, multi-language systems are much more likely to happen on a distributed scale, where different languages handle different stages of the project.
+
 \subsection*{Platform Portability}
+program can change without caring about deployment. Underlying system can change without caring about program
+
+A second useful area of virtual machines is the ability to separate the language from hardware. This can be useful for interoperability if the same program is needed to run on multiple machines, which may not have the same underlying hardware.
+
+This approach relies on the fact the the virtual machine is an abstraction of the base hardware. Any program will need some sort of translation to go from the high-level user code to the hardware-specific machine code at execution time. VMs offer the advantage of optimized, compiled code, and the 
 
 
 \section{Markup Language Solutions}\label{ML}
+Markup languages, such as XML or HTML, are at their core a method for adding metadata to text via tags. This makes them an almost perfect match for Ide and Pustejovsky's model of metadata language description. ML tags can be added to any string data, which can even include program code. \mycomment{but no one does that. Because it would be crazy.}
 
-
+\mycomment{perhaps describe different base types of MLs here? I'm not sure}
 
 \subsection*{Distributed Connectivity}
 Markup languages are primarily useful when dealing with systems that span multiple servers or platforms. \mycomment{Need more here}
