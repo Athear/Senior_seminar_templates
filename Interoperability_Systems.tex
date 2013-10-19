@@ -56,7 +56,7 @@ A discussion of systems and methods for the interop of programming languages
 
 \keywords{ACM proceedings, \LaTeX, text tagging}
 
-\section{Introduction}
+\section{Introduction}\label{intro}
 Introduction will introduce what Interop is, what it means to be interoperable, and
 why it is important to people
 
@@ -66,7 +66,7 @@ First we will explore why interoperability is subject we are concerned with, as 
 
 Next, we will take a look at two types of systems that help achieve interop. The first type will be virtual machines. What are virtual machines, and what about them makes them useful for this discussion? The Java Virtual Machine and the .NET framework provide examples.
 
-Then we'll look at markup languages as a method of interoperability. 
+Then we'll look at markup languages as a method of interoperability. Markup languages mesh nicely with the idea of metadata in interop, explored in section \ref{difficulties}
 
 \section{Interoperability}\label{difficulties}
 \mycomment{this section needs a better name}
@@ -112,19 +112,22 @@ The .NET framework has an advantage over the JVM in terms of standards. When the
 
 Regardless, both have a core language and shared data types. Languages on both have access to methods and objects in other languages on the same system. This is more difficult on the JVM, as most languages likely have to go through Java to achieve this, while .NET languages have nearly direct access.\mycomment{not quite that much.} The common compiled language (bytecode and CIL) means that once a program utilizing multiple languages has been written and compiled, execution of all parts of the program can be handled the same way.
 
-\subsubsection*{Restrictions}
+\subsubsection*{Limitations}
 Of course, this is only of practical use if program in question is simple enough to be run on a single machine. In practice, multi-language systems are much more likely to happen on a distributed scale, where different languages handle different stages of the project.
 
 \subsection*{Platform Portability}
-program can change without caring about deployment. Underlying system can change without caring about program
-
 A second useful area of virtual machines is the ability to separate the language from hardware. This can be useful for interoperability if the same program is needed to run on multiple machines, which may not have the same underlying hardware.
 
-This approach relies on the fact the the virtual machine is an abstraction of the base hardware. Any program will need some sort of translation to go from the high-level user code to the hardware-specific machine code at execution time. VMs offer the advantage of optimized, compiled code, and the 
+This approach relies on the fact the the virtual machine is an abstraction of the base hardware. Any program will need some sort of translation to go from the high-level user code to the hardware-specific machine code at execution time. VMs offer the advantage of modeling the underlying hardware while allowing higher-level programmers to ignore that hardware. Platform specific implementations allow the underlying system to change without impacting deployed programs, and allows programs to change without having to worry about the hardware. \mycomment{I just said that three times. Yuck}
+
+This is actually the purpose the JVM was designed for, and one of the primary reasons existing languages created JVM implementations. As Li et al. discovered, this meant building in interoperability with Java, as Java executed better on the JVM, being native, and provided much of the functionality that the foreign language would then not have to duplicate\cite{Li:2013}.
+
+\subsubsection{Limitations}
+Being able to run your program on multiple machines is one thing, but having that 
 
 
 \section{Markup Language Solutions}\label{ML}
-Markup languages, such as XML or HTML, are at their core a method for adding metadata to text via tags. This makes them an almost perfect match for Ide and Pustejovsky's model of metadata language description. ML tags can be added to any string data, which can even include program code. \mycomment{but no one does that. Because it would be crazy.}
+Markup languages, such as XML or HTML, are at their core a method for adding metadata to text via tags. This makes them an almost perfect match for Ide and Pustejovsky's model of metadata language description. ML tags can be added to any string data, which can be very handy for shuttling data around.
 
 \mycomment{perhaps describe different base types of MLs here? I'm not sure}
 
