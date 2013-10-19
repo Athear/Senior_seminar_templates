@@ -90,12 +90,19 @@ As evidenced above, there exist a wide array of possible standards to use. Confo
 
 
 \section{Virtual Machine Systems}\label{VM}
-Here, I will detail how VMs handle the issue of multiple programming languages.
-From my current understanding, this is mainly done through a shared low-level language, such as Java's bytecode, or the .NET Common Intermediate Language.
+One method of achieving interoperability is though the use of a virtual machine (VM). Virtual machines are programs that model a physical machine, capable of executing programs within their environment. Two major virtual machines in use today are the Java Virtual Machine (JVM) built primarily by Java, and the Common Language Runtime (CLR) used by Microsoft's .NET Framework.
 
+Part of their power in interoperability comes from their method of execution. Unlike purely compiled languages where code is compiled down to machine code, or interpreted languages where code is converted directly to machine-level instructions, languages that run on the JVM or the CLR are compiled to an intermediate, low-level language, which is then translated to machine-level instructions.
+\mycomment{The intermediate languages are bytecode (Java) and the Common Intermediate Language (.NET)}
+
+This has two major implications: one for the interoperability of languages built to run on the same virtual machine, the other for the portability across platforms for languages built on a virtual machine.
 
 \subsection*{Single Platform Language Interoperability}
-Virtual machines can be used as a language interoperability platform when the system in question is meant to be run on a single machine. 
+Virtual machines can be used as a language interoperability platform when the system in question is meant to be run on a single machine. When used like this, the common low level language provides the intermediary between languages. Here we can see the usefulness of standardization as described by Ide and Pustejovkey\cite{Ide:2010}.
+
+Languages designed to run on a virtual machine have access to standardized libraries via a commonly accessible language. For the JVM, this is Java itself and the Java standard libraries. For the .NET framework, \mycomment{I have no idea how they're implemented \footnote{seriously, is this a language here? Does it conform to a language used?}} with the Base Class Library. 
+
+The .NET framework has an advantage over the JVM in terms of standards. When the JVM was designed, it was designed as a platform only for Java, and thus didn't take into consideration that there could be other languages running on it. However, .NET was built from the ground up as a suite for multiple languages, and thus incorporated cross-language standards early in its life.
 
 \subsection*{Platform Portability}
 
