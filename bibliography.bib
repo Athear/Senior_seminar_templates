@@ -1,15 +1,14 @@
-
 @article{Shetty:2009,
-	 author = {Sujala D Shetty,  Dr S Vadivel},
-	 title = {Interoperability issues seen in Web Services},
-	 journal = {IJCSNS International Journal of Computer Science and Network Security},
-	 volume = {9},
-	 issue = {8},
-	 month = {August},
-	 year = {2009},
-	 pages = {160--169},
-	 numpages = {9},
-	 note = {\emph{Might have some info on why interoperability is a thing we want. Talks a bit about JVM and .NET, but is mostly about internet.}}
+ author = {Sujala D Shetty,  Dr S Vadivel},
+ title = {Interoperability issues seen in Web Services},
+ journal = {IJCSNS International Journal of Computer Science and Network Security},
+ volume = {9},
+ issue = {8},
+ month = {August},
+ year = {2009},
+ pages = {160--169},
+ numpages = {9},
+ note = {\emph{Background paper. Talks about output mismatch between Java and .NET web clients. This includes things like NULL, primitives, and precision, and a little involving objects.}}
 }
 
 @INPROCEEDINGS{Kats:2010,
@@ -20,7 +19,7 @@ year={2010},
 pages={147-156},
 keywords={Java;application program interfaces;aspect-oriented programming;data encapsulation;instruction sets;logic programming;program compilers;software libraries;software portability;virtual machines;API;CLR. NET virtual machine;Java Virtual Machine;Stratego program transformation language;aspect weaving;aspect-oriented programming;core programming language;developer community;instruction set;interoperability;language compiler backend;language portability;program adaptation;runtime system;software library;software platform logic encapsulation;Java;Libraries;Programming;Runtime;Software;Weaving;Java;Spoofax;Stratego;aspect-oriented programming;compilers;programming languages},
 doi={10.1109/SCAM.2010.11},
-note={\emph{'m not wholy sure what this could be used for. Need to read.}
+note={\emph{Unused Background paper. Mainly involves seperating languages from platform dependency. While related, I don't think this will be an area that I focus on.}
 }
 
 @INPROCEEDINGS{Chen:2010,
@@ -32,7 +31,7 @@ pages={1-6},
 keywords={Bayes methods;brushless DC motors;estimation theory;fault diagnosis;machine bearings;network operating systems;particle filtering (numerical methods);software architecture;.NET language;Bayesian estimation theory;bearing spalling fault diagnosis;brushless DC motor turn to turn winding fault diagnosis;data processing;failure prognosis architecture;feature extraction;generic particle filter;integrated fault diagnosis;Computer architecture;Fault diagnosis;Feature extraction;Graphical user interfaces;Real time systems;Software;Windings;.NET framework;Fault diagnosis;failure prognosis;particle filtering;software architecture},
 doi={10.1109/AUTEST.2010.5613626},
 ISSN={1088-7725},
-note={\emph{Most of this isn't useful, but has a description of the .NET framework. Might be more useful to just look up the wikipedia}}
+note={\emph{Unused VM paper. Most of this isn't useful, but has a description of the .NET framework. Might be more useful to just look up the wikipedia}}
 }
 
 @article{Matthews:2009,
@@ -64,7 +63,7 @@ note={\emph{Most of this isn't useful, but has a description of the .NET framewo
   pages={101--112},
   year={2013},
   organization={ACM},
-  note={\emph{Explores how languages on the JVM differ from Java.}}
+  note={\emph{A study quantifing the differences languages run on the JVM from Java itself. Shows that JVM languages, even languages not built specifically for it, really do behave differently than Java (and each other) at runtime.}}
 }
 
 @INPROCEEDINGS{Bromberk:2011,
@@ -76,7 +75,7 @@ pages={446-455},
 keywords={automata theory;middleware;open systems;protocols;Starlink middleware;abstract representation;coloured automata;distributed system;heterogeneous middleware protocol;heterogeneous network;remote method invocation protocol;runtime generated interoperability logic;runtime interoperability;service discovery protocol;translation logic;Automata;Bridges;Color;Middleware;Protocols;Runtime;Semantics;domain specific language;interoperability;middleware;protocol},
 doi={10.1109/ICDCS.2011.65},
 ISSN={1063-6927},
-note={\emph{An intensive exploration of what is required to achieve interop. Describes a full interop system using an ML}
+note={\emph{Markup Language paper. This details a system built to achieve interop between any two systems, with MLs as the translational language. This will be my major example when talking about markup languages.}
 }
 
 @incollection{Acampora:2013,
@@ -92,7 +91,7 @@ url={http://dx.doi.org/10.1007/978-3-642-35488-5_2},
 publisher={Springer Berlin Heidelberg},
 author={Acampora, Giovanni},
 pages={17-31},
-note={\emph{One example of an ML system. May be useful for comparison of ML style interop}}
+note={\emph{ML paper. This is much more concerned with fuzzy systems and hardware interop than it is with cross-language interop. However, it does talk of using an ML to divorce fuzzy controllers from both hardware and software, and a translator to convert it into the correct language. This could be useful..}}
 }
 
 @inproceedings{ide:2010,
@@ -100,7 +99,68 @@ note={\emph{One example of an ML system. May be useful for comparison of ML styl
   author={Ide, Nancy and Pustejovsky, James},
   booktitle={Proc. 2nd Int. Conf. Global Interoperability Lang. Res},
   year={2010},
-  note={\emph{A general exploration of the definitions and requirements of interoperability}}
+t  note={\emph{Background. A very general exploration of the definitions and requirements of interoperability. Primarially Talks about metadata as the interop method}}
 }
 
 
+@inproceedings{Osera:2012,
+ author = {Osera, Peter-Michael and Sj\"{o}berg, Vilhelm and Zdancewic, Steve},
+ title = {Dependent Interoperability},
+ booktitle = {Proceedings of the Sixth Workshop on Programming Languages Meets Program Verification},
+ series = {PLPV '12},
+ year = {2012},
+ isbn = {978-1-4503-1125-0},
+ location = {Philadelphia, Pennsylvania, USA},
+ pages = {3--14},
+ numpages = {12},
+ url = {http://doi.acm.org.ezproxy.morris.umn.edu/10.1145/2103776.2103779},
+ doi = {10.1145/2103776.2103779},
+ acmid = {2103779},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {contracts, dependent types, language interoperability},
+
+ note={\emph{}}
+} 
+
+@article{Chisnall:2013,
+ author = {Chisnall, David},
+ title = {The Challenge of Cross-language Interoperability},
+ journal = {Queue},
+ issue_date = {October 2013},
+ volume = {11},
+ number = {10},
+ month = oct,
+ year = {2013},
+ issn = {1542-7730},
+ pages = {20:20--20:28},
+ articleno = {20},
+ numpages = {9},
+ url = {http://doi.acm.org.ezproxy.morris.umn.edu/10.1145/2542661.2543971},
+ doi = {10.1145/2542661.2543971},
+ acmid = {2543971},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+note={\emph{Contains a short section on why VMs are not a cure-all interop method. This might actually be useful as a way of transitioning between VMs and MLs, since MLs cover pretty much the exact area VMs don't}}
+} 
+
+@article{Hamilton:2003,
+ author = {Hamilton, Jennifer},
+ title = {Language Integration in the Common Language Runtime},
+ journal = {SIGPLAN Not.},
+ issue_date = {February 2003},
+ volume = {38},
+ number = {2},
+ month = feb,
+ year = {2003},
+ issn = {0362-1340},
+ pages = {19--28},
+ numpages = {10},
+ url = {http://doi.acm.org.ezproxy.morris.umn.edu/10.1145/772970.772973},
+ doi = {10.1145/772970.772973},
+ acmid = {772973},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {common type system, exception handling, intermediate language, language interoperability, metadata, virtual machine},
+ note={\emph{}}
+} 
