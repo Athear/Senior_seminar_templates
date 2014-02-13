@@ -49,62 +49,51 @@ Todd Malone\\
 \end{abstract}
 
 % A category with the (minimum) three required fields
-\category{H.4}{Information Systems Applications}{Miscellaneous}
+%\category{H.4}{Information Systems Applications}{Miscellaneous}
 %A category including the fourth, optional field follows...
-\category{D.2.8}{Software Engineering}{Metrics}[complexity measures, performance measures]
+%\category{D.2.8}{Software Engineering}{Metrics}[complexity measures, performance measures]
 
-\terms{Delphi theory}
+%\terms{Delphi theory}
 
-\keywords{ACM proceedings, \LaTeX, text tagging}
+%\keywords{ACM proceedings, \LaTeX, text tagging}
 
 \section{Introduction}
-Introduction will introduce what Interop is, what it means to be interoperable, and
-why it is important to people.
 
-\section{Achieving Interoperability}\label{difficulties}
-\mycomment{this section needs a better name}
-Section will discuss why interoperability is hard.
-To a large degree, this will concern 
+This paper will discuss interoperability of programming languages. I'll be discussing why interoperability is desirable, followed by what challenges are presented in achieving interop.
+I'll discuss two particular approaches to interoperability in markup languages(MLs) and virtual machines (VMs), with focus on one or two particular examples (CLR/.NET for VMs and Starlink or FML for MLs).
+
+
+The introduction will primarily introduce what interoperability is and what it means for languages to be interoperable \cite{Ide:2010} \mycomment{(different between VMs and MLs?)}
+
+\section{Interoperability}\label{difficulties}
+This section will discuss both why interoperability is important and hard.
+Importance will cover things like:
 \begin{itemize}
-	\item data-level (Syntactic and Semantic)
-	\item communication level (protocols)
-	\item some other things, involving systems or networks.
+	\item problem domain: languages have libraries and capabilities build for specific problems. This gives them strength in that area (such as SQL database queries?), but often they have weaknesses in other areas (such as Erlang's strings).
+	\item level(?): some languages have finer-grained control over storage (like the C family), while others deal with more abstract and generalize-able data structures (like... java or ruby).
 \end{itemize}
 
+Difficulties will cover:
+\begin{itemize}
+	\item data type conversion and interpretation \cite{Chisnall:2013}
+	\item loss of flexibility or information due to lowest-common-denominator type restriction 
+	\item standardization: Is there a standard? If there is, how closely is it followed? Are there competing standards? \cite{Shetty:2009, Kats:2010}
+	\item error handling
+\end{itemize}
+
+It may be a good idea to talk about tags and metadata in a subsection here, or a new section entirely. Both MLs and VMs make extensive use of metadata as a method of data translation.
+
 \section{Virtual Machine Systems}\label{VM}
-Here, I will detail how VMs handle the issue of multiple programming languages.
-From my current understanding, this is mainly done through a shared low-level language \footnote{such as Java's bytecode, or the .NET Common Intermediate Language}
+This section will cover how virtual machines handle some of the issues discussed above.
 
 \section{Markup Language Solutions}\label{ML}
-This section will be about Markup Languages, and what they contribute to the discussion of interoperability.
-Presently, I only know of one full system\footnote{Starlink} that uses a markup language at its core. I'll try to discuss Starlink's use of ML here,
-but other MLs should be discussed, even if I don't have distinct systems to cite.
+This section will be about markup languages, and how they contribute to solutions to interoperability
 
-\section{Conclusions}
-This paragraph will end the body of this sample document.
-Remember that you might still have Acknowledgments or
-Appendices; brief samples of these
-follow.  There is still the Bibliography to deal with; and
-we will make a disclaimer about that here: with the exception
-of the reference to the \LaTeX\ book, the citations in
-this paper are to articles which have nothing to
-do with the present subject and are used as
-examples only.
+%\section{Conclusions}
 
-\section{Acknowledgments}
 
-This section is optional; it is a location for you
-to acknowledge grants, funding, editing assistance and
-what have you.
+%\section{Acknowledgments}
 
-It is common (but by no means necessary) for students to thank
-their advisor, and possibly other faculty, friends, and family who provided
-useful feedback on the paper as it was being written.
-
-In the present case, for example, the
-authors would like to thank Gerald Murray of ACM for
-his help in codifying this \textit{Author's Guide}
-and the \textbf{.cls} and \textbf{.tex} files that it describes.
 
 % The following two commands are all you need in the
 % initial runs of your .tex file to
@@ -112,7 +101,7 @@ and the \textbf{.cls} and \textbf{.tex} files that it describes.
 \bibliographystyle{abbrv}
 % sample_paper.bib is the name of the BibTex file containing the
 % bibliography entries. Note that you *don't* include the .bib ending here.
-\bibliography{sample_paper}  
+\bibliography{bibliography}  
 % You must have a proper ".bib" file
 %  and remember to run:
 % latex bibtex latex latex
