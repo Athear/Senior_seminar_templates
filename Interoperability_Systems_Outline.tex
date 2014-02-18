@@ -48,15 +48,6 @@ Todd Malone\\
 \mycomment{A discussion of systems and methods for the interop of programming languages}
 \end{abstract}
 
-% A category with the (minimum) three required fields
-%\category{H.4}{Information Systems Applications}{Miscellaneous}
-%A category including the fourth, optional field follows...
-%\category{D.2.8}{Software Engineering}{Metrics}[complexity measures, performance measures]
-
-%\terms{Delphi theory}
-
-%\keywords{ACM proceedings, \LaTeX, text tagging}
-
 \section{Introduction}
 
 This paper will discuss interoperability of programming languages. I'll be discussing why interoperability is desirable, followed by what challenges are presented in achieving interop.
@@ -65,30 +56,32 @@ I'll discuss two particular approaches to interoperability in markup languages(M
 
 The introduction will primarily introduce what interoperability is and what it means for languages to be interoperable \cite{Ide:2010} \mycomment{(different between VMs and MLs?)}
 
-\section{Interoperability}\label{difficulties}
-This section will discuss both why interoperability is important and hard.
-Importance will cover things like:
+\section{Interoperability}\label{Interop}
+This section will discuss why interoperability is important or desirable.
 \begin{itemize}
 	\item problem domain: languages have libraries and capabilities build for specific problems. This gives them strength in that area (such as SQL database queries?), but often they have weaknesses in other areas (such as Erlang's strings).
 	\item level(?): some languages have finer-grained control over storage (like the C family), while others deal with more abstract and generalize-able data structures (like... java or ruby).
+	\item hardware independence: while interoperability doesn't require this, they frequently go hand in hand. An Interop standard between two languages 
 \end{itemize}
 
-Difficulties will cover:
+
+\section{Virtual Machines}\label{VM}
+This section will be a short background on virtual machine environments. This should cover what a virtual machine is (briefly), and the sort of things VM environments add to programming languages. Examples may include JIT compilers, memory management...
+
+\section{Markup Languages}\label{ML}
+This section will have an introduction to markup languages. I don't expect this section to be very long. Perhaps this and VM should be subsections under a "systems" section?
+
+\section{Difficulties and Approaches}\label{approaches}
+Here I will discuss specific issues encountered in achieving interoperability, and how VMs and MLs approach each of them.
+
+Included in here will be:
 \begin{itemize}
 	\item data type conversion and interpretation \cite{Chisnall:2013}
 	\item loss of flexibility or information due to lowest-common-denominator type restriction 
 	\item standardization: Is there a standard? If there is, how closely is it followed? Are there competing standards? \cite{Shetty:2009, Kats:2010}
 	\item error handling
+	\item metadata as a method of data translation. 
 \end{itemize}
-
-It may be a good idea to talk about tags and metadata in a subsection here, or a new section entirely. Both MLs and VMs make extensive use of metadata as a method of data translation.
-
-\section{Virtual Machine Systems}\label{VM}
-This section will cover how virtual machines handle some of the issues discussed above.
-
-\section{Markup Language Solutions}\label{ML}
-This section will be about markup languages, and how they contribute to solutions to interoperability
-
 %\section{Conclusions}
 
 
