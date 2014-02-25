@@ -1,0 +1,105 @@
+% This is a sample document using the University of Minnesota, Morris, Computer Science
+% Senior Seminar modification of the ACM sig-alternate style. Much of this content is taken
+% directly from the ACM sample document illustrating the use of the sig-alternate class. Certain
+% parts that we never use have been removed to simplify the example, and a few additional
+% components have been added.
+
+% See https://github.com/UMM-CSci/Senior_seminar_templates for more info and to make
+% suggestions and corrections.
+
+\documentclass{sig-alternate}
+\usepackage{color}
+
+%%%% User-defined macros
+\newcommand{\lam}{\lambda}
+\newcommand{\mycomment}[1]{\textcolor{red}{#1}}
+%%%%% Uncomment the following line and comment out the previous one
+%%%%% to remove all comments
+%%%%% NOTE: comments still occupy a line even if invisible;
+%%%%% Don't write them as a separate paragraph
+%\newcommand{\mycomment}[1]{}
+
+\begin{document}
+
+% --- Author Metadata here ---
+%%% REMEMBER TO CHANGE THE SEMESTER AND YEAR
+\conferenceinfo{UMM CSci Senior Seminar Conference, December 2013}{Morris, MN}
+
+\title{System of Programming Language Interoperability}
+
+\numberofauthors{1}
+
+\author{
+% The command \alignauthor (no curly braces needed) should
+% precede each author name, affiliation/snail-mail address and
+% e-mail address. Additionally, tag each line of
+% affiliation/address with \affaddr, and tag the
+% e-mail address with \email.
+\alignauthor
+Todd Malone\\
+	\affaddr{Division of Science and Mathematics}\\
+	\affaddr{University of Minnesota, Morris}\\
+	\affaddr{Morris, Minnesota, USA 56267}\\
+	\email{malon153@morris.umn.edu}
+}
+
+\maketitle
+\begin{abstract}
+\mycomment{A discussion of systems and methods for the interop of programming languages}
+\end{abstract}
+
+\section{Introduction}
+
+This paper will discuss interoperability of programming languages. I'll be discussing why interoperability is desirable, followed by what challenges are presented in achieving interop.
+I'll discuss two particular approaches to interoperability in markup languages(MLs) and virtual machines (VMs), with focus on one or two particular examples (CLR/.NET for VMs and Starlink or FML for MLs).
+
+
+The introduction will primarily introduce what interoperability is and what it means for languages to be interoperable \cite{Ide:2010}
+
+\section{Interoperability}\label{Interop}
+This section will discuss why interoperability is important or desirable.
+\begin{itemize}
+	\item problem domain: languages have libraries and capabilities build for specific problems. This gives them strength in that area (such as SQL database queries?), but often they have weaknesses in other areas (such as Erlang's strings).
+	\item level(?): some languages have finer-grained control over storage (like the C family), while others deal with more abstract and generalize-able data structures (like... java or ruby).
+	\item hardware independence: while interoperability doesn't require this, they frequently go hand in hand. An Interop standard between two languages also means the two languages can run on different hardware without the standard caring.
+\end{itemize}
+
+
+\section{Virtual Machines}\label{VM}
+This section will be a short background on virtual machine environments. This should cover what a virtual machine is (briefly), and the sort of things VM environments add to programming languages. Examples may include JIT compilers, memory management...
+
+\section{Markup Languages}\label{ML}
+This section will have an introduction to markup languages. I don't expect this section to be very long. Perhaps this and VM should be subsections under a "systems" section?
+
+\section{Difficulties and Approaches}\label{approaches}
+Here I will discuss specific issues encountered in achieving interoperability, and how VMs and MLs approach each of them.
+
+\subsection*{Metadata and Data Type Conversion} \cite{Ide:2010, Bromberg:2011, Hamilton:}
+\subsubsection*{VMs and metadata}
+\subsubsection*{MLs and metadata}
+
+
+\subsection*{Standards, Interfaces, and Lowest-common-denominator Contsraint} \cite{Shetty:2009}
+
+\subsection*{Error Handling}
+
+
+%\section{Conclusions}
+
+
+%\section{Acknowledgments}
+
+
+% The following two commands are all you need in the
+% initial runs of your .tex file to
+% produce the bibliography for the citations in your paper.
+\bibliographystyle{abbrv}
+% sample_paper.bib is the name of the BibTex file containing the
+% bibliography entries. Note that you *don't* include the .bib ending here.
+\bibliography{bibliography}  
+% You must have a proper ".bib" file
+%  and remember to run:
+% latex bibtex latex latex
+% to resolve all references
+
+\end{document}
