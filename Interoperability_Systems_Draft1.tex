@@ -13,6 +13,7 @@
 %%%% User-defined macros
 \newcommand{\lam}{\lambda}
 \newcommand{\mycomment}[1]{\textcolor{red}{#1}}
+\newcommand{\vm}[0]{virtual machine}
 %%%%% Uncomment the following line and comment out the previous one
 %%%%% to remove all comments
 %%%%% NOTE: comments still occupy a line even if invisible;
@@ -49,7 +50,6 @@ Todd Malone\\
 \end{abstract}
 
 \section{Introduction}
-
 This paper will discuss interoperability of programming languages. I'll be discussing why interoperability is desirable, followed by what challenges are presented in achieving interop.
 I'll discuss two particular approaches to interoperability in markup languages(MLs) and virtual machines (VMs), with focus on one or two particular examples (CLR/.NET for VMs and Starlink or FML for MLs).
 
@@ -66,7 +66,7 @@ This section will discuss why interoperability is important or desirable.
 
 
 \section{Virtual Machines}\label{VM}
-This section will be a short background on virtual machine environments. This should cover what a virtual machine is (briefly), and the sort of things VM environments add to programming languages. Examples may include JIT compilers, memory management...
+This section will be a short background on virtual machine environments. This should cover what a virtual machine is (briefly), and the sort of things VM environments add to programming languages. Examples may include JIT compilers, memory management, a common base language...
 
 \section{Markup Languages}\label{ML}
 This section will have an introduction to markup languages. I don't expect this section to be very long. Perhaps this and VM should be subsections under a "systems" section?
@@ -74,13 +74,16 @@ This section will have an introduction to markup languages. I don't expect this 
 \section{Difficulties and Approaches}\label{approaches}
 In order to attain interoperability, there are several major things that systems need to account for. Of primary concern is the lowest common denominator constraint. All languages involved in a interoperating system must be prepared to deal with the language with the most stringent typing data representation or typing system. 
 
-\subsection*{Metadata and Data Type Conversion} \cite{Ide:2010, Bromberg:2011, Hamilton:}
-Type 
+\subsection*{Metadata and Data Type Conversion} \cite{Ide:2010, Bromberg:2011, Hamilton:2003}
+One of the most basic things an interoperating system needs to take into account are the data types involved. 
+When passing data between two languages, a system needs to have a way of ensuring that the type restrictions of the LCD are respected. Ide and Pustejovsky \cite{Ide:2010} suggest metadata as the method to accomplish this, and in practice is what both styles use. Metadata is simply data about the data. This can be used to impart type information to languages that have no concept of types, or in addition type information when a typed language needs to interact with a another, more strictly typed language.
+\mycomment{Here I can also talk about syntactic/semantic labels/categories via \cite{Ide:2010}. In fact, definitely talk about this. VMs have the advantage of virtually ensuring semantic interoperability because all execution is done through the same language}
 \subsubsection*{VMs and metadata}
+
 \subsubsection*{MLs and metadata}
 
 
-\subsection*{Standards, Interfaces, and Lowest-common-denominator Contsraint} \cite{Shetty:2009}
+\subsection*{Standards and Interfaces} \cite{Shetty:2009}
 
 \subsection*{Error Handling}
 
