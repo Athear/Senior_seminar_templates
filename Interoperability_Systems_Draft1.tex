@@ -90,10 +90,16 @@ Markup languages are, in comparison, comprised entirely of metadata. Data to be 
 
 
 \subsection*{Standards and Interfaces} \cite{Shetty:2009}
+Metadata is the core of successful interoperability. But if two systems attempting to communicate are expecting differently tagged data, they will still fail to interoperate. Metadata alone is not enough.
+
+One example of this, as demonstrated by Shetty and Vadivel \cite{Shetty:2009}, occurs when trying to process web page output from Java and .NET services. \mycomment{I'm not sure if this is an example I should actually use. Or if I have any examples here}
 
 \subsubsection*{VMs and Standardization}
+In a virtual machine system, the standard is frequently already set.\footnote{This is not always the case, but is common practice with recent VMs with the goal of interop.} Virtual machines come with their intermediate language with its own libraries and type systems. These essentially form the standard: each language hoping to run on a particular virtual machine must be translatable to the intermediate language, which can be used as a sort of lingua franca. Any language built to run on the VM should be able, with little additional effort, be able to interoperate with any other language on that VM.
+
 
 \subsubsection*{MLs and Standardization}
+Standards are not inherent to markup languages, nor can they be directly enforced, as they can in a virtual machine setting. \mycomment{staaaarrrrliiiiink}
 
 
 
