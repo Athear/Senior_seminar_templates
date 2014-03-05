@@ -26,7 +26,7 @@
 %%% REMEMBER TO CHANGE THE SEMESTER AND YEAR
 \conferenceinfo{UMM CSci Senior Seminar Conference, December 2013}{Morris, MN}
 
-\title{System of Programming Language Interoperability}
+\title{Programming Language Interoperability}
 
 \numberofauthors{1}
 
@@ -49,12 +49,16 @@ Todd Malone\\
 \mycomment{A discussion of systems and methods for the interop of programming languages}
 \end{abstract}
 
+
 \section{Introduction}
-This paper will discuss interoperability of programming languages. I'll be discussing why interoperability is desirable, followed by what challenges are presented in achieving interop.
-I'll discuss two particular approaches to interoperability in markup languages(MLs) and virtual machines (VMs), with focus on one or two particular examples (CLR/.NET for VMs and Starlink or FML for MLs).
+Interoperability, colloquially shortened to interop, is the ability for for two or more systems to work together. This definition is very broad, covering anything from groups of people to business or bureaucratic systems to pieces of hardware. Here we will be focusing on the interoperability of programming languages.
 
+In section \ref{Interop} I'll explore why interoperability is desirable, what advantages it can confer, and where it can be useful. This will touch on differing language capabilities, ease of use, hardware independence, and implications for distributed computing.
 
-The introduction will primarily introduce what interoperability is and what it means for languages to be interoperable \cite{Ide:2010}
+Next, in sections \ref{VM} and \ref{ML}, I'll describe two particular settings \mycomment{settings / approaches / systems} that are used when trying to achieve interoperability, and defining relevant aspects of these settings. These settings will be virtual machines, paying particular attention to the Java Virtual Maching (JVM) and .NET's Common Language Runtime (CLR), and markup languages, with focus on two particular systems that make use of markup languages, Starlink and FML.
+
+Section \ref{approaches} will detail particular challenges to achieving interoperability and approaches to handling them. Following a general description of the approach, I will describe how each setting \mycomment{setting / approach / system} can be used to implement that approach, along with strengths and weaknesses of each setting.
+
 
 \section{Interoperability}\label{Interop}
 This section will discuss why interoperability is important or desirable.
@@ -74,7 +78,7 @@ This section will have an introduction to markup languages. I don't expect this 
 \section{Difficulties and Approaches}\label{approaches}
 In order to attain interoperability, there are several major things that systems need to account for. Of primary concern is the lowest common denominator constraint. All languages involved in a interoperating system must be prepared to deal with the language with the most stringent typing data representation or typing system. 
 
-\subsection*{Metadata and Data Type Conversion} \cite{Ide:2010, Bromberg:2011, Hamilton:2003}
+\subsection{Metadata and Data Type Conversion} \cite{Ide:2010, Bromberg:2011, Hamilton:2003}
 One of the most basic things an interoperating system needs to take into account are the data types involved. 
 When passing data between two languages, a system needs to have a way of ensuring that the type restrictions of the LCD are respected. Ide and Pustejovsky \cite{Ide:2010} suggest metadata as the method to accomplish this, and in practice is what both styles use. Metadata is simply data about the data. This can be used to impart type information to languages that have no concept of types, or in addition type information when a typed language needs to interact with a another, more strictly typed language.
 \mycomment{Here I can also talk about syntactic/semantic labels/categories via \cite{Ide:2010}. In fact, definitely talk about this. VMs have the advantage of virtually ensuring semantic interoperability because all execution is done through the same language}
@@ -89,7 +93,7 @@ Virtual machines deal with the concept of metadata in two primary ways. This is 
 Markup languages are, in comparison, comprised entirely of metadata. Data to be transferred between languages can be surrounded in tags, which then act as the metadata, describing what data is contained within them. An advantage to the tag structure is that tags can be nested to describe components of larger data structures, including descriptions of full objects. 
 
 
-\subsection*{Standards and Interfaces} \cite{Shetty:2009}
+\subsection{Standards and Interfaces} \cite{Shetty:2009}
 Metadata is the core of successful interoperability. But if two systems attempting to communicate are expecting differently tagged data, they will still fail to interoperate. Metadata alone is not enough.
 
 One example of this, as demonstrated by Shetty and Vadivel \cite{Shetty:2009}, occurs when trying to process web page output from Java and .NET services. \mycomment{I'm not sure if this is an example I should actually use. Or if I have any examples here}
@@ -105,7 +109,7 @@ Standards are not inherent to markup languages, nor can they be directly enforce
 
 
 
-\subsection*{Error Handling}
+\subsection{Error Handling}
 
 \subsubsection*{VMs and Errors}
 
