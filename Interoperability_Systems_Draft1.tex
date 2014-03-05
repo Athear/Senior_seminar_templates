@@ -24,7 +24,7 @@
 
 % --- Author Metadata here ---
 %%% REMEMBER TO CHANGE THE SEMESTER AND YEAR
-\conferenceinfo{UMM CSci Senior Seminar Conference, December 2013}{Morris, MN}
+\conferenceinfo{UMM CSci Senior Seminar Conference, April 2014}{Morris, MN}
 
 \title{Programming Language Interoperability}
 
@@ -49,6 +49,7 @@ Todd Malone\\
 \mycomment{A discussion of systems and methods for the interop of programming languages}
 \end{abstract}
 
+\keywords{interoperability, language interoperability, programming language}
 
 \section{Introduction}
 Interoperability, colloquially shortened to interop, is the ability for for two or more systems to work together. This definition is very broad, covering anything from groups of people to business or bureaucratic systems to pieces of hardware. Here we will be focusing on the interoperability of programming languages.
@@ -117,7 +118,15 @@ Standards are not inherent to markup languages, nor can they be directly enforce
 
 
 
-%\section{Conclusions}
+\section{Conclusions}
+ideas for conclusions:
+
+\begin{itemize}
+\item Usage areas: It seems that MLs and VMs have different applicable systems. VMs are more feasible for systems that are being newly built, or which already use a language already attached to a VM. Additionally, they seem more suited to systems that have access to all the component programs, or which are expecting to run on a single machine.
+
+MLs, on the other hand, seem better suited to dealing with preexisting systems, where a rewrite or a compiler change isn't feasible. One reason for this could be that the existing system is on a particular VM, and uses multiple languages, and needs to interop with a system that similarly can't target that VM. Another area MLs are useful is in distributed systems, where each component has no reason to know what language or platform the other components are running.
+
+\end{itemize}
 
 
 %\section{Acknowledgments}
