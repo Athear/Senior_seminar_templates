@@ -85,7 +85,7 @@ This section will be a short background on virtual machine environments. This sh
 
 
 \section{Markup Languages}\label{ML}
-This section will have an introduction to markup languages. I don't expect this section to be very long. Perhaps this and VM should be subsections under a "systems" section?
+This section will have an introduction to markup languages. I don't expect this section to be very long. I should include something about MLs frequently being used to prepare data for display, since that seems to be the purpose for which the concept was made (HTML and LaTeX, for example)
 
 \section{Difficulties and Approaches}\label{approaches}
 In order to attain interoperability, there are several major things that systems need to account for. Of primary concern is the lowest common denominator (LCD) constraint.
@@ -99,13 +99,16 @@ When passing data between two languages, a system needs to have a way of ensurin
 \subsubsection*{VMs and metadata}
 Virtual machines deal with the concept of metadata in two primary ways. This is mainly handled at compile time by the compiler itself, but this is handled differently depending on the underlying virtual machine.
 \begin{itemize}
-\item JVM: mainly make use of Java types. For less strictly-typed languages like Ruby, this means mostly using the Java Object class and using reflection \mycomment{magic} to ensure correct runtime behavior. This is actually a circumvention of the metadata concept, in order to avoid the LCD constraint. In other cases, the metadata is provided by bytecode's built-in typing system. If bytecode is the lowest common denominator in the system, 
-\item CLR: In the CLR, however, a compiler generates metadata about the program along side the compiled program\cite{Hamilton:2003}.
+\item The JVM mainly makes use of Java types. For less strictly-typed languages like Ruby, this means mostly using the Java Object class and using reflection \mycomment{magic} to ensure correct runtime behavior. This is actually a circumvention of the metadata concept, in order to avoid the LCD constraint. In other cases, the metadata is provided by the built-in typing system of Java's byte-code. If bytecode is the lowest common denominator in the system, 
+\item CLR: In the CLR, however, language compilers generate metadata about the program along side the compiled program\cite{Hamilton:2003}.
 \end{itemize}
 
 \subsubsection*{MLs and metadata}
-Markup languages are, in comparison, comprised entirely of metadata. Data to be transferred between languages can be surrounded in tags, which then act as the metadata, describing what data is contained within them. An advantage to the tag structure is that tags can be nested to describe components of larger data structures, including descriptions of full objects. 
+Markup languages are built with the concept of metadata in mind. A common feature of markup languages is the ability to contain or prepend data with tags, which can effectively act as metadata when used to transfer data between languages.
 
+This is the area where markup languages really shine. Languages like XML can be configured to describe many custom types, and can nest these types to describe components of larger data structures, including descriptions of full objects.
+
+\mycomment{I'm concerned much of the above may need to be transferred to \ref{ML}. I should have enough here to fill the section if I talk about Starlink and FML, but this is something to keep in mind.}
 
 \subsection{Standards and Interfaces}\label{standards} \mycomment{\cite{Shetty:2009}}
 Metadata is the core of successful interoperability. But if two systems attempting to communicate are expecting differently tagged data, they will still fail to interoperate. Metadata alone is not enough.
@@ -113,7 +116,7 @@ Metadata is the core of successful interoperability. But if two systems attempti
 One example of this, as demonstrated by Shetty and Vadivel \cite{Shetty:2009}, occurs when trying to process web page output from Java and .NET services. \mycomment{I'm not sure if this is an example I should actually use. Or if I have any examples here}
 
 \subsubsection*{VMs and Standardization}
-In a virtual machine system, the standard is frequently already set.\footnote{This is not always the case, but is common practice with recent VMs with the goal of interop.} Virtual machines come with their intermediate language with its own libraries and type systems. These essentially form the standard: each language hoping to run on a particular virtual machine must be translatable to the intermediate language, which can be used as a sort of lingua franca. Any language built to run on the VM should be able, with little additional effort, be able to interoperate with any other language on that VM.
+In a virtual machine system, the standard is frequently already set.\footnote{This is not always the case, but is common practice with recent VMs built with the goal of interop.} Virtual machines come with their intermediate language with its own libraries and type systems. These essentially form the standard: each language hoping to run on a particular virtual machine must be translatable to the intermediate language, which can be used as a sort of lingua franca. Any language built to run on the VM should be able, with little additional effort, be able to interoperate with any other language on that VM.
 
 
 \subsubsection*{MLs and Standardization}
