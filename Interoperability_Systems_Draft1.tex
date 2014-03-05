@@ -83,15 +83,18 @@ This section will discuss why interoperability is important or desirable.
 \section{Virtual Machines}\label{VM}
 This section will be a short background on virtual machine environments. This should cover what a virtual machine is (briefly), and the sort of things VM environments add to programming languages. Examples may include JIT compilers, memory management, a common base language...
 
+
 \section{Markup Languages}\label{ML}
 This section will have an introduction to markup languages. I don't expect this section to be very long. Perhaps this and VM should be subsections under a "systems" section?
 
 \section{Difficulties and Approaches}\label{approaches}
-In order to attain interoperability, there are several major things that systems need to account for. Of primary concern is the lowest common denominator constraint. All languages involved in a interoperating system must be prepared to deal with the language with the most stringent typing data representation or typing system. 
+In order to attain interoperability, there are several major things that systems need to account for. Of primary concern is the lowest common denominator (LCD) constraint.
+When dealing with multiple languages, a program or system must take into account the weaknesses of the languages involved. While each module of a system can do what it wants internally, when it comes time to pass data around care must be taken that language of the target module actually has a way of representing the data sent to it. \mycomment{some example here}
+If it does not, the data specifications must be changed so that both languages can represent the same data at once. This can mean losing type information if a language has no concept of a specific type, or losing flexibility when moving from a weakly typed language to a strongly typed one. It can also mean losing precision of data structures, if a language involved has no way of representing the intricacies of the data structure.
 
-\subsection{Metadata and Data Type Conversion}\label{metadata} \cite{Ide:2010, Bromberg:2011, Hamilton:2003}
+\subsection{Metadata and Data Type Conversion}\label{metadata} \mycomment{\cite{Ide:2010, Bromberg:2011, Hamilton:2003}}
 One of the most basic things an interoperating system needs to take into account are the data types involved. 
-When passing data between two languages, a system needs to have a way of ensuring that the type restrictions of the LCD are respected. Ide and Pustejovsky \cite{Ide:2010} suggest metadata as the method to accomplish this, and in practice is what both styles use. Metadata is simply data about the data. This can be used to impart type information to languages that have no concept of types, or in addition type information when a typed language needs to interact with a another, more strictly typed language.
+When passing data between two languages, a system needs to have a way of ensuring that the type restrictions of the LCD are respected. Ide and Pustejovsky \cite{Ide:2010} suggest metadata as the method to accomplish this, and in practice is what both styles use. Metadata is simply data about the data. This can be used to impart type information to languages that have no concept of types, or in additional type information when a typed language needs to interact with a another, more strictly typed language.
 \mycomment{Here I can also talk about syntactic/semantic labels/categories via \cite{Ide:2010}. In fact, definitely talk about this. VMs have the advantage of virtually ensuring semantic interoperability because all execution is done through the same language}
 \subsubsection*{VMs and metadata}
 Virtual machines deal with the concept of metadata in two primary ways. This is mainly handled at compile time by the compiler itself, but this is handled differently depending on the underlying virtual machine.
@@ -104,7 +107,7 @@ Virtual machines deal with the concept of metadata in two primary ways. This is 
 Markup languages are, in comparison, comprised entirely of metadata. Data to be transferred between languages can be surrounded in tags, which then act as the metadata, describing what data is contained within them. An advantage to the tag structure is that tags can be nested to describe components of larger data structures, including descriptions of full objects. 
 
 
-\subsection{Standards and Interfaces}\label{standards} \cite{Shetty:2009}
+\subsection{Standards and Interfaces}\label{standards} \mycomment{\cite{Shetty:2009}}
 Metadata is the core of successful interoperability. But if two systems attempting to communicate are expecting differently tagged data, they will still fail to interoperate. Metadata alone is not enough.
 
 One example of this, as demonstrated by Shetty and Vadivel \cite{Shetty:2009}, occurs when trying to process web page output from Java and .NET services. \mycomment{I'm not sure if this is an example I should actually use. Or if I have any examples here}
