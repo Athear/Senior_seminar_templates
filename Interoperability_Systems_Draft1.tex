@@ -56,9 +56,9 @@ Interoperability, colloquially shortened to interop, is the ability for for two 
 
 In section \ref{Interop} I'll explore why interoperability is desirable, what advantages it can confer, and where it can be useful. This will touch on differing language capabilities, ease of use, hardware independence, and implications for distributed computing.
 
-Next, in sections \ref{VM} and \ref{ML}, I'll describe two particular settings \mycomment{settings / approaches / systems} that are used when trying to achieve interoperability, and defining relevant aspects of these settings. These settings will be virtual machines, paying particular attention to the Java Virtual Maching (JVM) and .NET's Common Language Runtime (CLR), and markup languages, with focus on two particular systems that make use of markup languages, Starlink and FML.
+Next, in sections \ref{VM} and \ref{ML}, I'll describe two particular tools that are used when trying to achieve interoperability, and defining relevant aspects of these settings. These settings will be virtual machines, paying particular attention to the Java Virtual Maching (JVM) and .NET's Common Language Runtime (CLR), and markup languages, with focus on two particular systems that make use of markup languages, Starlink and FML.
 
-Section \ref{approaches} will detail particular challenges to achieving interoperability and approaches to handling them. Following a general description of the approach, I will describe how each setting \mycomment{setting / approach / system} can be used to implement that approach, along with strengths and weaknesses of each setting.
+Section \ref{approaches} will detail particular challenges to achieving interoperability and approaches to handling them. Following a general description of the approach, I will describe how each tools can be used to implement that approach, along with strengths and weaknesses of each setting.
 
 
 \section{Interoperability}\label{Interop}
@@ -120,7 +120,7 @@ In a virtual machine system, the standard is frequently already set.\footnote{Th
 
 
 \subsubsection*{MLs and Standardization}
-Standards are not inherent to markup languages, nor can they be directly enforced, as they can in a virtual machine setting. Instead, a standard must be implemented within the systems intended to interoperate, or at their data generation points.
+Standards are not inherent to markup languages, and enforcement cannot be left to underlying hardware or compiler, as they can in a virtual machine setting. Some markup languages have do have standards built for them, such as schema for XML. These provide the same functionality as standards in virtual machines, but must be explicitly enforced by system designers, usually through third-party tools or manual additions to the system.
 
 \mycomment{Starlink}
 
