@@ -81,10 +81,17 @@ This section will discuss why interoperability is important or desirable.
 
 
 \section{Virtual Machines}\label{VM}
+
+For the purposes of this paper, Virtual Machines (VMs) will refer to process virtual machines, or runtime environments. These virtual machines 
+
 This section will be a short background on virtual machine environments. This should cover what a virtual machine is (briefly), and the sort of things VM environments add to programming languages. Examples may include JIT compilers, memory management, a common base language...
 
 
 \section{Markup Languages}\label{ML}
+Markup languages are primarily used for describing data. There are a range of languages covering several use cases, from document display or creation to data transfer and storage. For instance, HTML is a markup language used to convey display information about web pages, while TeX is a language used to describe the layout and formatting of text documents. Others include JSON and YAML, which are designed for holding data from programming languages. The two tools we'll be looking at for markup languages will be the Starlink framework and the Fuzzy Markup Language (FML). Both of these use variations of XML, which describes data by surrounding it with tags.
+
+
+
 This section will have an introduction to markup languages. I don't expect this section to be very long. I should include something about MLs frequently being used to prepare data for display, since that seems to be the purpose for which the concept was made (HTML and LaTeX, for example)
 
 \section{Difficulties and Approaches}\label{approaches}
@@ -121,7 +128,7 @@ In a virtual machine system, the standard is frequently already set.\footnote{Th
 
 \subsubsection*{MLs and Standardization}
 Standards are not inherent to markup languages, and enforcement cannot be left to underlying hardware or compiler, as they can in a virtual machine setting. Some markup languages have do have standards built for them, such as schema for XML. These provide the same functionality as standards in virtual machines, but must be explicitly enforced by system designers, usually through third-party tools or manual additions to the system.
-
+	
 \mycomment{Starlink}
 
 
