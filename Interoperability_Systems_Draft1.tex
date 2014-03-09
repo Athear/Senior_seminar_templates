@@ -60,6 +60,8 @@ Next, in sections \ref{VM} and \ref{ML}, I'll describe two particular tools that
 
 Section \ref{approaches} will detail particular challenges to achieving interoperability and approaches to handling them. Following a general description of the approach, I will describe how each tools can be used to implement that approach, along with strengths and weaknesses of each setting.
 
+Section \ref{performance} will explore a few of the performance implications of interoperability.
+
 
 \section{Interoperability}\label{Interop}
 This section will discuss why interoperability is important or desirable.
@@ -81,18 +83,24 @@ This section will discuss why interoperability is important or desirable.
 
 
 \section{Virtual Machines}\label{VM}
+The term virtual machine (VM) refers to a process that models the underlying hardware or operating system of a computer, acting as that OS for any programs run on it. In this paper I will be discussing a particular type of virtual machine, known as a process virtual machine. These particular VMs act as runtime environments for a single program, typically written in particular languages, while providing a restricted, managed memory space
+\mycomment{I'm not sure if there are other benefits to VMs that are not present in other runtime systems, or if I should mention those anyway.}
+.
 
-For the purposes of this paper, Virtual Machines (VMs) will refer to process virtual machines, or runtime environments. These virtual machines 
+Virtual machines typically run a language that is low-level and not meant to be human readable, but is above an assembly language. These intermediate languages are therefore still hardware-independant
+
+
 
 This section will be a short background on virtual machine environments. This should cover what a virtual machine is (briefly), and the sort of things VM environments add to programming languages. Examples may include JIT compilers, memory management, a common base language...
 
 
 \section{Markup Languages}\label{ML}
-Markup languages are primarily used for describing data. There are a range of languages covering several use cases, from document display or creation to data transfer and storage. For instance, HTML is a markup language used to convey display information about web pages, while TeX is a language used to describe the layout and formatting of text documents. Others include JSON and YAML, which are designed for holding data from programming languages. The two tools we'll be looking at for markup languages will be the Starlink framework and the Fuzzy Markup Language (FML). Both of these use variations of XML, which describes data by surrounding it with tags.
+Markup languages are primarily used for describing data. There are a range of languages covering several use cases, from document display or creation to data transfer and storage. For instance, HTML is a markup language used to convey display information about web pages, while TeX is a language used to describe the layout and formatting of text documents. Others include JSON and YAML, which are designed for holding data from programming languages. The two tools we'll be looking at for markup languages will be the Starlink framework and the Fuzzy Markup Language (FML). Both of these use variations of XML, which describes data by enclosing it within tags.
 
+Starlink \cite{Bromberg:2011} is actually more than just a markup language. It is a system \mycomment{(not the right word)} designed to achieve distributed interoperability, built around their own XML-based markup language. This language, the message description language (MDL) is used to model incoming messages from particular protocols.
+\mycomment{Note: I'm not sure how detailed I should get about Starlink. There is some interesting stuff they do with automata, but it is complicated and I'm not sure how relevant.}
 
-
-This section will have an introduction to markup languages. I don't expect this section to be very long. I should include something about MLs frequently being used to prepare data for display, since that seems to be the purpose for which the concept was made (HTML and LaTeX, for example)
+The Fuzzy Markup Language was not actually designed for interoperating systems at all, but was designed for both hardware and language independence. In effect, this makes it possible to use it in an interoperating system, if one had a distributed system where fuzzy logic would be a useful tool.
 
 \section{Difficulties and Approaches}\label{approaches}
 In order to attain interoperability, there are several major things that systems need to account for. Of primary concern is the lowest common denominator (LCD) constraint.
@@ -117,7 +125,7 @@ This is the area where markup languages really shine. Languages like XML can be 
 
 \mycomment{I'm concerned much of the above may need to be transferred to \ref{ML}. I should have enough here to fill the section if I talk about Starlink and FML, but this is something to keep in mind.}
 
-\subsection{Standards and Interfaces}\label{standards} \mycomment{\cite{Shetty:2009}}
+\subsection{Standards and Interfaces}\label{standards}
 Metadata is the core of successful interoperability. But if two systems attempting to communicate are expecting differently tagged data, they will still fail to interoperate. Metadata alone is not enough.
 
 One example of this, as demonstrated by Shetty and Vadivel \cite{Shetty:2009}, occurs when trying to process web page output from Java and .NET services. \mycomment{I'm not sure if this is an example I should actually use. Or if I have any examples here}
@@ -140,16 +148,36 @@ Standards are not inherent to markup languages, and enforcement cannot be left t
 \subsubsection*{MLs and errors}
 
 
+\section{Performance} \label{performance}
+Regardless of how the system is built or the interop implemented, an interoperating system will always accrue some overhead. The cost of translating from one language to another can have surprising impacts on efficiency. 
+
+The main issue faced in virtual machines is the LCD constraint. Because all languages eventually end up running in the same language, care must be taken that the intermediate language imposes few constraints on the higher level languages.
+
+Li, White, and Singer show that in the Java Virtual Machine, non-Java languages rely heavily on existing Java code libraries in order to mitigate performance difficulties. Additionally, they found that non-Java languages produced distinctly non-Java sequences of byte-code. While not tested, they indicate that JIT compilation optimization can potentially miss these sequences, as it is tuned to compile byte-code produced by Java.\cite{Li:2013}
+
+The CLR has no similar study, but because it was built to handle multiple languages at once, it is likely able to handle a wider variety of byte-code grammar efficiently. 
+\mycomment{Should the previous paragraphs be one?}
+
+The primary concern for markup languages is in translation time. Because systems involving MLs usually also involve different languages at runtime, they also require translating between two or three languages during execution.
+
+Bromberg et al's report on the Starlink framework, which handles three translations per message (two between standard communication protocols and Starlink's internal representation of them, one between internal representations of the two protocols in question), showed a non-negligible time lapse between message and response. The lowest of these was 255 milliseconds, but in a system passing many messages this can add up.
+
+Ultimately, the performance costs of achieving interoperability must be weighed against the potential performance gains. In systems involving several specialized domains, or in systems utilizing diverse hardware, the gains can well out-weigh the costs.
+
+
 
 \section{Conclusions}
-ideas for conclusions:
 
-\begin{itemize}
-\item Usage areas: It seems that MLs and VMs have different applicable systems. VMs are more feasible for systems that are being newly built, or which already use a language already attached to a VM. Additionally, they seem more suited to systems that have access to all the component programs, or which are expecting to run on a single machine.
+The two tool sets explored here have widely different applicable systems. 
 
-MLs, on the other hand, seem better suited to dealing with preexisting systems, where a rewrite or a compiler change isn't feasible. One reason for this could be that the existing system is on a particular VM, and uses multiple languages, and needs to interop with a system that similarly can't target that VM. Another area MLs are useful is in distributed systems, where each component has no reason to know what language or platform the other components are running.
+Virtual machines are much more feasible for systems being built from scratch, where all language decisions are in the hands of the developers. They may also be available to existing programs on a VM which a developer wishes to extend to a larger system; in this case, the extended system merely need be built on the same virtual machine, and it will be able to interoperate with the pre-existing program. More specifically however, virtual machines are most suited to systems that can exist on the same physical machine.
 
-\end{itemize}
+In comparison, markup languages are better suited to dealing with preexisting or legacy systems, where there is too much code to change or parts of the source are simply unavailable \mycomment{Does that happen?},
+and so rewriting is not an option. Likewise, if the existing system cannot target a particular virtual machine, perhaps because a compiler from that language to that VM doesn't exist, recompiling the existing program is not feasible.
+
+Additionally, markup languages have an advantage in distributed system environments, where they can be used in sending data over the network. Network nodes have no reason or way to know what language other nodes are running, nor what hardware they are running on. A markup language can act as an intermediary in these cases, describing data in a language-free way.
+
+These two cases are not mutually exclusive, and indeed, markup languages fill a gap that virtual machines simply cannot cover. A real-world system \mycomment{such as kidblog(if allowed)}, will most likely make use of both tools to cover different areas of their system.
 
 
 %\section{Acknowledgments}
