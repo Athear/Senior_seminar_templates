@@ -83,7 +83,10 @@ This section will discuss why interoperability is important or desirable.
 
 
 \section{Virtual Machines}\label{VM}
-The term virtual machine (VM) refers to a process that models the underlying hardware or operating system of a computer, acting as that OS for any programs run on it. In this paper I will be discussing a particular type of virtual machine, known as a process virtual machine. These particular VMs act as runtime environments for a single program, typically written in particular languages, while providing a restricted, managed memory space
+
+
+The term virtual machine (VM) refers to a process that models the operating system of a computer or the underlying physical hardware. Effectively, VMs are indistinguishable from the OS or hardware they are emulating, which allows them to run programs not runable by the native OS, or with restrictions not enforced by the native OS or hardware.
+The focus of this paper will be on virtual machines that act as a runtime environment for a single process, sometimes called process VMs. These VMs in particular enforce restrictions on what system resources their hosted process has access too. Specifically, they typically provide restricted, VM managed memory spaces, ensuring that hosted processes can't access memory beyond what is allocated to it.
 \mycomment{I'm not sure if there are other benefits to VMs that are not present in other runtime systems, or if I should mention those anyway.}
 .
 
@@ -100,7 +103,9 @@ Markup languages are primarily used for describing data. There are a range of la
 Starlink \cite{Bromberg:2011} is actually more than just a markup language. It is a system \mycomment{(not the right word)} designed to achieve distributed interoperability, built around their own XML-based markup language. This language, the message description language (MDL) is used to model incoming messages from particular protocols.
 \mycomment{Note: I'm not sure how detailed I should get about Starlink. There is some interesting stuff they do with automata, but it is complicated and I'm not sure how relevant.}
 
-The Fuzzy Markup Language was not actually designed for interoperating systems at all, but was designed for both hardware and language independence. In effect, this makes it possible to use it in an interoperating system, if one had a distributed system where fuzzy logic would be a useful tool.
+The Fuzzy Markup Language was not actually designed for interoperating systems at all. Fuzzy controllers handle converting discrete data into less strictly defined sets, fuzzy sets, and acting upon them 
+
+ but was designed for both hardware and language independence. In effect, this makes it possible to use it in an interoperating system, if one had a distributed system where fuzzy logic would be a useful tool.
 
 \section{Difficulties and Approaches}\label{approaches}
 In order to attain interoperability, there are several major things that systems need to account for. Of primary concern is the lowest common denominator (LCD) constraint.
