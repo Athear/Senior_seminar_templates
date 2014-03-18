@@ -1,0 +1,7 @@
+TO DO LIST:
+-Describe XML tags. What is a tag? What does it do.
+-find a simple example of XML code to include in the paper. Wikipedia doesn't have one.
+-Find a simple *related* XML schema
+--suggestion: make both of these. Ask Nic about inserting code examples
+
+-write background for JVM and CLR.
