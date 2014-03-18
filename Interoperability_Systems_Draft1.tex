@@ -86,15 +86,14 @@ This section will discuss why interoperability is important or desirable.
 
 
 The term virtual machine (VM) refers to a process that models the operating system of a computer or the underlying physical hardware. Effectively, VMs are indistinguishable from the OS or hardware they are emulating, which allows them to run programs not runable by the native OS, or with restrictions not enforced by the native OS or hardware.
-The focus of this paper will be on virtual machines that act as a runtime environment for a single process, sometimes called process VMs. These VMs in particular enforce restrictions on what system resources their hosted process has access too. Specifically, they typically provide restricted, VM managed memory spaces, ensuring that hosted processes can't access memory beyond what is allocated to it.
+The focus of this paper will be on virtual machines that act as a runtime environment for a single process, sometimes called process VMs. These VMs in particular enforce restrictions on what system resources their hosted process has access too. Specifically, they typically provide restricted, VM managed memory spaces, ensuring that hosted processes can't access memory beyond what is allocated to it.\cite{wiki:VM}
 \mycomment{I'm not sure if there are other benefits to VMs that are not present in other runtime systems, or if I should mention those anyway.}
-.
 
-Virtual machines typically run a language that is low-level and not meant to be human readable, but is above an assembly language. These intermediate languages are therefore still hardware-independant
+The language actually run by a virtual machine is rarely the language originally written. VMs feature intermediate languages, which are low-level languages with hardware access, designed for space efficiency rather than human readability. Languages meaning to run on a particular virtual machine must be able to compile to that VM's intermediate language.
 
+These languages are still an abstraction of machine code, and so require either interpretation or compilation in order to be executed. Some virtual machines do interpret their intermediate languages, but more are now supporting Just-In-Time (JIT) compilation. JIT compilers compile intermediate language code to machine code at execution time as needed sections of the code are run. This is similar to interpretation, excepted that the compiled code is then cashed for reuse.\cite{wiki:JIT}
 
-
-This section will be a short background on virtual machine environments. This should cover what a virtual machine is (briefly), and the sort of things VM environments add to programming languages. Examples may include JIT compilers, memory management, a common base language...
+The two virtual machines discussed in this paper will be the Java Virtual Machine (JVM), and .NET's Common Language Runtime (CLR).
 
 
 \section{Markup Languages}\label{ML}
@@ -141,6 +140,8 @@ In a virtual machine system, the standard is frequently already set.\footnote{Th
 
 \subsubsection*{MLs and Standardization}
 Standards are not inherent to markup languages, and enforcement cannot be left to underlying hardware or compiler, as they can in a virtual machine setting. Some markup languages have do have standards built for them, such as schema for XML. These provide the same functionality as standards in virtual machines, but must be explicitly enforced by system designers, usually through third-party tools or manual additions to the system.
+
+\mycomment{describe schema in detail with XML. Can maybe use Starlink as a working example, but just talk about schema for a while}
 	
 \mycomment{Starlink}
 
