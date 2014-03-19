@@ -106,16 +106,17 @@ One of the major players in the world of markup languages is XML, the Extensible
 
 The eponymous extensibility of XML comes in the form of defining new tags. Systems using XML are not constrained to using the tags built in to XML, but can create new ones based on the data they will be handling. This allows for the creation of new markup languages based on XML, but built for a specific purpose. HTML is one example of such a language. Two others, which we'll take a closer look at, are FML and Starlink.
 
-Starlink \cite{Bromberg:2011} is actually more than just a markup language. It is a system \mycomment{(not the right word)} designed to achieve distributed interoperability, built around their own XML-based markup language. This language, the message description language (MDL) is used to model incoming messages from particular protocols.
+Starlink \cite{Bromberg:2011} is actually more than just a markup language. It is a system designed to achieve distributed interoperability, built around their own XML-based markup language. This language, the message description language (MDL), is used to model incoming messages from particular protocols.
+\mycomment{include
 \mycomment{Note: I'm not sure how detailed I should get about Starlink. There is some interesting stuff they do with automata, but it is complicated and I'm not sure how relevant.}
 
-The Fuzzy Markup Language was not actually designed for interoperating systems at all. Fuzzy controllers handle converting discrete data into less strictly defined sets, fuzzy sets, and acting upon them 
+The Fuzzy Markup Language\cite{Acampora:2013} was not actually designed for interoperating systems at all. Fuzzy controllers handle converting discrete data into less strictly defined sets, fuzzy sets, and acting upon them 
 
  but was designed for both hardware and language independence. In effect, this makes it possible to use it in an interoperating system, if one had a distributed system where fuzzy logic would be a useful tool.
 
 \section{Difficulties and Approaches}\label{approaches}
 In order to attain interoperability, there are several major things that systems need to account for. Of primary concern is the lowest common denominator (LCD) constraint.
-When dealing with multiple languages, a program or system must take into account the weaknesses of the languages involved. While each module of a system can do what it wants internally, when it comes time to pass data around care must be taken that language of the target module actually has a way of representing the data sent to it. \mycomment{some example here}
+When dealing with multiple languages, a program or system must take into account the properties of the languages involved. While each module of a system can do what it wants internally, when it comes time to pass data around care must be taken that language of the target module actually has a way of representing the data sent to it. \mycomment{some example here}
 If it does not, the data specifications must be changed so that both languages can represent the same data at once. This can mean losing type information if a language has no concept of a specific type, or losing flexibility when moving from a weakly typed language to a strongly typed one. It can also mean losing precision of data structures, if a language involved has no way of representing the intricacies of the data structure.
 
 \subsection{Metadata and Data Type Conversion}\label{metadata} \mycomment{\cite{Ide:2010, Bromberg:2011, Hamilton:2003}}
