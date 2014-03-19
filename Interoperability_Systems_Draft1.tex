@@ -85,19 +85,26 @@ This section will discuss why interoperability is important or desirable.
 \section{Virtual Machines}\label{VM}
 
 
-The term virtual machine (VM) refers to a process that models the operating system of a computer or the underlying physical hardware. Effectively, VMs are indistinguishable from the OS or hardware they are emulating, which allows them to run programs not runable by the native OS, or with restrictions not enforced by the native OS or hardware.
-The focus of this paper will be on virtual machines that act as a runtime environment for a single process, sometimes called process VMs. These VMs in particular enforce restrictions on what system resources their hosted process has access too. Specifically, they typically provide restricted, VM managed memory spaces, ensuring that hosted processes can't access memory beyond what is allocated to it.\cite{wiki:VM}
-\mycomment{I'm not sure if there are other benefits to VMs that are not present in other runtime systems, or if I should mention those anyway.}
+The term virtual machine (VM) refers to software that models the operating system of a computer or the underlying physical hardware. Effectively, VMs are indistinguishable from the OS or hardware they are emulating, which allows them to run programs not runable by the native OS, or with restrictions not enforced by the native OS or hardware.
+The focus of this paper will be on virtual machines that act as a runtime environment for a single process, sometimes called process VMs. These VMs in particular enforce restrictions on what system resources their hosted process has access too. Specifically, they typically provide restricted, VM managed memory spaces, ensuring that hosted processes can't access memory beyond what is allocated to it.\cite{wiki:VM} \mycomment{is this relevant?}
+
+There are two major advantages to virtual machines. The first of these is a type safety mechanism. Virtual machines such as Java's JVM \mycomment{Is this actually a thing? Should I even talk about it?}
 
 The language actually run by a virtual machine is rarely the language originally written. VMs feature intermediate languages, which are low-level languages with hardware access, designed for space efficiency rather than human readability. Languages meaning to run on a particular virtual machine must be able to compile to that VM's intermediate language.
 
-These languages are still an abstraction of machine code, and so require either interpretation or compilation in order to be executed. Some virtual machines do interpret their intermediate languages, but more are now supporting Just-In-Time (JIT) compilation. JIT compilers compile intermediate language code to machine code at execution time as needed sections of the code are run. This is similar to interpretation, excepted that the compiled code is then cashed for reuse.\cite{wiki:JIT}
+These languages are still an abstraction of machine code, and so require either interpretation or compilation in order to be executed. Some virtual machines do interpret their intermediate languages, but more are now supporting Just-In-Time (JIT) compilation. JIT compilers compile intermediate language code to machine code at execution time as needed sections of the code are run. This is similar to interpretation, excepted that the compiled code is then cashed for reuse.\cite{wiki:JIT} \mycomment{does this paragraph add anything of importance?}
 
-The two virtual machines discussed in this paper will be the Java Virtual Machine (JVM), and .NET's Common Language Runtime (CLR).
+The virtual machines discussed in this paper will be the Java Virtual Machine (JVM), and .NET's Common Language Runtime (CLR).
 
 
 \section{Markup Languages}\label{ML}
-Markup languages are primarily used for describing data. There are a range of languages covering several use cases, from document display or creation to data transfer and storage. For instance, HTML is a markup language used to convey display information about web pages, while TeX is a language used to describe the layout and formatting of text documents. Others include JSON and YAML, which are designed for holding data from programming languages. The two tools we'll be looking at for markup languages will be the Starlink framework and the Fuzzy Markup Language (FML). Both of these use variations of XML, which describes data by enclosing it within tags.
+Markup languages are primarily used for describing data. There are a range of markup languages covering several use cases, from document display or creation to data transfer and storage. For instance, HTML (HyperText Markup Language) is used to convey content information for web pages, while \TeX is a language used to describe the layout and formatting of text documents.
+Others, such as JSON and YAML, were designed for modeling data in ways consistent with object oriented design. 
+
+One of the major players in the world of markup languages is XML, the Extensible Markup Language. XML's method of describing data is to enclose the relevant data with a tag. Tags are easily distinguishable from the data they contain, and are considered separate from the data when the XML is read. 
+\mycomment{XML example here}
+
+The eponymous extensibility of XML comes in the form of defining new tags. Systems using XML are not constrained to using the tags built in to XML, but can create new ones based on the data they will be handling. This allows for the creation of new markup languages based on XML, but built for a specific purpose. HTML is one example of such a language. Two others, which we'll take a closer look at, are FML and Starlink.
 
 Starlink \cite{Bromberg:2011} is actually more than just a markup language. It is a system \mycomment{(not the right word)} designed to achieve distributed interoperability, built around their own XML-based markup language. This language, the message description language (MDL) is used to model incoming messages from particular protocols.
 \mycomment{Note: I'm not sure how detailed I should get about Starlink. There is some interesting stuff they do with automata, but it is complicated and I'm not sure how relevant.}
