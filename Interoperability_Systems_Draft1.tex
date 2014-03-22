@@ -70,10 +70,12 @@ Section \ref{performance} will explore a few of the performance implications of 
 
 
 \section{Interoperability}\label{Interop}
-Why is interoperability something anyone cares about? One of the primary reasons is that different languages simply perform better in certain circumstances. Early on in Java's life, for instance, it was intended to be the go-to language for the web. In practice now, however, it has been outpaced by languages like JavaScript or Flash, and is primarily used to run server architecture or programs on personal computers. \mycomment{citation from early java paper}
+Why is interoperability something anyone cares about? One of the primary reasons is that different languages simply perform better in certain circumstances. Early on in Java's life, for instance, it was intended to be the go-to language for the web. In practice now, however, it has been outpaced by languages like JavaScript or Flash, and is primarily used to run server architecture or programs on personal computers. \mycomment{citation from early java paper. Also, why did these replace Java? remove if can't find reason.}
 
-Other languages are built to handle particular problems, while almost ignoring others. Erlang, for instance, is one of the primary languages used in distributed computing. It was built around remote procedure calls (RPCs), and handles them simply and powerfully. However, manipulating strings in Erlang is very difficult, because Erlang was never intended to deal with strings. As a result, it has no library for string interaction, and treats them as arrays of characters. A system using Erlang for handling distributed communications but which needed to manipulate strings would have use for interop: another language could be used to handle the strings, while leaving the RPCs to Erlang.
+Other languages are built to handle particular problems, while providing almost no support for others. Erlang, for instance, is one of the primary languages used in distributed computing. It was built around remote procedure calls (RPCs), and handles them simply and powerfully. However, manipulating strings in Erlang is very difficult, because Erlang was never intended to deal with strings. As a result, it has no library for string interaction, and treats them as arrays of characters. A system using Erlang for handling distributed communications which also needed to manipulate strings would have use for interop: another language could be used to handle the strings, while leaving the RPCs to Erlang.
 
+
+Apart from the capabilities of the languages involved, interoperability is often tied to hardware independence. The problems faced in achieving language independence and hardware independence are frequently similar, or have similar solutions. As noted above in the case of Java, the desire for hardware independence allowed the JVM to act as a tool for language independence as well.
 
 \begin{itemize}
 
