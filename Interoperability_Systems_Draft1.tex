@@ -117,7 +117,7 @@ Markup languages are primarily used for describing data. There are a range of ma
 Others, such as JSON and YAML, were designed for modeling data in ways consistent with object oriented design. 
 
 One of the major players in the world of markup languages is XML, the Extensible Markup Language. XML's method of describing data is to enclose the relevant data with a tag. Tags are easily distinguishable from the data they contain, and are considered separate from the data when the XML is read. 
-\mycomment{XML example here}
+
 
 \begin{figure}
 \begin{verbatim}
@@ -133,8 +133,8 @@ One of the major players in the world of markup languages is XML, the Extensible
 
 The eponymous extensibility of XML comes in the form of defining new tags. Systems using XML are not constrained to using the tags built in to XML, but can create new ones based on the data they will be handling. This allows for the creation of new markup languages based on XML, but built for a specific purpose. HTML is one example of such a language. Two others, which we'll take a closer look at, are FML and Starlink.
 
-Starlink \cite{Bromberg:2011} is actually more than just a markup language. It is a system designed to achieve distributed interoperability, built around their own XML-based markup language. This language, the message description language (MDL), is used to model incoming messages from particular protocols.
-\mycomment{Note: I'm not sure how detailed I should get about Starlink. There is some interesting stuff they do with automata, but it is complicated and I'm not sure how relevant.}
+Starlink \cite{Bromberg:2011} is actually more than just a markup language. It is a software framework designed to achieve distributed interoperability between existing systems with different communications protocols. One of the core features of Starlink is an XML-based markup language called the Message Description Language (MDL). The MDL is used to model incoming messages from a protocol as abstract messages, internally consistent objects independent of their originating protocol. The contents of these messages, still tied to their protocol, can then be translated to another protocol's abstraction via an automaton which models the behavior of each protocol and the interaction of that behavior. \mycomment{should I explain that more, or is that sufficient?}
+
 
 The Fuzzy Markup Language\cite{Acampora:2013} was not actually designed for interoperating systems at all. Fuzzy controllers handle converting discrete data into less strictly defined sets, fuzzy sets, and acting upon them 
 
@@ -162,6 +162,7 @@ Markup languages are built with the concept of metadata in mind. A common featur
 This is the area where markup languages really shine. Languages like XML can be configured to describe many custom types, and can nest these types to describe components of larger data structures, including descriptions of full objects.
 
 \mycomment{I'm concerned much of the above may need to be transferred to \ref{ML}. I should have enough here to fill the section if I talk about Starlink and FML, but this is something to keep in mind.}
+\mycomment{When talking about Starlink, consider including at least the <Types> section of their figure 7}
 
 \subsection{Standards and Interfaces}\label{standards}
 Metadata is the core of successful interoperability. But if two systems attempting to communicate are expecting differently tagged data, they will still fail to interoperate. Metadata alone is not enough.
