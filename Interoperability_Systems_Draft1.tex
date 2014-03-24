@@ -84,7 +84,7 @@ Apart from the capabilities of the languages involved, interoperability is often
 \begin{itemize}
 
 	
-	\item Peformance: lower-level languages, assembly or byte-code, have direct access to hardware. This allows some things that more abstract languages, like Java, Ruby, Python, simply cannot do. One of these things is performance. Direct access to hardware allows programmers to make very fined-tuned adjustments that are program or intent specific - too specific for a compiler to reasonably translate them from a more abstract language. 
+	\item Peformance: lower-level languages, assembly, have direct access to hardware. This allows some things that more abstract languages, like Java, Ruby, Python, simply cannot do. One of these things is performance. Direct access to hardware allows programmers to make very fined-tuned adjustments that are program or intent specific - too specific for a compiler to reasonably translate them from a more abstract language. 
 	Additionally, certain programs need hardware access to be useful. \mycomment{I could talk about device drivers like Nic suggested, but are there many others that need both hardware access and abstract structures?}
 	\mycomment{does C offer hardware access? if not, why is it used for writing OS's?}
 		
@@ -110,12 +110,14 @@ The second advantage lies in the VM's intermediate language. These are low-level
 
 Because these languages are still an abstraction of machine code, they still require an interpreter or a compiler for execution. Both the JVM and the CLR use a hybrid method called Just-In-Time (JIT) compilation. In JIT compilation, the intermediate language is compiled at runtime to machine code. JIT compilation allows for code optimization based on the current program and host system. \cite{wiki:JIT} 
 
+JIT comilation is a runtime optimization method where frequently used portions of a program are compiled to machine language for quick use, while the remaining code is interpreted as normal. 
+
 \mycomment{should I have a subsection here? or should this be the second paragraph?}
 The JVM and CLR will be our main subjects when discussing virtual machines. While similar in certain ways, these two VMs were designed for different purposes.
 
 The JVM was designed alongside Java for the purpose of hardware independence. Since the intent of Java was to be run off the web, there was no way of knowing what kind of hardware would end up running a piece of code, or even what kind of browser it would be running from. They needed to be able to compile to machine code only when the code was actually run, such that any hardware would be able to compile and run the code correctly. The solution was the JVM. The eventual discovery that other languages could make use of Java's intermediate language and the JVM was completely accidental.
 
-In contrast, the CLR was developed with a host of languages, and was designed in part with the intent of facilitating interoperability between them. The purpose of the virtual machine in this context was to intentionally provide the common ground for languages based on the CLR, giving them access to features promoting interop, such as the Common Type System and metadata engine (discussed further in Section \ref{metadata}.
+In contrast, the CLR was developed with a host of languages, and was designed in part with the intent of facilitating interoperability between them. The purpose of the virtual machine in this context was to intentionally provide the common ground for languages based on the CLR, giving them access to features promoting interop, such as the Common Type System and metadata engine (discussed further in Section \ref{metadata}).
 
 
 \section{Markup Languages}\label{ML}
