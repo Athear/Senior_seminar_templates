@@ -66,7 +66,7 @@ Next, in Sections \ref{VM} and \ref{ML}, I'll describe two particular tools that
 
 Section \ref{approaches} will detail particular challenges involved with interoperability and approaches to handling them. Following a general description of the approach, I will describe how each tool can be used to implement that approach, along with strengths and weaknesses of each setting.
 
-Section \ref{performance} will explore a few of the performance implications of interoperability.
+Section \ref{performance} will look at a few of the performance implications of the tools discussed.
 
 
 \section{Interoperability}\label{Interop}
@@ -99,7 +99,10 @@ Apart from the capabilities of the languages involved, interoperability is often
 
 
 \section{Virtual Machines}\label{VM}
-
+\begin{figure}
+\psfig{file=CLR.png, width = 3in}
+\caption{VM architecture: The CLR}
+\end{figure}
 
 The term virtual machine (VM) refers to software that models the operating system of a computer or the underlying physical hardware. Effectively, VMs are indistinguishable from the OS or hardware they are emulating, which allows them to run programs not runable by the native OS, or with restrictions not enforced by the native OS or hardware.
 The focus of this paper will be on virtual machines that act as a runtime environment for a single process, sometimes called process VMs. These VMs in particular enforce restrictions on what system resources their hosted process has access too. Specifically, they typically provide restricted, VM managed memory spaces, ensuring that hosted processes can't access memory beyond what is allocated to it.\cite{wiki:VM} \mycomment{is this relevant?}
@@ -110,12 +113,13 @@ The second advantage lies in the VM's intermediate language. These are low-level
 
 Because these languages are still an abstraction of machine code, they still require an interpreter or a compiler for execution. Both the JVM and the CLR use a hybrid method called Just-In-Time (JIT) compilation. In JIT compilation, the intermediate language is compiled at runtime to machine code. JIT compilation allows for code optimization based on the current program and host system. \cite{wiki:JIT} 
 
-JIT comilation is a runtime optimization method where frequently used portions of a program are compiled to machine language for quick use, while the remaining code is interpreted as normal. 
+JIT comilation is a runtime optimization method where most of the code is interpreted, but frequently used portions are compiled to machine language for quicker access. This allows for specific optimizations based on the current input and hardware, which are rarely known before execution. 
 
 \mycomment{should I have a subsection here? or should this be the second paragraph?}
 The JVM and CLR will be our main subjects when discussing virtual machines. While similar in certain ways, these two VMs were designed for different purposes.
 
-The JVM was designed alongside Java for the purpose of hardware independence. Since the intent of Java was to be run off the web, there was no way of knowing what kind of hardware would end up running a piece of code, or even what kind of browser it would be running from. They needed to be able to compile to machine code only when the code was actually run, such that any hardware would be able to compile and run the code correctly. The solution was the JVM. The eventual discovery that other languages could make use of Java's intermediate language and the JVM was completely accidental.
+The JVM\footnote{References to "The JVM" refer to the general concept of Java's virtual machine. There are many implementations of JVMs, which follow certain specifications but implement certain concepts in different ways and may support different operating systems. \cite{wiki:multiJVM, wiki:JVM}}
+was designed alongside Java for the purpose of hardware independence. Since the intent of Java was to be run off the web, there was no way of knowing what kind of hardware would end up running a piece of code, or even what kind of browser it would be running from. They needed to be able to compile to machine code only when the code was actually run, such that any hardware would be able to compile and run the code correctly. The solution was the JVM. The eventual discovery that other languages could make use of Java's intermediate language and the JVM was completely accidental.
 
 In contrast, the CLR was developed with a host of languages, and was designed in part with the intent of facilitating interoperability between them. The purpose of the virtual machine in this context was to intentionally provide the common ground for languages based on the CLR, giving them access to features promoting interop, such as the Common Type System and metadata engine (discussed further in Section \ref{metadata}).
 
@@ -127,16 +131,16 @@ Others, such as JSON and YAML, were designed for modeling data in ways consisten
 One of the major players in the world of markup languages is XML, the Extensible Markup Language. XML's method of describing data is to enclose the relevant data with a tag. Tags are easily distinguishable from the data they contain, and are considered separate from the data when the XML is read. 
 
 
-\begin{figure}
-\begin{verbatim}
-<Person>
-	<name>Cliff</name>
-	<birthdate>April 16th,1978</birthdate>
-	<address> </address>
-</Person>
-\end{verbatim}
-\caption{XML example}
-\end{figure}
+%\begin{figure}
+%\begin{verbatim}
+%<Person>
+%	<name>Cliff</name>
+%	<birthdate>April 16th,1978</birthdate>
+%	<address>81st Street</address>
+%</Person>
+%\end{verbatim}
+%\caption{XML example}
+%\end{figure}
 
 
 The eponymous extensibility of XML comes in the form of defining new tags. Systems using XML are not constrained to using the tags built in to XML, but can create new ones based on the data they will be handling. This allows for the creation of new markup languages based on XML, but built for a specific purpose. HTML is one example of such a language. Two others, which we'll take a closer look at, are FML and Starlink.
@@ -149,16 +153,37 @@ The Fuzzy Markup Language\cite{Acampora:2013} was not actually designed for inte
  but was designed for both hardware and language independence. In effect, this makes it possible to use it in an interoperating system, if one had a distributed system where fuzzy logic would be a useful tool.
 
 \section{Difficulties and Approaches}\label{approaches}
-In order to attain interoperability, there are several major things that systems need to account for. Of primary concern is the lowest common denominator (LCD) constraint.
-When dealing with multiple languages, a program or system must take into account the properties of the languages involved. While each module of a system can do what it wants internally, when it comes time to pass data around care must be taken that language of the target module actually has a way of representing the data sent to it. \mycomment{some example here}
-If it does not, the data specifications must be changed so that both languages can represent the same data at once. This can mean losing type information if a language has no concept of a specific type, or losing flexibility when moving from a weakly typed language to a strongly typed one. It can also mean losing precision, if a language involved has no way of representing data structures used by another language.
+When building a system with interoperating languages, there are several aspects of the system that designers need to account for. Of particular importance is the lowest common denominator (LCD) constraint.
 
-\subsection{Metadata and Data Type Conversion}\label{metadata} \mycomment{\cite{Ide:2010, Bromberg:2011, Hamilton:2003}}
+The LCD in this case is the largest subset of concepts that can be translated across the languages in use. These concepts include data types and underlying data structures.
+For example, if you have a system wherein you want to use a key/value map, but one of the languages only has support for arrays. This restriction is part of the system's LCD, and limits the functionality of the overall system. Here, this can be dealt with in several ways: Remove the restricting language from the system, remove the use of maps and just use arrays instead, or find ways to model maps as arrays. The first two options are rarely preferable. If a particular language is present in a system, it usually has a contribution not easily matched by any other language. Likewise, maps may be the ideal way to store the particular data being used, while arrays will be insufficient.
+
+Finding a method of translating a concept from one language to the other is preferable, but may not always be possible, or as straightforward as in the above example. In some cases, achieving the translation can mean a loss of information or a loss of precision. C, for instance, has no concept of booleans. Zero is treated as false, while any other number is treated as true. When interoperating with a language that does use booleans, precision of booleans is lost. A number could be just a number, or it could be True. On C's end, information could be lost if a true/false test is made to determine if a variable contains a number, and act upon that number if it does. If C recives a True from another language, it may read it as one. \mycomment{needs refinement.}
+
+For issues like these, there are two concepts \mycomment{I need a word like tools, only abstract}
+that help enable this translation with minimal loss: metadata and interfacing. \mycomment{I'm not sure if I should refer to standards as interfaces}
+
+\subsection{Metadata and Data Type Conversion}\label{metadata}
+When passing data between two languages, a system must have a way of ensuring that the type systems of its component languages are respected. Additionally, it must ensure that type information is not lost when data moves from a strongly typed language to a weakly typed language, so that information is available when the data moves the other way.
+
+Metadata is the method by which this is accomplished\cite{Ide:2010}. Simply put, metadata is data describing data. \mycomment{I'm not sure how to talk about this, or if this is plenty.}
+
+Two important concepts brought up by Ide and Pustejovsky are the ideas of semantic and syntactic interoperability. 
+
+
 One of the most basic things an interoperating system needs to take into account are the data types involved. 
 When passing data between two languages, a system needs to have a way of ensuring that the type restrictions of the LCD are respected. Ide and Pustejovsky \cite{Ide:2010} suggest metadata as the method to accomplish this, and in practice is what both styles use. Metadata is simply data about the data. This can be used to preserve type information when data is passed to a language that has no concept of the data types involved, or establish type information when passing data to a language that requires more strictly defined typing.
-\mycomment{Here I can also talk about syntactic/semantic labels/categories via \cite{Ide:2010}. In fact, definitely talk about this. VMs have the advantage of virtually ensuring semantic interoperability because all execution is done through the same language}
+\mycomment{Here I can also talk about syntactic/semantic labels/categories via \cite{Ide:2010}. In fact, definitely talk about this. VMs have the advantage of virtually ensuring syntactic interoperability because all execution is done through the same language}
 \subsubsection*{VMs and metadata}
-Virtual machines deal with the concept of metadata in two primary ways. This is mainly handled at compile time by the compiler itself, but this is handled differently depending on the underlying virtual machine.
+
+There are two primary ways virtual machines handle metadata: language type specifications and metadata files. Both of these are handled by a compiler at compile time.
+Once the system has been compiled to the intermediate language, there should be no syntactic difference between the different parts, as they are now all the same language. \mycomment{don't think this is true..}
+
+Strongly typed languages like Java or C# include explicit type information with all data. 
+
+\mycomment{what about languages like Ruby which generate classes to handle runtime type checks?}
+Virtual machines deal with the concept of metadata in two primary ways: through the existence of their intermediate language, and through generating a full metadata file.
+ This is mainly handled at compile time by the compiler itself, but this is handled differently depending on the underlying virtual machine.
 
 The primary way VMs handle this is through the use of their intermediate language. The intermediate language has 
 \begin{itemize}
@@ -185,6 +210,9 @@ In a virtual machine system, the standard is frequently already set.\footnote{Th
 
 \subsubsection*{MLs and Standardization}
 Standards are not inherent to markup languages, and enforcement cannot be left to underlying hardware or compiler, as they can in a virtual machine setting. Some markup languages have do have standards built for them, such as schema for XML. These provide the same functionality as standards in virtual machines, but must be explicitly enforced by system designers, usually through third-party tools or manual additions to the system.
+
+
+
 
 \mycomment{describe schema in detail with XML. Can maybe use Starlink as a working example, but just talk about schema for a while}
 	
