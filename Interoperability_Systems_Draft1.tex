@@ -62,7 +62,7 @@ The challenges that arise when dealing with interoperability can be many, and so
 
 In Section \ref{Interop} I'll explore why interoperability is desirable, what advantages it can confer, and where it can be useful. This will touch on differing language capabilities, ease of use, hardware independence, and implications for distributed computing.
 
-Next, in Sections \ref{VM} and \ref{ML}, I'll describe two particular tools that are used to achieve interoperability, and defining relevant aspects of these settings. These tools will be virtual machines, paying particular attention to the Java Virtual Maching (JVM) and .NET's Common Language Runtime (CLR), and markup languages, with focus on two particular systems that make use of markup languages, Starlink and FML.
+Next, in Sections \ref{VM} and \ref{ML}, I'll describe two particular tools that are commonly used to achieve interoperability. These tools will be virtual machines, paying particular attention to the Java Virtual Maching (JVM) and .NET's Common Language Runtime (CLR), and markup languages, with focus on two particular systems that make use of markup languages, Starlink and FML.
 
 Section \ref{approaches} will detail particular challenges involved with interoperability and approaches to handling them. Following a general description of the approach, I will describe how each tool can be used to implement that approach, along with strengths and weaknesses of each setting.
 
@@ -179,7 +179,7 @@ When passing data between two languages, a system needs to have a way of ensurin
 There are two primary ways virtual machines handle metadata: language type specifications and metadata files. Both of these are handled by a compiler at compile time.
 Once the system has been compiled to the intermediate language, there should be no syntactic difference between the different parts, as they are now all the same language. \mycomment{don't think this is true..}
 
-Strongly typed languages like Java or C# include explicit type information with all data. 
+Strongly typed languages like Java or C\# include explicit type information with all data. 
 
 \mycomment{what about languages like Ruby which generate classes to handle runtime type checks?}
 Virtual machines deal with the concept of metadata in two primary ways: through the existence of their intermediate language, and through generating a full metadata file.
@@ -249,7 +249,7 @@ Ultimately, the performance costs of achieving interoperability must be weighed 
 
 The two tool sets explored here have widely different applicable systems. 
 
-Virtual machines are much more feasible for systems being built from scratch, where all language decisions are in the hands of the developers. They may also be available to existing programs on a VM which a developer wishes to extend to a larger system; in this case, the extended system merely need be built on the same virtual machine, and it will be able to interoperate with the pre-existing program. More specifically however, virtual machines are most suited to systems that can exist on the same physical machine.
+Virtual machines are much more feasible for systems being built from scratch, where all language decisions are in the hands of the developers. They may also be available to existing programs on a VM which a developer wishes to extend to a larger system; in this case, the extended system merely need be built on the same virtual machine, and it will be able to interoperate with the pre-existing software. More specifically however, virtual machines are most suited to systems that can exist on the same physical machine.
 
 In comparison, markup languages are better suited to dealing with preexisting or legacy systems, where there is too much code to change or parts of the source are simply unavailable \mycomment{Does that happen?},
 and so rewriting is not an option. Likewise, if the existing system cannot target a particular virtual machine, perhaps because a compiler from that language to that VM doesn't exist, recompiling the existing program is not feasible.
