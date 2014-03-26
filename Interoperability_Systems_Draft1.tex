@@ -52,17 +52,17 @@ Todd Malone\\
 \keywords{interoperability, language interoperability, programming languages, virtual machines, markup languages}
 
 \section{Introduction}
-Interoperability, colloquially shortened to interop, is the ability for two or more systems to work together. This definition is very broad, covering anything from groups of people to businesses or bureaucratic systems to pieces of hardware. This paper will discuss interoperability between programming languages. While this narrows the field quite a bit, programming language interop is still a very large topic.
+Interoperability, colloquially shortened to interop, is the ability for two or more systems to work together. This definition is very broad, covering anything from groups of people to businesses or bureaucratic systems to pieces of hardware. This paper will discuss interoperability between programming languages. While this narrows the field significantly, programming language interop is still a very broad topic.
 
-For instance, all browsers perform some kind of interop. Information to be displayed on a web page is handled by HTML, and anything that along with PHP or Javascript, but if there is more computation to be done, or if a database needs to be consulted, these frontend languages will communicate with a server, often written in languages like Java or C.
+For instance, all browsers perform some kind of interop. Information to be displayed on a web page is handled by HTML, and while formatting computation handled by PHP or Javascript; if there is more computation to be done, or if a database needs to be consulted, these front-end languages will communicate with a server, often written in languages like Java or C.
 
-Likewise, these servers may be written in several languages themselves. A blog hosting service, KidBlog, uses a backend written in both Java and Clojure \mycomment{for reasons}
+Likewise, these servers may be written in several languages themselves. A blog hosting service, KidBlog, uses a backend written in both Java and Clojure, using Java to handle translation between the front and back ends, and Clojure to handle the actual server load.
 
-The challenges that arise when dealing with interoperability can be many, and sometimes surprising. The tools and approaches used to counter these challenges are likewise many. In the interest of brevity, we will look at a small subset of these challenges, along with several tools used to deal with them.
+The challenges that arise when dealing with interoperability can be many, and sometimes surprising\cite{Chisnall:2013}. The tools and approaches used to overcome these challenges are likewise many. In the interest of brevity, we will look at a small subset of these challenges, along with several tools used to deal with them.
 
-In Section \ref{Interop} I'll explore why interoperability is desirable, what advantages it can confer, and where it can be useful. This will touch on differing language capabilities, ease of use, hardware independence, and implications for distributed computing.
+In Section \ref{Interop} I explore further why interoperability is desirable, what advantages it can confer, and where it can be useful. This will touch on differing language capabilities, ease of use, hardware independence, and implications for distributed computing.
 
-Next, in Sections \ref{VM} and \ref{ML}, I'll describe two particular tools that are commonly used to achieve interoperability. These tools will be virtual machines, paying particular attention to the Java Virtual Maching (JVM) and .NET's Common Language Runtime (CLR), and markup languages, with focus on two particular systems that make use of markup languages, Starlink and FML.
+Next, in Sections \ref{VM} and \ref{ML}, I describe two particular tools that are commonly used to achieve interoperability. These tools will be virtual machines, paying particular attention to the Java Virtual Maching (JVM) and .NET's Common Language Runtime (CLR), and markup languages, with focus on two particular systems that make use of markup languages, Starlink and FML.
 
 Section \ref{approaches} will detail particular challenges involved with interoperability and approaches to handling them. Following a general description of the approach, I will describe how each tool can be used to implement that approach, along with strengths and weaknesses of each setting.
 
@@ -70,32 +70,19 @@ Section \ref{performance} will look at a few of the performance implications of 
 
 
 \section{Interoperability}\label{Interop}
-Why is interoperability something anyone cares about? One of the primary reasons is that different languages simply perform better in certain circumstances. Early on in Java's life, for instance, it was intended to be the go-to language for the web. In practice now, however, it has been outpaced by languages like JavaScript or Flash, and is primarily used to run server architecture or programs on personal computers. \mycomment{citation from early java paper. Also, why did these replace Java? remove if can't find reason.}
+The primary importance of interoperability lies in the varying capabilities of different languages. Programming languages perform best in particular circumstances, and different languages perform better in different situations.
 
+Some languages are constructed to tackled specific problems, but provide almost no support for others. Erlang, for instance, is one of the primary languages used in distributed computing. It was built around remote procedure calls (RPCs), and handles them simply and powerfully. However, manipulating strings in Erlang is very difficult, because Erlang was never intended to deal with strings. As a result, it has no library for string interaction, and treats them as arrays of characters. A system using Erlang for handling distributed communications which also needed to manipulate strings would have use for interop: another language could be used to handle the strings, while leaving the RPCs to Erlang.
 
+Still others allow access in ways that are hidden in other languages. The memory access model in C, for instance, differs from many other high-level languages presently in use. C enables very fine-grained memory access and control, and places all of this control in the programmer's hands. Likewise, assembly languages allow direct access to hardware and the underlying storage mechanisms. The higher level of control offered allows developers to make very specific, fine-tuned adjustments to their systems, enabling performance improvements in ways specific to the program or the hardware platform. However, these languages have high learning curves, and programs using them may have security concerns if not done correctly.
 
-Other languages are built to handle particular problems, while providing almost no support for others. Erlang, for instance, is one of the primary languages used in distributed computing. It was built around remote procedure calls (RPCs), and handles them simply and powerfully. However, manipulating strings in Erlang is very difficult, because Erlang was never intended to deal with strings. As a result, it has no library for string interaction, and treats them as arrays of characters. A system using Erlang for handling distributed communications which also needed to manipulate strings would have use for interop: another language could be used to handle the strings, while leaving the RPCs to Erlang.
-
-Still others allow access in ways that are hidden in other languages. The memory access model in C, for instance, differs from many other high-level languages presently in use. C enables very fine-grained memory access and control, and places all of this control in the programmer's hands.
-
+The difficulty involved in learning a language is not a minor concern, either. Developer time and energy are important considerations when designing a system.
+For example, Java was initially intended to be the go-to language for web development. In practice, most web development now is done with scripting languages like Ruby or Javascript\footnote{Unrelated to Java}. Java has, in turn, become more of a server back end language. The reasons for this shift had nothing to do with what Java was capable of, and much more to do with what programmers were willing to deal with.
+The learning curve for Java is higher than many scripting languages, and is generally much more verbose.
 
 Apart from the capabilities of the languages involved, interoperability is often tied to hardware independence. The problems faced in achieving language independence and hardware independence are frequently similar, or have similar solutions. As noted above in the case of Java, designing for hardware independence allowed the JVM to act as a tool for language independence as well.
 
-\begin{itemize}
-
-	
-	\item Peformance: lower-level languages, assembly, have direct access to hardware. This allows some things that more abstract languages, like Java, Ruby, Python, simply cannot do. One of these things is performance. Direct access to hardware allows programmers to make very fined-tuned adjustments that are program or intent specific - too specific for a compiler to reasonably translate them from a more abstract language. 
-	Additionally, certain programs need hardware access to be useful. \mycomment{I could talk about device drivers like Nic suggested, but are there many others that need both hardware access and abstract structures?}
-	\mycomment{does C offer hardware access? if not, why is it used for writing OS's?}
-		
-	\item Hardware independance and distributed computing: While interoperability doesn't require these, it can often enable them or result as a side effect of achieving either.
-	
-	Hardware independence frequently involves writing interpreters for a language that target different hardware systems. In the case of Java, this was done by translating Java into a lower-level language that was easier to write platform-specific runtimes for.
-	\mycomment{I need a citation. Additionally, make sure this last bit is actually true}
-	Although unintended, this intermediate language provided an opportunity for other languages to interoperate with Java.	
-	
-	Distributed computing often involves sending data in largely unformatted streams. Because formatting may be needed on the other side, formatting data also must be sent, which can be used by a any language or program that is able to parse the formatting information. I'll take a closer look at this in section \ref{metadata}.
-\end{itemize}
+In client/server architecture, such as in Kidblog, the client-side and server-side environments are likely written in different languages, and guaranteed to be on different machines. Kidblog handles communication between the two using JSON, a markup language. On the client-side, JavaScript marshals blog posts into JSON objects, which are then sent to the server. There, they are converted to Java objects, which Clojure can then act on. Since Java is more strongly typed than JavaScript, JSON is also used to help translate between the two. We'll take a closer look at this in Section \ref{metadata}.
 
 
 \section{Virtual Machines}\label{VM}
@@ -181,7 +168,8 @@ Once the system has been compiled to the intermediate language, there should be 
 
 Strongly typed languages like Java or C\# include explicit type information with all data. This is essentially a form of metadata, but it mainly used by the language compilers when transforming code to the intermediate language.
 
-\mycomment{what about languages like Ruby which generate classes to handle runtime type checks?}
+\mycomment{what about languages like Ruby which generate classes to handle runtime type checks? Could talk about how they need to do extra work because they *don't* have this metadata.}
+
 Virtual machines deal with the concept of metadata in two primary ways: through the existence of their intermediate language, and through generating a full metadata file.
  This is mainly handled at compile time by the compiler itself, but this is handled differently depending on the underlying virtual machine.
 
