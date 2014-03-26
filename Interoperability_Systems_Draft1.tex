@@ -101,7 +101,7 @@ Apart from the capabilities of the languages involved, interoperability is often
 \section{Virtual Machines}\label{VM}
 \begin{figure}
 \psfig{file=CLR.png, width = 3in}
-\caption{VM architecture: The CLR}
+\caption{VM architecture: The CLR\cite{wiki:CLR}}
 \end{figure}
 
 The term virtual machine (VM) refers to software that models the operating system of a computer or the underlying physical hardware. Effectively, VMs are indistinguishable from the OS or hardware they are emulating, which allows them to run programs not runable by the native OS, or with restrictions not enforced by the native OS or hardware.
@@ -179,7 +179,7 @@ When passing data between two languages, a system needs to have a way of ensurin
 There are two primary ways virtual machines handle metadata: language type specifications and metadata files. Both of these are handled by a compiler at compile time.
 Once the system has been compiled to the intermediate language, there should be no syntactic difference between the different parts, as they are now all the same language. \mycomment{don't think this is true..}
 
-Strongly typed languages like Java or C# include explicit type information with all data. 
+Strongly typed languages like Java or C\# include explicit type information with all data. This is essentially a form of metadata, but it mainly used by the language compilers when transforming code to the intermediate language. 
 
 \mycomment{what about languages like Ruby which generate classes to handle runtime type checks?}
 Virtual machines deal with the concept of metadata in two primary ways: through the existence of their intermediate language, and through generating a full metadata file.
