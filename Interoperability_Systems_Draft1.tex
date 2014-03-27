@@ -13,6 +13,7 @@
 %%%% User-defined macros
 \newcommand{\lam}{\lambda}
 \newcommand{\mycomment}[1]{\textcolor{red}{#1}}
+%\newcommand{\mycomment}[1]{}
 \newcommand{\vm}[0]{virtual machine}
 %%%%% Uncomment the following line and comment out the previous one
 %%%%% to remove all comments
@@ -65,7 +66,7 @@ For instance, all browsers perform some kind of interop. Information to be displ
 
 Likewise, these servers may be written in several languages themselves. A blog hosting service, Kidblog\footnote{kidblog.org}, uses a backend written in both Java and Clojure, using Java to handle translation between the client and server ends, and Clojure to handle the actual server load.
 
-The challenges that arise when dealing with interoperability can be many, and sometimes surprising\cite{Chisnall:2013}. The tools and approaches used to overcome these challenges are likewise many. In the interest of brevity, we will look at a small subset of these challenges, along with several tools used to deal with them.
+The challenges that arise when dealing with interoperability can be many, and sometimes surprising \cite{Chisnall:2013}. The tools and approaches used to overcome these challenges are likewise many. In the interest of brevity, we will look at a small subset of these challenges, along with several tools used to deal with them.
 
 In Section \ref{Interop} I explore further why interoperability is desirable, what advantages it can confer, and where it can be useful. This will touch on differing language capabilities, ease of use, hardware independence, and implications for distributed computing.
 
@@ -95,25 +96,25 @@ In client/server architecture, such as in Kidblog, the client-side and server-si
 \section{Virtual Machines}\label{VM}
 \begin{figure}
 \psfig{file=CLR.png, width = 3in}
-\caption{VM architecture in the CLR\cite{wiki:CLR}}
+\caption{VM architecture in the CLR~\cite{wiki:CLR}}
 \label{VMmodel}
 \end{figure}
 
 The term virtual machine (VM) refers to software that models the operating system of a computer or the underlying physical hardware. Effectively, VMs are indistinguishable from the OS or hardware they are emulating, which allows them to run programs not runable by the native OS, or with restrictions not enforced by the native OS or hardware.
-The focus of this paper will be on virtual machines that act as a runtime environment for a single process, sometimes called process VMs. These VMs in particular enforce restrictions on what system resources their hosted process has access to. Specifically, they typically provide restricted, VM managed memory spaces, ensuring that hosted processes can't access memory beyond what is allocated to it.\cite{wiki:VM} \mycomment{is this relevant?}
+The focus of this paper will be on virtual machines that act as a runtime environment for a single process, sometimes called process VMs. These VMs in particular enforce restrictions on what system resources their hosted process has access to. Specifically, they typically provide restricted, VM managed memory spaces, ensuring that hosted processes can't access memory beyond what is allocated to it.~\cite{wiki:VM} \mycomment{is this relevant?}
 
 There are two major advantages to virtual machines. The first of these is a type safety mechanism. Virtual machines such as the Java Virtual Machine (JVM) and .NET's Common Language Runtime (CLR) have a base set of types (in the CLR, this is actually called the Common Type System, or CTS. It is implicit and unnamed in the JVM). The VMs can use these type systems to ensure the correctness of participating languages and gives languages a common ground for their type information.
 
 The second advantage lies in the VM's intermediate language. These are low-level languages, designed to be both compact and efficiently compiled to machine code, and are what is actually run by the virtual machine. As shown in Figure \ref{VMmodel}, any high-level language can be run on a virtual machine, as long as there is a compiler to translate that language into the VM's intermediate language.
 
 These languages are still an abstraction of machine code, and so they still require an interpreter or a compiler for execution.
-The VMs also contain interpreters for their intermediate language, but also utilize a run-time optimization method called Just-In-Time (JIT) compilation. Most of the code is still interpreted, but portions of code are monitored for frequent use. High-usage sections of code are compiled to machine language for quicker access. This allows for specific optimizations based on the current input and hardware, which are rarely known before execution. \cite{wiki:JIT}
+The VMs also contain interpreters for their intermediate language, but also utilize a run-time optimization method called Just-In-Time (JIT) compilation. Most of the code is still interpreted, but portions of code are monitored for frequent use. High-usage sections of code are compiled to machine language for quicker access. This allows for specific optimizations based on the current input and hardware, which are rarely known before execution.~\cite{wiki:JIT}
 
 
 
 The JVM and CLR will be our main subjects when discussing virtual machines. While similar in certain ways, these two VMs were designed for different purposes.
 
-The JVM\footnote{References to "The JVM" refer to the general concept of Java's virtual machine. There are many implementations of JVMs, which follow certain specifications but implement certain concepts in different ways and may support different operating systems. \cite{wiki:multiJVM, wiki:JVM}}
+The JVM\footnote{References to "The JVM" refer to the general concept of Java's virtual machine. There are many implementations of JVMs, which follow certain specifications but implement certain concepts in different ways and may support different operating systems.~\cite{wiki:multiJVM, wiki:JVM}}
 was designed alongside Java for the purpose of hardware independence. Since the intent of Java was to be run off the web, there was no way of knowing what kind of hardware would end up running a piece of code, or even what kind of browser it would be running from. They needed to be able to compile to machine code only when the code was actually run, such that any hardware would be able to compile and run the code correctly. The solution was the JVM. The eventual discovery that other languages could make use of Java's intermediate language and the JVM was completely accidental.
 
 In contrast, the CLR was developed with a host of languages, and was designed in part with the intent of facilitating interoperability between them. The purpose of the virtual machine in this context was to intentionally provide the common ground for languages based on the CLR, giving them access to features promoting interop, such as the Common Type System and metadata engine (discussed further in Section \ref{metadata}).
@@ -127,35 +128,22 @@ One of the major players in the world of markup languages is XML, the Extensible
 Also note that tags can be nested: lines 11 through 14 are contained within the {\tt Header} tag. This allows XML to describe full records or objects, which will be important in Section \ref{metadata}.
 
 
-%\begin{figure}
-%\begin{verbatim}
-%<Person>
-%  <name> Cliff </name>
-%  <birthdate> 4/16/1978 </birthdate>
-%  <height> 74 </height>
-%  <weight> 212 </weight>
-%</Person>
-%\end{verbatim}
-%\caption{A person described in XML}
-%\label{XMLexample}
-%\end{figure}
-
-
 \begin{figure}
 \psfig{file=StarlinkMDL.pdf}
-\caption{A Starlink MDL specification\cite{Bromberg:2011}}
+\caption{A Starlink MDL specification (taken from~\cite{Bromberg:2011})}
 \label{MDL1}
 \end{figure}
 
 
 The eponymous extensibility of XML comes in the form of defining new tags. Systems using XML are not constrained to using the tags built in to XML, but can create new ones based on the data they will be handling. This allows for the creation of new markup languages based on XML, but built for a specific purpose. HTML is one example of such a language. Two others, which we'll take a closer look at, are FML and Starlink.
 
-Starlink \cite{Bromberg:2011} is actually more than just a markup language. It is a software framework designed to achieve distributed interoperability between existing systems with different communications protocols. One of the core features of Starlink is XML-based markup languages called the Message Description Languages (MDLs). MDLs are used to model incoming messages from a protocol as abstract messages: messages separated into their constituent parts and types. A translation logic specification, also written in XML, defines what parts in two MDLs can be related to one another. Once Starlink has performed appropriate transformations based on the message type received, it can then marshal a message for the target protocol using the newly created abstract message.
+Starlink~\cite{Bromberg:2011} is actually more than just a markup language. It is a software framework designed to achieve distributed interoperability between existing systems with different communications protocols. One of the core features of Starlink is XML-based markup languages called the Message Description Languages (MDLs). MDLs are used to model incoming messages from a protocol as abstract messages: messages separated into their constituent parts and types. A translation logic specification, also written in XML, defines what parts in two MDLs can be related to one another. Once Starlink has performed appropriate transformations based on the message type received, it can then marshal a message for the target protocol using the newly created abstract message.
 
 
-The Fuzzy Markup Language\cite{Acampora:2013} was not designed for interoperating systems at all. Fuzzy controllers handle converting crisp, or discrete, data into sets that cannot be defined as strictly. Fuzzy controlers may be used in things like automobile transmission control, where 
-\mycomment{could perhaps takl about how FML is used to describe functionality, more than just data types. Else drop}
- but was designed for both hardware and language independence. In effect, this makes it possible to use it in an interoperating system, if one had a distributed system where fuzzy logic would be a useful tool.
+The Fuzzy Markup Language~\cite{Acampora:2013} (FML) was not designed for interoperating systems at all, but for releasing fuzzy controllers from hardware constraints.
+Fuzzy controllers are used in systems where either input or output cannot be meaningfully modeled as true or false. An example of such a system might be in street lamps, where the decision of when to turn on depends on the ambient light level. One issue with fuzzy controllers is that they are generally written in an intensely low-level way, and therefore particular implementations are tightly bound to to the hardware they are designed to run on. As Acampora~\cite{Acampora:2013} mentions, this means that in a distributed context, a new controller may have to be designed for every hardware installation regardless of the similarity in purpose.
+
+FML is the solution to this. The specifications for FML allow it to model the full controller, including 
 
 \section{Difficulties and Approaches}\label{approaches}
 When building a system with interoperating languages, there are several aspects of the system that designers need to account for. Of particular importance is the lowest common denominator (LCD) constraint.
@@ -163,76 +151,137 @@ When building a system with interoperating languages, there are several aspects 
 The LCD in this case is the largest subset of concepts that can be translated across the languages in use. These concepts include data types and underlying data structures.
 For example, if you have a system wherein you want to use a key/value map, but one of the languages only has support for arrays. This restriction is part of the system's LCD, and limits the functionality of the overall system. Here, this can be dealt with in several ways: Remove the restricting language from the system, remove the use of maps and just use arrays instead, or find ways to model maps as arrays. The first two options are rarely preferable. If a particular language is present in a system, it usually has a contribution not easily matched by any other language. Likewise, maps may be the ideal way to store the particular data being used, while arrays will be insufficient.
 
-Finding a method of translating a concept from one language to the other is preferable, but may not always be possible, or as straightforward as in the above example. In some cases, achieving the translation can mean a loss of information or a loss of precision. C, for instance, has no concept of booleans. Zero is treated as false, while any other number is treated as true. When interoperating with a language that does use booleans, precision of booleans is lost. A number could be just a number, or it could be True. On C's end, information could be lost if a true/false test is made to determine if a variable contains a number, and act upon that number if it does. If C recives a True from another language, it may read it as one. \mycomment{needs refinement.}
+Finding a method of translating a concept from one language to the other is preferable, but may not always be possible, or as straightforward as in the above example. In some cases, achieving the translation can mean a loss of information or a loss of precision. C, for instance, has no concept of booleans. Zero is treated as false, while any other number is treated as true. When interoperating with a language that does use booleans, precision of booleans is lost. A number could be just a number, or it could be True. On C's end, information could be lost if a true/false test is made to determine if a variable contains a number, and act upon that number if it does. If C recives a True from another language, it may read it as one.
 
-For issues like these, there are two concepts that help enable this translation with minimal loss: metadata and standard interfaces. \mycomment{I'm not sure if I should refer to standards as interfaces, or how to phrase that}
-
+For issues like these, there are two concepts that help enable this translation with minimal loss: metadata and standards.
 \subsection{Metadata and Data Type Conversion}\label{metadata}
 When passing data between two languages, a system must have a way of ensuring that the type systems of its component languages are respected. Additionally, it must ensure that type information is not lost when data moves from a strongly typed language to a weakly typed language, so that information is available when the data moves the other way.
 
-Metadata is the method by which this is accomplished\cite{Ide:2010}. Simply put, metadata is data describing data. \mycomment{I'm not sure how to talk about this, or if this is plenty.}
+Metadata is the method by which this is accomplished~\cite{Ide:2010}. Simply put, metadata is data describing data.
+This can be almost anything, as long as it conveys information beyond what the data can by itself. In the case of strongly-typed languages, the type information included as part of a variable declaration is a kind of metadata. In Figure \ref{typedExample}, for instance, we can tell that there is a difference between the {\tt height} and {\tt weight} fields, despite both fields being a number.
 
-One of the most basic things an interoperating system needs to take into account are the data types involved. 
-When passing data between two languages, a system needs to have a way of ensuring that the type restrictions of the LCD are respected. Ide and Pustejovsky \cite{Ide:2010} suggest metadata as the method to accomplish this, and in practice is what both styles use. Metadata is simply data about the data. This can be used to preserve type information when data is passed to a language that has no concept of the data types involved, or establish type information when passing data to a language that requires more strictly defined typing.
+
 \subsubsection*{VMs and metadata}
 
-There are two primary ways virtual machines handle metadata: language type specifications and metadata files. Both of these are handled by a compiler at compile time.
-Once the system has been compiled to the intermediate language, there should be no syntactic difference between the different parts, as they are now all the same language. \mycomment{don't think this is true..}
+\begin{figure}
+\begin{verbatim}
+Class Person
+  string name = "Cliff"
+  date dateOfBirth = 4/16/1978
+  int height = 74
+  double weight = 212
+end
+\end{verbatim}
+\caption{A Person class strongly-typed language}
+\label{typedExample}
+\end{figure}
 
-Strongly typed languages like Java or C\# include explicit type information with all data. This is essentially a form of metadata, though it is mainly used by the language compilers when transforming code to the intermediate language. In weakly or dynamically typed languages like Ruby and Groovy, this metadata does not exist. Since these languages perform run-time type checks instead of at compilation time, significantly more code is generated by their compilers, and they cannot take advantage of the intermediate language's primitive type system (everything must be assumed to be an Object-type object)\footnote{While this does have performance implications\cite{Li:2013}, they do not outweigh the gains from utilizing the VM}.
+\begin{figure}
+\begin{verbatim}
+Class Person
+  var name = "Cliff"
+  var dateOfBirth = 4/16/1978
+  var height = 74
+  var weight = 212
+end
+\end{verbatim}
+\caption{A Person class in an untyped language}
+\label{untypedExample}
+\end{figure}
+
+\begin{figure}
+\begin{verbatim}
+Class Person
+  var name = ["Cliff", "string"]
+  var dateOfBirth = [4/16/1978, "date"]
+  var height = [74, "int"]
+  var weight = [212, "double"]
+end
+\end{verbatim}
+\caption{An untyped Person class, with type metadata}
+\label{untypedMeta}
+\end{figure}
+
+
+
+
+There are two primary ways virtual machines handle metadata: language type specifications and metadata files. Both of these are handled by a compiler at compile time.
+Once the system has been compiled to the intermediate language, there should be no syntactic difference between the different parts, as they are now all the same language.
+
+As mentioned above, the explicit type information in strongly-typed languages, like Java or C\# is a kind of metadata. This metadata is entirely for use by their compilers, to assist with translation to the intermediate language.
+In weakly or dynamically typed languages like Ruby and Groovy, this metadata does not exist (Figure \ref{untypedExample}). Since these languages perform run-time type checks instead of at compilation time, significantly more code is generated by their compilers, and they cannot take advantage of the intermediate language's primitive type system (everything must be assumed to be an Object-type object)\footnote{While this does have performance implications~\cite{Li:2013}, they do not outweigh the gains from utilizing the VM}.
 \mycomment{I need to confirm this is true for Groovy}
 
 Compilers for both the JVM and CLR also generate metadata along side the intermediate code. The JVM stores this metadata in the same file as the code, while the CLR stores it in a separate file in the same location. This metadata is used by the run-time interpreter for type checking and to assist with JIT optimization, but can also be accessed by other tools. 
 
 \subsubsection*{MLs and metadata}
-Metadata is the strong point of markup languages, as they are designed around the same concept of describing data. Essentially, the fields in a markup language (tags, in the case of XML based languages) act as metadata for the data they are attached to.
+Metadata is the strong point of markup languages, as they are designed around the same concept of describing data. Essentially, the fields in a markup language (tags, in the case of XML-based languages) act as metadata for the data they are attached to.
+
+When translating into an object for another programming language, 
+
+The real metadata in a markup language can be stored in many ways. In Starlink's MDLs, for example, the type information of fields is stored in a {\tt <type>} tag before the definition of the fields begins, as can be seen in Figure \ref{MDL1} \cite{Bromberg:2011}. In other cases, the type information is stored in-line with specifications for correct formatting, as in XML schema (discussed in Section \ref{standards}).
 
 
-
-This is the area where markup languages really shine. Languages like XML can be configured to describe many custom types, and can nest these types to describe components of larger data structures, including descriptions of full objects.
-
-\mycomment{I'm concerned much of the above may need to be transferred to \ref{ML}. I should have enough here to fill the section if I talk about Starlink and FML, but this is something to keep in mind.}
-\mycomment{When talking about Starlink, consider including at least the <Types> section of their figure 7}
+\begin{figure}
+\begin{verbatim}
+<Person>
+  <name> Cliff </name>
+  <birthdate> 4/16/1978 </birthdate>
+  <height> 74 </height>
+  <weight> 212 </weight>
+</Person>
+\end{verbatim}
+\caption{An XML description of a person}
+\label{XMLexample}
+\end{figure}
 
 \subsection{Standards and Interfaces}\label{standards}
 Metadata is the core of successful interoperability. But if two systems attempting to communicate are expecting differently tagged data, they will still fail to interoperate. Metadata alone is not enough.
 
-There are two aspects to standards. One is agreement on similar data types, the other is the reaction to or approach to handling those types once received. Ide and Pustejovsky\cite{Ide:2010} refer to this difference as syntactic interoperability (agreement on data type and communication protocols) and semantic interoperability (the ability to act on data received in a way unsurprising to other components of a system).
+There are two aspects to standards. One is agreement on similar data types, the other is the reaction to or approach to handling those types once received. Ide and Pustejovsky~\cite{Ide:2010} refer to this difference as syntactic interoperability (agreement on data type and communication protocols) and semantic interoperability (the ability to act on data received in a way unsurprising to other components of a system).
 
-Shetty and Vadivel\cite{Shetty:2009} demonstrate an example of a failure in semantic interoperability even while retaining some (though not all) syntactic interoperability between Java and .NET (CLR languages) web services.
+Shetty and Vadivel~\cite{Shetty:2009} demonstrate an example of a failure in semantic interoperability even while retaining some (though not all) syntactic interoperability between Java and .NET (CLR languages) web services.
 While they found several syntactic mismatches, such as the Java's lack of unsigned numbers, there were issues even where the systems supported the same types. In particular, Shetty and Vadivel noted that null values were handled in largely incompatible ways. When given an array with a null element, Java interpreted as a null object, and printed {\tt null} when that element was requested. In contrast, .NET interpreted the element as empty, and printed an empty string when the element was requested. 
 Additionally, they found that precision of decimal, double, and float types differed between platforms. When asked to add and display 4.111111 and 8.999999, the Java client returned 12.999999 with full precision, while the .NET client returned 13. 
 
 
 \subsubsection*{VMs and Standardization}
-Although the above study found issues between virtual machines, systems run on homogeneous virtual machines architecture actually has an advantage. Systems on a virtual machine already have a standard implemented in the form of the intermediate language. Because the intermediate language has a full language specification, including both a type system and data interpretation behavior, it can act as a description for required behavior. Moreover, once a system has been compiled into the intermediate language, the behavior of the different components is constrained by that virtual machine's behavior.
+Although the above study found issues between virtual machines, systems run on homogeneous virtual machines architecture actually have an advantage. Systems on a virtual machine already have a standard implemented in the form of the intermediate language. Because the intermediate language has a full language specification, including both a type system and data interpretation behavior, it can act as a description for required behavior. Moreover, once a system has been compiled into the intermediate language, the behavior of the different components is constrained by that virtual machine's behavior.
 
-This is not a perfect solution however, as it requires 
+This is not a perfect solution however, as it still requires that the high-level languages have conventions for calling the other language. 
+These conventions are tied to compilers at least, so grammar for calling other languages on a particular VM can be included as part of a new compiler specification without affecting other implementations of that language.
 
-As Java was not initially intended to run other languages, making calls to non-Java languages is a difficult proposition\cite{Chisnall:2013}. However, new JVM languages, like Clojure and JRuby, inherrently provide support for accessing at least Java classes, if not directly other JVM languages.
+As an example of this, Java was not initially intended to run other languages, making calls to non-Java languages is a difficult proposition~\cite{Chisnall:2013}. However, new JVM languages, like Clojure and JRuby, inherently provide support for accessing at least Java classes, if not other JVM languages directly.
 
 
 \subsubsection*{MLs and Standardization}
 Standards are not inherent to markup languages, and there is no simple way to use them to enforce anything more than syntactic interop. While this is a shortcoming of markup languages, it is hardly the end of the world: syntactic interoperability can be achieved by explicit standards at the development level, though this requires that developers be particularly aware of their system's LCD.
 
-Semantic interop is much easier to attain with markup languages. Although not built in, many markup languages have a notion of correct formatting. In XML, correct formatting can be determined with the use of schema and 
+Semantic interop is much easier to attain with markup languages. Although not built in, many markup languages have a notion of schema, which can be used to regulate correct formatting. Messages sent in the markup language can be checked against these schema to ensure both that they contain the right fields in the right places, as well as that those fields contain the correct type of data. As Figure \ref{XMLschema} shows, type metadata can be stored within the schema specifications.
 
-It should be noted that schema and similar mechanisms are themselves simply a standard, and are not expressly enforced or singular. XML has several 
-
-and enforcement cannot be left to underlying hardware or compiler, as they can in a virtual machine setting. Some markup languages have do have standards built for them, such as schema for XML. These provide the same functionality as standards in virtual machines, but must be explicitly enforced by system designers, usually through third-party tools or manual additions to the system.
+It should be noted that schema and similar mechanisms are themselves simply a standard, and are not expressly enforced or singular. XML has several schema languages associated with it. Figure \ref{XMLschema} is an example of the W3C\footnote{World Wide Web Consortium} recommended standard.
 
 
+\begin{figure}
+\begin{verbatim}
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Person">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="name" type="xs:string" />
+        <xs:element name="birthdate" type="xs:date" />
+        <xs:element name="height" type="xs:double" />
+        <xs:element name="weight" type="xs:double" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
+\end{verbatim}
+\caption{A W3C-style XML schema for the person in Figure \ref{XMLexample}.}
+\label{XMLschema}
+\end{figure}
 
-
-\mycomment{describe schema in detail with XML. Can maybe use Starlink as a working example, but just talk about schema for a while}
-
-
-
-\subsection{Error Handling}\label{errors}
-
-\subsubsection*{VMs and Errors}
-
-\subsubsection*{MLs and errors}
 
 
 \section{Performance} \label{performance}
@@ -240,7 +289,7 @@ Regardless of how the system is built or the interop implemented, an interoperat
 
 The main issue faced in virtual machines is the LCD constraint. Because all languages eventually end up running in the same language, care must be taken that the intermediate language imposes few constraints on the higher level languages.
 
-Li, White, and Singer show that in the Java Virtual Machine, non-Java languages rely heavily on existing Java code libraries in order to mitigate performance difficulties. Additionally, they found that non-Java languages produced distinctly non-Java sequences of byte-code. While not tested, they indicate that JIT compilation optimization can potentially miss these sequences, as it is tuned to compile byte-code produced by Java.\cite{Li:2013}
+Li, White, and Singer show that in the Java Virtual Machine, non-Java languages rely heavily on existing Java code libraries in order to mitigate performance difficulties. Additionally, they found that non-Java languages produced distinctly non-Java sequences of byte-code. While not tested, they indicate that JIT compilation optimization can potentially miss these sequences, as it is tuned to compile byte-code produced by Java.~\cite{Li:2013}
 
 The CLR has no similar study, but because it was built to handle multiple languages at once, it is likely able to handle a wider variety of byte-code grammar efficiently. 
 \mycomment{Should the previous paragraphs be one?}
@@ -255,17 +304,17 @@ Ultimately, the performance costs of achieving interoperability must be weighed 
 
 \section{Conclusions}
 
-The two tool sets explored here have widely different applicable systems. 
 
-Virtual machines are much more feasible for systems being built from scratch, where all language decisions are in the hands of the developers. They may also be available to existing programs on a VM which a developer wishes to extend to a larger system; in this case, the extended system merely need be built on the same virtual machine, and it will be able to interoperate with the pre-existing software. More specifically however, virtual machines are most suited to systems that can exist on the same physical machine.
+Virtual machines and markup languages each have strengths and weaknesses in different use cases.
 
-In comparison, markup languages are better suited to dealing with preexisting or legacy systems, where there is too much code to change or parts of the source are simply unavailable,
-and so rewriting is not an option. Likewise, if the existing system cannot target a particular virtual machine, perhaps because a compiler from that language to that VM doesn't exist, recompiling the existing program is not feasible.
+Virtual machines are much more feasible for systems being built from scratch, where all language decisions are in the hands of the developers. They may also be available to existing programs on a VM which a developer wishes to extend to a larger system; in this case, the extended system merely need be built on the same virtual machine, and it will be able to interoperate with the pre-existing software.
 
-Additionally, markup languages have an advantage in distributed system environments, where they can be used in sending data over the network. Network nodes have no reason or way to know what language other nodes are running, nor what hardware they are running on. A markup language can act as an intermediary in these cases, describing data in a language-free way.
+In comparison, markup languages are better suited to dealing with preexisting or legacy systems, where there is too much code to make rewriting a feasible option, or where parts of the source are simply unavailable, potentially due to working with a third-party software. Likewise, if the existing system cannot target a particular virtual machine, perhaps because a compiler from that language to that VM doesn't exist, recompiling the existing program is not feasible.
 
-These two cases are not mutually exclusive, and indeed, markup languages fill a gap that virtual machines simply cannot cover. A real-world system is more likely make use of both tools to cover different aspects of their system than to rely on one, as demonstrated by Kidblog.
+Additionally, markup languages have an advantage in distributed system environments, where they can be used in sending data over the network. This is particularly important in client/server architecture, where servers have no way of guaranteeing the hardware or sometimes even the software being run by the clients. A markup language can act as an intermediary, providing the data in a language and hardware free way.
 
+
+These two cases are not mutually exclusive, and can even be complementary. A real-world system is more likely to make use of both virtual machines and markup languages to cover relevant aspects of their system than to rely on just a single approach.
 
 
 
