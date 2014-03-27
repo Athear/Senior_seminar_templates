@@ -13,8 +13,6 @@
 %%%% User-defined macros
 \newcommand{\lam}{\lambda}
 \newcommand{\mycomment}[1]{\textcolor{red}{#1}}
-%\newcommand{\mycomment}[1]{}
-\newcommand{\vm}[0]{virtual machine}
 %%%%% Uncomment the following line and comment out the previous one
 %%%%% to remove all comments
 %%%%% NOTE: comments still occupy a line even if invisible;
@@ -287,16 +285,18 @@ It should be noted that schema and similar mechanisms are themselves simply a st
 \section{Performance} \label{performance}
 Regardless of how the system is built or the interop implemented, an interoperating system will always accrue some overhead. The cost of translating from one language to another can have surprising impacts on efficiency. 
 
-The main issue faced in virtual machines is the LCD constraint. Because all languages eventually end up running in the same language, care must be taken that the intermediate language imposes few constraints on the higher level languages.
+The main issue faced in virtual machines is the LCD constraint. Because all languages eventually end up running in the same language, care must be taken that higher-level languages can be reasonably translated to the intermediate.
+Li, White, and Singer \cite{Li:2013} show that in the Java Virtual Machine, non-Java languages rely heavily on existing Java code libraries in order to mitigate performance difficulties. Additionally, they found that non-Java languages produced distinctly non-Java sequences of bytecode.
+For dynamically-typed languages like Ruby, these sequences are significantly longer than bytecode from an equivalent Java class. Additionally, JRuby bytecode contains none of the built-in type operators, which are used to optimize performance. This has some performance and space implications when comparing JRuby and Java, although JRuby does still see benefits from JIT optimization.
 
-Li, White, and Singer show that in the Java Virtual Machine, non-Java languages rely heavily on existing Java code libraries in order to mitigate performance difficulties. Additionally, they found that non-Java languages produced distinctly non-Java sequences of byte-code. While not tested, they indicate that JIT compilation optimization can potentially miss these sequences, as it is tuned to compile byte-code produced by Java.~\cite{Li:2013}
 
-The CLR has no similar study, but because it was built to handle multiple languages at once, it is likely able to handle a wider variety of byte-code grammar efficiently. 
-\mycomment{Should the previous paragraphs be one?}
+While I am not aware of a similar study focusing on languages on the CLR, the CLR was designed both with interoperability in mind and with an awareness that dynamically-typed languages would be running on it. From these two points, it seems reasonable to assume that CIL bytecode and the CLR interpreter are designed to handle dynamic types more efficiently or concisely.
+
 
 The primary concern for markup languages is in translation time. Because systems involving MLs usually also involve different languages at runtime, they also require translating between two or three languages during execution.
 
-Bromberg et al's report on the Starlink framework, which handles three translations per message (two between standard communication protocols and Starlink's internal representation of them, one between internal representations of the two protocols in question), showed a non-negligible time lapse between message and response. The lowest of these was 255 milliseconds, but in a system passing many messages this can add up.
+Bromberg et al's report on the Starlink framework, which handles three translations per message, showed a non-negligible time lapse between when the initial message was received by Starlink and when Starlink returned a reply to that protocol.
+\mycomment{Is this still too vague?}
 
 Ultimately, the performance costs of achieving interoperability must be weighed against the potential performance gains. In systems involving several specialized domains, or in systems utilizing diverse hardware, the gains can well out-weigh the costs.
 
