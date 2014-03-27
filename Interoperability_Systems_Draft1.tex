@@ -46,7 +46,14 @@ Todd Malone\\
 
 \maketitle
 \begin{abstract}
-\mycomment{A discussion of systems and methods for the interop of programming languages}
+Interoperability of programming languages is the ability for two or more languages to interact as part of the same system. Frequently, this mean s passing messages and data between potentially very different languages.
+The differences in these languages poses a serious basic barrier to creating an interoperative system.
+
+However, interoperation is important to many existing systems today, as programming languages have evolved to target particular problem domains at the expense of performance in others or in ease of use. In particular, the domains of client/server architecture and many distributed computing systems utilize multiple languages for network communication and actual processing.
+
+
+Becuase the problems inherent to cross language communication are myriad enough that no single single approach could address all the issues, several such tools have emerged which approach the problems from different directions.
+Two broad categories of these tools are virtual machines and markup languages. These two tools are used concurrently in many systems today, reflecting their different strengths.
 \end{abstract}
 
 \keywords{interoperability, language interoperability, programming languages, virtual machines, markup languages}
@@ -54,9 +61,9 @@ Todd Malone\\
 \section{Introduction}
 Interoperability, colloquially shortened to interop, is the ability for two or more systems to work together. This definition is very broad, covering anything from groups of people to businesses or bureaucratic systems to pieces of hardware. This paper will discuss interoperability between programming languages. While this narrows the field significantly, programming language interop is still a very broad topic.
 
-For instance, all browsers perform some kind of interop. Information to be displayed on a web page is handled by HTML, and while formatting computation handled by PHP or JavaScript; if there is more computation to be done, or if a database needs to be consulted, these front-end languages will communicate with a server, often written in languages like Java or C.
+For instance, all browsers perform some kind of interop. Information to be displayed on a web page is handled by HTML, and while formatting computation handled by PHP or JavaScript; if there is more computation to be done, or if a database needs to be consulted, these client-side languages will communicate with a server, often written in languages like Java or C.
 
-Likewise, these servers may be written in several languages themselves. A blog hosting service, Kidblog\footnote{kidblog.org}, uses a backend written in both Java and Clojure, using Java to handle translation between the front and back ends, and Clojure to handle the actual server load.
+Likewise, these servers may be written in several languages themselves. A blog hosting service, Kidblog\footnote{kidblog.org}, uses a backend written in both Java and Clojure, using Java to handle translation between the client and server ends, and Clojure to handle the actual server load.
 
 The challenges that arise when dealing with interoperability can be many, and sometimes surprising\cite{Chisnall:2013}. The tools and approaches used to overcome these challenges are likewise many. In the interest of brevity, we will look at a small subset of these challenges, along with several tools used to deal with them.
 
@@ -143,11 +150,11 @@ Also note that tags can be nested: lines 11 through 14 are contained within the 
 
 The eponymous extensibility of XML comes in the form of defining new tags. Systems using XML are not constrained to using the tags built in to XML, but can create new ones based on the data they will be handling. This allows for the creation of new markup languages based on XML, but built for a specific purpose. HTML is one example of such a language. Two others, which we'll take a closer look at, are FML and Starlink.
 
-Starlink \cite{Bromberg:2011} is actually more than just a markup language. It is a software framework designed to achieve distributed interoperability between existing systems with different communications protocols. One of the core features of Starlink is XML-based markup languages called the Message Description Languages (MDLs). MDLs are used to model incoming messages from a protocol as abstract messages: messages separated into their constituent parts and types. A translation logic specification, also written in XML, defines what parts in two MDLs can be translated to one another. Once Starlink has performed appropriate transformations based on the message type received, it can then marshal a message for the target protocol using the newly created abstract message.
+Starlink \cite{Bromberg:2011} is actually more than just a markup language. It is a software framework designed to achieve distributed interoperability between existing systems with different communications protocols. One of the core features of Starlink is XML-based markup languages called the Message Description Languages (MDLs). MDLs are used to model incoming messages from a protocol as abstract messages: messages separated into their constituent parts and types. A translation logic specification, also written in XML, defines what parts in two MDLs can be related to one another. Once Starlink has performed appropriate transformations based on the message type received, it can then marshal a message for the target protocol using the newly created abstract message.
 
 
 The Fuzzy Markup Language\cite{Acampora:2013} was not designed for interoperating systems at all. Fuzzy controllers handle converting crisp, or discrete, data into sets that cannot be defined as strictly. Fuzzy controlers may be used in things like automobile transmission control, where 
-
+\mycomment{could perhaps takl about how FML is used to describe functionality, more than just data types. Else drop}
  but was designed for both hardware and language independence. In effect, this makes it possible to use it in an interoperating system, if one had a distributed system where fuzzy logic would be a useful tool.
 
 \section{Difficulties and Approaches}\label{approaches}
@@ -175,10 +182,12 @@ Once the system has been compiled to the intermediate language, there should be 
 Strongly typed languages like Java or C\# include explicit type information with all data. This is essentially a form of metadata, though it is mainly used by the language compilers when transforming code to the intermediate language. In weakly or dynamically typed languages like Ruby and Groovy, this metadata does not exist. Since these languages perform run-time type checks instead of at compilation time, significantly more code is generated by their compilers, and they cannot take advantage of the intermediate language's primitive type system (everything must be assumed to be an Object-type object)\footnote{While this does have performance implications\cite{Li:2013}, they do not outweigh the gains from utilizing the VM}.
 \mycomment{I need to confirm this is true for Groovy}
 
-Compilers for both the JVM and CLR also generate metadata along side the intermediate code. The JVM stores this metadata in the same file as the code, while the CLR stores it in a separate file in the same location. This metadata is used by the run-time interpreter for type checking and to assist with JIT optimization. 
+Compilers for both the JVM and CLR also generate metadata along side the intermediate code. The JVM stores this metadata in the same file as the code, while the CLR stores it in a separate file in the same location. This metadata is used by the run-time interpreter for type checking and to assist with JIT optimization, but can also be accessed by other tools. 
 
 \subsubsection*{MLs and metadata}
-Markup languages are built with the concept of metadata in mind. A common feature of markup languages is the ability to contain or prepend data with tags, which can effectively act as metadata when used to transfer data between languages.
+Metadata is the strong point of markup languages, as they are designed around the same concept of describing data. Essentially, the fields in a markup language (tags, in the case of XML based languages) act as metadata for the data they are attached to.
+
+
 
 This is the area where markup languages really shine. Languages like XML can be configured to describe many custom types, and can nest these types to describe components of larger data structures, including descriptions of full objects.
 
@@ -188,21 +197,34 @@ This is the area where markup languages really shine. Languages like XML can be 
 \subsection{Standards and Interfaces}\label{standards}
 Metadata is the core of successful interoperability. But if two systems attempting to communicate are expecting differently tagged data, they will still fail to interoperate. Metadata alone is not enough.
 
-One example of this, as demonstrated by Shetty and Vadivel \cite{Shetty:2009}, occurs when trying to process web page output from Java and .NET services. \mycomment{I'm not sure if this is an example I should actually use. Or if I have any examples here}
+There are two aspects to standards. One is agreement on similar data types, the other is the reaction to or approach to handling those types once received. Ide and Pustejovsky\cite{Ide:2010} refer to this difference as syntactic interoperability (agreement on data type and communication protocols) and semantic interoperability (the ability to act on data received in a way unsurprising to other components of a system).
+
+Shetty and Vadivel\cite{Shetty:2009} demonstrate an example of a failure in semantic interoperability even while retaining some (though not all) syntactic interoperability between Java and .NET (CLR languages) web services.
+While they found several syntactic mismatches, such as the Java's lack of unsigned numbers, there were issues even where the systems supported the same types. In particular, Shetty and Vadivel noted that null values were handled in largely incompatible ways. When given an array with a null element, Java interpreted as a null object, and printed {\tt null} when that element was requested. In contrast, .NET interpreted the element as empty, and printed an empty string when the element was requested. 
+Additionally, they found that precision of decimal, double, and float types differed between platforms. When asked to add and display 4.111111 and 8.999999, the Java client returned 12.999999 with full precision, while the .NET client returned 13. 
+
 
 \subsubsection*{VMs and Standardization}
-In a virtual machine system, the standard is frequently already set.\footnote{This is not always the case, but is common practice with recent VMs built with the goal of interop.} Virtual machines come with their intermediate language with its own libraries and type systems. These essentially form the standard: each language hoping to run on a particular virtual machine must be translatable to the intermediate language, which can be used as a sort of lingua franca. Any language built to run on the VM should be able, with little additional effort, be able to interoperate with any other language on that VM.
+Although the above study found issues between virtual machines, systems run on homogeneous virtual machines architecture actually has an advantage. Systems on a virtual machine already have a standard implemented in the form of the intermediate language. Because the intermediate language has a full language specification, including both a type system and data interpretation behavior, it can act as a description for required behavior. Moreover, once a system has been compiled into the intermediate language, the behavior of the different components is constrained by that virtual machine's behavior.
+
+This is not a perfect solution however, as it requires 
+
+As Java was not initially intended to run other languages, making calls to non-Java languages is a difficult proposition\cite{Chisnall:2013}. However, new JVM languages, like Clojure and JRuby, inherrently provide support for accessing at least Java classes, if not directly other JVM languages.
 
 
 \subsubsection*{MLs and Standardization}
-Standards are not inherent to markup languages, and enforcement cannot be left to underlying hardware or compiler, as they can in a virtual machine setting. Some markup languages have do have standards built for them, such as schema for XML. These provide the same functionality as standards in virtual machines, but must be explicitly enforced by system designers, usually through third-party tools or manual additions to the system.
+Standards are not inherent to markup languages, and there is no simple way to use them to enforce anything more than syntactic interop. While this is a shortcoming of markup languages, it is hardly the end of the world: syntactic interoperability can be achieved by explicit standards at the development level, though this requires that developers be particularly aware of their system's LCD.
+
+Semantic interop is much easier to attain with markup languages. Although not built in, many markup languages have a notion of correct formatting. In XML, correct formatting can be determined with the use of schema and 
+
+It should be noted that schema and similar mechanisms are themselves simply a standard, and are not expressly enforced or singular. XML has several 
+
+and enforcement cannot be left to underlying hardware or compiler, as they can in a virtual machine setting. Some markup languages have do have standards built for them, such as schema for XML. These provide the same functionality as standards in virtual machines, but must be explicitly enforced by system designers, usually through third-party tools or manual additions to the system.
 
 
 
 
 \mycomment{describe schema in detail with XML. Can maybe use Starlink as a working example, but just talk about schema for a while}
-	
-\mycomment{Starlink}
 
 
 
@@ -237,12 +259,18 @@ The two tool sets explored here have widely different applicable systems.
 
 Virtual machines are much more feasible for systems being built from scratch, where all language decisions are in the hands of the developers. They may also be available to existing programs on a VM which a developer wishes to extend to a larger system; in this case, the extended system merely need be built on the same virtual machine, and it will be able to interoperate with the pre-existing software. More specifically however, virtual machines are most suited to systems that can exist on the same physical machine.
 
-In comparison, markup languages are better suited to dealing with preexisting or legacy systems, where there is too much code to change or parts of the source are simply unavailable \mycomment{Does that happen?},
+In comparison, markup languages are better suited to dealing with preexisting or legacy systems, where there is too much code to change or parts of the source are simply unavailable,
 and so rewriting is not an option. Likewise, if the existing system cannot target a particular virtual machine, perhaps because a compiler from that language to that VM doesn't exist, recompiling the existing program is not feasible.
 
 Additionally, markup languages have an advantage in distributed system environments, where they can be used in sending data over the network. Network nodes have no reason or way to know what language other nodes are running, nor what hardware they are running on. A markup language can act as an intermediary in these cases, describing data in a language-free way.
 
 These two cases are not mutually exclusive, and indeed, markup languages fill a gap that virtual machines simply cannot cover. A real-world system is more likely make use of both tools to cover different aspects of their system than to rely on one, as demonstrated by Kidblog.
+
+
+
+
+
+
 
 
 %\section{Acknowledgments}
