@@ -45,13 +45,13 @@ Todd Malone\\
 
 \maketitle
 \begin{abstract}
-Interoperability of programming languages is the ability for two or more languages to interact as part of the same system. Frequently, this mean s passing messages and data between potentially very different languages.
-The differences in these languages poses a serious basic barrier to creating an interoperative system.
+Interoperability of programming languages is the ability for two or more languages to interact as part of the same system. Frequently, this means passing messages and data between potentially very different languages.
+The differences in these languages pose a serious barrier to creating an interoperative system.
 
-However, interoperation is important to many existing systems today, as programming languages have evolved to target particular problem domains at the expense of performance in others or in ease of use. In particular, the domains of client/server architecture and many distributed computing systems utilize multiple languages for network communication and actual processing.
+However, interoperability is important to many existing systems today, as programming languages have evolved to target particular problem domains at the expense of performance in others or in ease of use. In particular, the domains of client/server architecture and many distributed computing systems utilize multiple languages for network communication and actual processing.
 
 
-Becuase the problems inherent to cross language communication are myriad enough that no single single approach could address all the issues, several such tools have emerged which approach the problems from different directions.
+The problems inherent to cross language communication are myriad enough that no single single approach could address all the issues, several such tools have emerged which approach the problems from different directions.
 Two broad categories of these tools are virtual machines and markup languages. These two tools are used concurrently in many systems today, reflecting their different strengths.
 \end{abstract}
 
@@ -60,7 +60,7 @@ Two broad categories of these tools are virtual machines and markup languages. T
 \section{Introduction}
 Interoperability, colloquially shortened to interop, is the ability for two or more systems to work together. This definition is very broad, covering anything from groups of people to businesses or bureaucratic systems to pieces of hardware. This paper will discuss interoperability between programming languages. While this narrows the field significantly, programming language interop is still a very broad topic.
 
-For instance, all browsers perform some kind of interop. Information to be displayed on a web page is handled by HTML, and while formatting computation handled by PHP or JavaScript; if there is more computation to be done, or if a database needs to be consulted, these client-side languages will communicate with a server, often written in languages like Java or C.
+For instance, all browsers perform some kind of interop. Information to be displayed on a web page is handled by a browser's interpretation of HTML, while any real-time aspect of the page will be handled by a language like JavaScript; if there is more computation to be done, or if a database needs to be consulted, these client-side languages will communicate with a server, often written in languages like Java or C.
 
 Likewise, these servers may be written in several languages themselves. A blog hosting service, Kidblog\footnote{kidblog.org}, uses a backend written in both Java and Clojure, using Java to handle translation between the client and server ends, and Clojure to handle the actual server load.
 
