@@ -2,7 +2,7 @@
 
 \mode<presentation>
 {
-  \usetheme{CambridgeUS}
+  \usetheme{Antibes}
   \setbeamercovered{transparent}
 }
 
@@ -100,11 +100,16 @@
   \begin{columns}
   \begin{column}{0.6\textwidth}
   \begin{itemize}
-  	\item Third-party or legacy systems %where source code is unavailable
-	\item Language purpose
-	\item 
-	\item 
-	\item 
+  	\item Third-party systems: source code is unavailable
+	\item Legacy systems: 
+  \end{itemize}
+  \end{column}
+  
+  \begin{column}{0.6\textwidth}
+  \begin{itemize}
+  	\item Language Purpose
+  	\item C has fine-grain memory access
+  	\item 
   \end{itemize}
   \end{column}
   \end{columns}
@@ -155,7 +160,7 @@
   \end{columns}
 \end{frame}
 
-\section[Difficulties and Approaches]{Issues encountered in Interop and approaches to dealing with them}
+\section[Difficulties and Approaches]{Difficulties in Interop and approaches to dealing with them}
 
 \subsection{Overview}
 
@@ -179,18 +184,12 @@
 
 \begin{frame}
   \frametitle{Metadata and type conversion}
-  
-  \begin{columns}
-  \begin{column}{0.6\textwidth}
-  \begin{itemize}
-  	\item 
-	\item 
-	\item 
-	\item 
-	\item 
-  \end{itemize}
-  \end{column}
-  \end{columns}
+
+	Metadata: Data about data
+	
+	{\tt (def mylist [1, 2, 3, 4])}
+	
+	{\tt (with-meta mylist \{:length 4, :type Integer\})}
 \end{frame}
 
 \subsection{Standards}
@@ -233,9 +232,9 @@
 
 
 \begin{frame}
-	\frametitle{Thanks!}
+	\frametitle{The End!}
 	
-	Thank you for your time and attention!
+	
 		
 	\linespace
 	\linespace
