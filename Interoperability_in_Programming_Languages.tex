@@ -25,7 +25,7 @@
 %%% REMEMBER TO CHANGE THE SEMESTER AND YEAR
 \conferenceinfo{UMM CSci Senior Seminar Conference, April 2014}{Morris, MN}
 
-\title{Programming Language Interoperability}
+\title{Interoperability in Programming Languages}
 
 \numberofauthors{1}
 
@@ -82,8 +82,7 @@ Some languages are constructed to tackled specific problems, but provide almost 
 
  because Erlang was never intended to deal with strings. As a result, it has no library for string interaction, and treats them as arrays of characters. A system using Erlang for handling distributed communications which also needed to manipulate strings would have use for interop: another language could be used to handle the strings, while leaving the RPCs to Erlang.
 
-Still others allow access in ways that are hidden in other languages. The memory access model in C, for instance, differs from many other high-level languages presently in use. C enables very fine-grained memory access and control, and places all of this control in the programmer's hands. Likewise, assembly languages allow direct access to hardware and the underlying storage mechanisms. 
-The higher level of control offered allows developers to make very specific, fine-tuned adjustments to their systems, enabling performance improvements in ways specific to the program or the hardware platform. However, these languages have high learning curves, and programs using them may have security concerns if not done correctly.
+Still others allow access in ways that are hidden in other languages. The memory access model in C, for instance, differs from many other high-level languages presently in use. C enables very fine-grained memory access and control, and places all of this control in the programmer's hands. Likewise, assembly languages allow direct access to hardware and the underlying storage mechanisms. This low-level control can be useful when dealing with systems with minimal memory, where the highest possible memory efficiency is required, or when access to device drivers is needed, for things like GPU computation.  However, these languages have high learning curves, and programs using them may have security concerns if not done correctly.
 
 The difficulty involved in learning a language is not a minor concern, either. Developer time and energy are important considerations when designing a system.
 For example, Java was initially intended to be the go-to language for web development. In practice, most web development is now done with scripting languages like Ruby or JavaScript. Java has, in turn, become more of a server back end language. The reasons for this shift had nothing to do with what Java was capable of, and much more to do with what programmers were willing to deal with.
