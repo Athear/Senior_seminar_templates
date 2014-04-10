@@ -78,7 +78,7 @@ Section \ref{performance} will look at a few of the performance implications of 
 \section{Interoperability}\label{Interop}
 The primary importance of interoperability lies in the varying capabilities of different languages. Programming languages are optimized for particular tasks, and different languages perform better in different situations.
 
-Some languages are constructed to tackled specific problems, but provide almost no support for others. Erlang, for instance, is one of the primary languages used in distributed computing. It was built around remote procedure calls (RPCs), and handles them simply and powerfully. However, manipulating strings in Erlang is very difficult:
+Some languages are constructed to tackled specific problems, but provide reduced support for others. Erlang, for instance, is one of the primary languages used in distributed computing. It was built around remote procedure calls (RPCs), and handles them simply and powerfully. However, intensive string manipulation in Erlang can be a challenge: Strings are not first class types in Erlang, nor do they even have a distinct type~\cite{ErlangTypeDoc}. Strings in Erlang are treated as character arrays, and while there is a module for string manipulation, it is significantly more light-weight than the Java or Ruby string classes. \mycomment{I'm considering removing reference to Java/Ruby here.}
 
  because Erlang was never intended to deal with strings. As a result, it has no library for string interaction, and treats them as arrays of characters. A system using Erlang for handling distributed communications which also needed to manipulate strings would have use for interop: another language could be used to handle the strings, while leaving the RPCs to Erlang.
 
@@ -88,7 +88,7 @@ The difficulty involved in learning a language is not a minor concern, either. D
 For example, Java was initially intended to be the go-to language for web development. In practice, most web development is now done with scripting languages like Ruby or JavaScript. Java has, in turn, become more of a server back end language. The reasons for this shift had nothing to do with what Java was capable of, and much more to do with what programmers were willing to deal with.
 The learning curve for Java is higher than many scripting languages, and is generally much more verbose.
 
-Apart from the capabilities of the languages involved, interoperability is often tied to hardware independence. The problems faced in achieving language independence and hardware independence are frequently similar, or have similar solutions. As noted above in the case of Java, designing for hardware independence allowed Java's virtual machine to act as a tool for language independence as well.
+Apart from the capabilities of the languages involved, interoperability is often tied to hardware independence. The problems faced in achieving language independence and hardware independence are frequently similar, or have similar solutions. For instance, fuzzy controllers, which in part translate real-world input to fuzzy sets, are often strictly tied to the hardware they will be implemented upon. FML, the Fuzzy Markup Language, was developed as a way to fully describe such a controller in a hardware-independent manner. Part of this hardware independence involves independence from any particular implementing language; as such, a fuzzy controller specified in FML is capable of being implemented in or potentially across several different languages.~\cite{Acampora:2013}
 
 In client/server architecture, such as in Kidblog, the client-side and server-side environments are likely written in different languages, and guaranteed to be on different machines. Kidblog handles communication between the two using JSON, a markup language. On the client-side, JavaScript marshals blog posts into JSON objects, which are then sent to the server. There, they are converted to Java objects, which Clojure can then act on. Since Java is more strongly typed than JavaScript, JSON is also used to help translate between the two. We'll take a closer look at this in Section \ref{metadata}.
 
@@ -138,12 +138,6 @@ Also note that tags can be nested: lines 11 through 14 are contained within the 
 The eponymous extensibility of XML comes in the form of defining new tags. Systems using XML are not constrained to using the tags built in to XML, but can create new ones based on the data they will be handling. This allows for the creation of new markup languages based on XML, but built for a specific purpose. HTML is one example of such a language. Two others, which we'll take a closer look at, are FML and Starlink.
 
 Starlink~\cite{Bromberg:2011} is actually more than just a markup language. It is a software framework designed to achieve distributed interoperability between existing systems with different communications protocols. One of the core features of Starlink is XML-based markup languages called the Message Description Languages (MDLs). MDLs are used to model incoming messages from a protocol as abstract messages, which are network messages separated into their constituent parts and types. A translation logic specification, also written in XML, defines what parts in two MDLs can be related to one another. Once Starlink has performed appropriate transformations based on the message type received, it can then marshal a message for the target protocol using the newly created abstract message.
-
-
-The Fuzzy Markup Language~\cite{Acampora:2013} (FML) was not designed for interoperating systems at all, but for releasing fuzzy controllers from hardware constraints.
-Fuzzy controllers are used in systems where either input or output cannot be meaningfully modeled as true or false. An example of such a system might be in street lamps, where the decision of when to turn on depends on the ambient light level. One issue with fuzzy controllers is that they are generally written in an intensely low-level way, and therefore particular implementations are tightly bound to to the hardware they are designed to run on. As Acampora~\cite{Acampora:2013} mentions, this means that in a distributed context, a new controller may have to be designed for every hardware installation regardless of the similarity in purpose.
-
-FML is the solution to this. The specifications for FML allow it to model the full controller, including 
 
 \section{Difficulties and Approaches}\label{approaches}
 When building a system with interoperating languages, there are several aspects of the system that designers need to account for. Of particular importance is the lowest common denominator (LCD) constraint.
@@ -248,10 +242,10 @@ Additionally, they found that precision of decimal, double, and float types diff
 \subsubsection*{VMs and Standardization}
 Although the above study found issues between virtual machines, systems run on homogeneous virtual machines architecture actually have an advantage. Systems on a virtual machine already have a standard implemented in the form of the intermediate language. Because the intermediate language has a full language specification, including both a type system and data interpretation behavior, it can act as a description for required behavior. Moreover, once a system has been compiled into the intermediate language, the behavior of the different components is constrained by that virtual machine's behavior.
 
-This is not a perfect solution however, as it still requires that the high-level languages have conventions for accessing other high-level language components. \mycomment{use JRuby example of calling Java code here} 
+This is not a perfect solution however, as it still requires that the high-level languages have conventions for accessing other high-level language components.
 These conventions are tied to compilers at least, so grammar for calling other languages on a particular VM can be included as part of a new compiler specification without affecting other implementations of that language.
 
-As an example of this, Java was not initially intended to run other languages, making calls to non-Java languages is a difficult proposition~\cite{Chisnall:2013}. However, new JVM languages, like Clojure and JRuby, inherently provide support for accessing at least Java classes, if not other JVM languages directly.
+As an example of this, Java was not initially intended to run other languages, making calls to non-Java languages is a difficult proposition~\cite{Chisnall:2013}. However, new JVM languages, like Clojure and JRuby, inherently provide support for accessing Java classes. \mycomment{would this benefit from an explicit example?}
 
 
 \subsubsection*{MLs and Standardization}
