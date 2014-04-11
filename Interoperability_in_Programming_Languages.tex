@@ -93,6 +93,7 @@ Apart from the capabilities of the languages involved, interoperability is often
 In client/server architecture, such as in Kidblog, the client-side and server-side environments are likely written in different languages, and guaranteed to be on different machines. Kidblog handles communication between the two using JSON, a markup language. On the client-side, JavaScript marshals blog posts into JSON objects, which are then sent to the server. There, they are converted to Java objects, which Clojure can then act on. Since Java is more strongly typed than JavaScript, JSON is also used to help translate between the two. We'll take a closer look at this in Section \ref{metadata}.
 
 
+
 \section{Virtual Machines}\label{VM}
 \begin{figure}
 \psfig{file=CLR.png, width = 3in}
@@ -282,7 +283,7 @@ It should be noted that schema and similar mechanisms are themselves simply a st
 Regardless of how the system is built or the interop implemented, an interoperating system will always accrue some overhead. The cost of translating from one language to another can have surprising impacts on efficiency. 
 
 The main issue faced in virtual machines is the LCD constraint. Because all languages eventually end up running in the same language, care must be taken that higher-level languages can be reasonably translated to the intermediate.
-Li, White, and Singer \cite{Li:2013} show that in the Java Virtual Machine, non-Java languages rely heavily on existing Java code libraries in order to mitigate performance difficulties. Additionally, they found that non-Java languages produced distinctly non-Java sequences of bytecode.
+Li, White, and Singer \cite{Li:2013} show that in the Java Virtual Machine, non-Java languages rely heavily on existing Java code libraries in order to mitigate performance difficulties. Additionally, they found that non-Java languages produced sequences of bytecode distinct from those produced from Java source code.
 For dynamically-typed languages like Ruby, these sequences are significantly longer than bytecode from an equivalent Java class. Additionally, JRuby bytecode contains none of the built-in type operators, which are used to optimize performance. This has some performance and space implications when comparing JRuby and Java, although JRuby does still see benefits from JIT optimization.
 
 
