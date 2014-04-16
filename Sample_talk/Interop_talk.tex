@@ -17,13 +17,7 @@
 \newcommand{\linespace}{\vskip 0.25cm}
 
 \definecolor{MyForestGreen}{rgb}{0,0.7,0} 
-\newcommand{\tableemph}[1]{{#1}}
-\newcommand{\tablewin}[1]{\tableemph{#1}}
-\newcommand{\tablemid}[1]{\tableemph{#1}}
-\newcommand{\tablelose}[1]{\tableemph{#1}}
-
-\definecolor{MyLightGray}{rgb}{0.6,0.6,0.6}
-\newcommand{\tabletie}[1]{\color{MyLightGray} {#1}}
+\newcommand{\mynotes}[1]{}
 
 % The text in square brackets is the short version of your title and will be used in the
 % header/footer depending on your theme.
@@ -99,17 +93,20 @@
   
   \begin{columns}
   \begin{column}{0.6\textwidth}
+  Developer time and effort
   \begin{itemize}
   	\item Third-party systems: source code is unavailable
-	\item Legacy systems: 
+	\item Legacy systems: extensive or little-understood code base.
+	\item Generally, existing and working code is easier to use as-is.
   \end{itemize}
   \end{column}
   
   \begin{column}{0.6\textwidth}
+  Language Purpose:
   \begin{itemize}
-  	\item Language Purpose
-  	\item C has fine-grain memory access
-  	\item 
+  	\item Low-level memory access (C)
+  	\item Parallel or distributed systems (Erlang, Clojure)
+  	\item Statistics (R)
   \end{itemize}
   \end{column}
   \end{columns}
@@ -190,6 +187,24 @@
 	{\tt (def mylist [1, 2, 3, 4])}
 	
 	{\tt (with-meta mylist \{:length 4, :type Integer\})}
+
+	In Clojure:
+	\begin{itemize}
+	\item lists are untyped; can contain entries of different types.
+	\item metadata, added as above, is all user-controlled.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{columns}
+  \begin{column}{0.6\textwidth}
+    \frametitle{Why Metadata?}
+    \begin{itemize}   
+    \item Decontextualized data can carry context with it
+    \item Data transfer between languages with different type strictness.
+    \end{itemize}
+  \end{column}
+  \end{columns}
 \end{frame}
 
 \subsection{Standards}
