@@ -64,6 +64,7 @@
 % - At *most* three subsections per section.
 % - Talk about 30s to 2min per frame. So there should probably be between
 %   15 and 30 frames, all told.
+% Slide notes will be comment under each frame end, or under each column where appropriate.
 
 \section*{Interoperability}
 
@@ -75,11 +76,14 @@
   \begin{columns}
   \begin{column}{0.6\textwidth}
   \begin{itemize}
-  	\item Interoperability: The ability for a system to use parts from another system
-	\item In programming languages: A program written in one language can use a program in a different language
+  	\item Interoperability or Interop
+  	\item The ability for a system to use parts from another system
+	\item In programming languages: The interaction of 
 	\item 
   \end{itemize}
   \end{column}
+%mainly, a program running in one language has the ability to call on aspects of another program, written in a different language  
+  
   \begin{column}{0.4\textwidth}
    \includegraphics[width=0.95\textwidth]{Illustrations/Empty_cocoon_crop_by_Bluedrakon_from_Flickr.jpg}
        \\
@@ -90,17 +94,21 @@
 
 \begin{frame}
   \frametitle{Why is Interop Important?}
+%These generally fall under to main categories: Dev time, or effort; and the purpose of different languages.
   
+%(also consider splitting this into a new slide, and just introduce the categories. ONLY do this if this slide is deemed too busy)
   \begin{columns}
   \begin{column}{0.6\textwidth}
   Developer time and effort
   \begin{itemize}
+	\item Existing and working code is easier to use as-is.
   	\item Third-party systems: source code is unavailable
 	\item Legacy systems: extensive or little-understood code base.
-	\item Generally, existing and working code is easier to use as-is.
   \end{itemize}
-  \end{column}
-  
+  \end{column}  
+
+
+%(consider splitting this into a new slide)
   \begin{column}{0.6\textwidth}
   Language Purpose:
   \begin{itemize}
@@ -118,6 +126,8 @@
   \frametitle{Outline}
   \tableofcontents[hideallsubsections]
 \end{frame}
+%I'll be talking about two particular tools used for enabling interoperability,
+%as well as two particular concepts central to interop in programming languages
 
 \section[Interop Tools]{Tools used in achieving Interoperability}
 
@@ -126,6 +136,7 @@
 \begin{frame}
   \frametitle{Virtual Machines}
   
+  %add graphic: CLR VM
   \begin{columns}
   \begin{column}{0.6\textwidth}
   \begin{itemize}
