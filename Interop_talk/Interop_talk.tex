@@ -17,13 +17,7 @@
 \newcommand{\linespace}{\vskip 0.25cm}
 
 \definecolor{MyForestGreen}{rgb}{0,0.7,0} 
-\newcommand{\tableemph}[1]{{#1}}
-\newcommand{\tablewin}[1]{\tableemph{#1}}
-\newcommand{\tablemid}[1]{\tableemph{#1}}
-\newcommand{\tablelose}[1]{\tableemph{#1}}
-
-\definecolor{MyLightGray}{rgb}{0.6,0.6,0.6}
-\newcommand{\tabletie}[1]{\color{MyLightGray} {#1}}
+\newcommand{\mynotes}[1]{}
 
 % The text in square brackets is the short version of your title and will be used in the
 % header/footer depending on your theme.
@@ -70,6 +64,7 @@
 % - At *most* three subsections per section.
 % - Talk about 30s to 2min per frame. So there should probably be between
 %   15 and 30 frames, all told.
+% Slide notes will be comment under each frame end, or under each column where appropriate.
 
 \section*{Interoperability}
 
@@ -81,13 +76,15 @@
   \begin{columns}
   \begin{column}{0.6\textwidth}
   \begin{itemize}
-  	\item Interoperability: The ability for a system to use parts from another system
-	\item In programming languages: A program written in one language can use a program in a different language
-	\item 
+  	\item Interoperability or Interop
+  	\item The ability for a system to use parts from another system
+	\item In programming languages: The ability of a language to call on code from another language
   \end{itemize}
   \end{column}
+%mainly, a program running in one language has the ability to call on aspects of another program, written in a different language  
+  
   \begin{column}{0.4\textwidth}
-   \includegraphics[width=0.95\textwidth]{Illustrations/Empty_cocoon_crop_by_Bluedrakon_from_Flickr.jpg}
+   \includegraphics[width=0.95\textwidth]{graphics/Empty_cocoon_crop_by_Bluedrakon_from_Flickr.jpg}
        \\
     \only{\tiny{Bluedrakon \\ \url{http://tr.im/pWUi} }}
   \end{column}
@@ -96,23 +93,30 @@
 
 \begin{frame}
   \frametitle{Why is Interop Important?}
+%These generally fall under to main categories: Dev time, or effort; and the purpose of different languages.
   
-  \begin{columns}
-  \begin{column}{0.6\textwidth}
+  \begin{columns}[t]
+  \begin{column}{0.5\textwidth}
+  Developer time and effort
   \begin{itemize}
+	\item Existing and working code is easier to use as-is.
   	\item Third-party systems: source code is unavailable
-	\item Legacy systems: 
+	\item Legacy systems: extensive or little-understood code base.
   \end{itemize}
-  \end{column}
-  
-  \begin{column}{0.6\textwidth}
+  \end{column}  
+
+
+%(consider splitting this into a new slide)
+  \begin{column}{0.5\textwidth}
+  Language Purpose:
   \begin{itemize}
-  	\item Language Purpose
-  	\item C has fine-grain memory access
-  	\item 
+  	\item Low-level memory access (C)
+  	\item Parallel or distributed systems (Erlang, Clojure)
+  	\item Statistics (R)
   \end{itemize}
   \end{column}
   \end{columns}
+  
 \end{frame}
 
 \subsection*{Outline}
@@ -121,25 +125,38 @@
   \frametitle{Outline}
   \tableofcontents[hideallsubsections]
 \end{frame}
+%I'll be talking about two particular tools used for enabling interoperability,
+%as well as two particular concepts central to interop in programming languages
 
-\section[Interop Tools]{Tools used in achieving Interoperability}
+\section[Interop Tools]{Tools used in achieving interoperability}
 
 \subsection{Virtual Machines}
 
 \begin{frame}
   \frametitle{Virtual Machines}
   
+  %add graphic: CLR VM
   \begin{columns}
   \begin{column}{0.6\textwidth}
   \begin{itemize}
-  	\item 
-	\item 
-	\item 
-	\item 
-	\item 
+	\item Virtual Machines (VMs) are a runtime environment for a program
+	\item High-level languages compile to an intermediate language
+	\item Intermediate language: Java bytecode or Common Intermediate Language
   \end{itemize}
   \end{column}
+  
+  \begin{column}{0.5\textwidth}
+  \includegraphics[width=1\textwidth]{graphics/CLR.png}
+    \\
+    \only{\tiny{Wikipedia \\ \url{http://tr.im/pWUi}}}
+  \end{column}
   \end{columns}
+\end{frame}
+%Briefly, VMs emulate an operating system, or computer hardware. We'll be talking about a specific kind of VM, the process VM, that acts as a runtime environment for a program.
+
+\begin{frame}
+  \frametitle{High-level vs Bytecode}
+  \includegraphics[width=1.5\textwidth]{graphics/FibCompair.pdf}
 \end{frame}
 
 \subsection{Markup Languages}
@@ -160,9 +177,7 @@
   \end{columns}
 \end{frame}
 
-\section[Difficulties and Approaches]{Difficulties in Interop and approaches to dealing with them}
-
-\subsection{Overview}
+\section[Difficulty]{What makes Interop difficult?}
 
 \begin{frame}
   \frametitle{Some common difficulties in interop}
@@ -180,6 +195,8 @@
   \end{columns}
 \end{frame}
 
+\section[Handling interop]{Concepts in overcoming difficulties}
+
 \subsection{Metadata}
 
 \begin{frame}
@@ -190,6 +207,30 @@
 	{\tt (def mylist [1, 2, 3, 4])}
 	
 	{\tt (with-meta mylist \{:length 4, :type Integer\})}
+	\linespace
+	In Clojure:
+	\begin{itemize}
+	\item lists are untyped; can contain entries of different types.
+	\item metadata, added as above, is all user-controlled.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Why Metadata?}
+  \begin{columns}
+  \begin{column}{0.6\textwidth}
+
+    \begin{itemize}   
+    \item Decontextualized data can carry context with it
+    \item Data transfer between languages with different type strictness.
+    \end{itemize}
+  \end{column}
+   %add example here...
+  \begin{column}{0.6\textwidth}
+  
+  \end{column}
+  
+  \end{columns}
 \end{frame}
 
 \subsection{Standards}
@@ -257,21 +298,7 @@
 \begin{frame} 
 	\frametitle{References} 
 	
-	\begin{thebibliography}{lskdjf}
-	
-	\bibitem{McPhee:2009:gecco}
-N.~F. McPhee, E.~Crane, S.~Lahr, and R.~Poli.
-\newblock Developmental Plasticity in Linear Genetic Programming.
-\newblock In G\"unther Raidl, \emph{et al}, editors, {\em GECCO '09}, pages 1019--1026, Montr\'eal, Qu\'ebec, Canada, 2009.
-	
-	\bibitem{citeulike:3452411}
-	R.~Poli and N.~McPhee.
-\newblock A linear estimation-of-distribution {GP} system.
-\newblock In M.~O'Neill, \emph{et al}, editors, {\em EuroGP 2008}, volume
-  4971 of {\em LNCS}, pages 206--217, Naples,
-  26-28 Mar. 2008. Springer.
-  
-  	\end{thebibliography}
+	\bibliography{bibliography}
 	
 	\linespace
 	\begin{center}
