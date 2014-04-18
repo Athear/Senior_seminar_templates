@@ -28,7 +28,7 @@
 
 % The text in square brackets is the short version of your name(s) and will be used in the
 % header/footer depending on your theme.
-\author[Malone]{Todd Owen Malone}
+\author[Malone]{Todd Malone}
 
 % The text in square brackets is the short version of your institution and will be used in the
 % header/footer depending on your theme.
@@ -103,10 +103,11 @@
   	\item Third-party systems: source code is unavailable
 	\item Legacy systems: extensive or little-understood code base.
   \end{itemize}
-  \end{column}  
+  \end{column}
+  %existing (and working) code that does the thing you need it to do, it's easier to use as it is than it is to rewrite it.
+  %sometimes, rewriting is an option, but there's just too much code and domain knowledge involved. (example: that a polygon doesn't cross itself) (if there's a lot, it would take a long time, too)
+  %other time, you 
 
-
-%(consider splitting this into a new slide)
   \begin{column}{0.5\textwidth}
   Language Purpose:
   \begin{itemize}
@@ -116,6 +117,11 @@
   \end{itemize}
   \end{column}
   \end{columns}
+%
+%each of these languages has some drawbacks, which not hugely importnant
+%however, if the programmer isn't comfortable enough with the language to deal with its escentricities,
+%then they'd be better served by utilizing it for the specific thing they need from it, in as small a chunk as they can get.
+
   
 \end{frame}
 
@@ -184,10 +190,36 @@
 %Several other languages have emerged to model data specifically in this way, like JSON. JSON is JavaScript's Object Notation, implying correctly that it models data like an object.
 
 
-\section[Difficulty]{What makes Interop difficult?}
+\section[Difficulties]{Common difficulties in interop}
+%Everything in this section is closely related: it's all about the data.
+%The three main problems encountered in 
 
+
+\subsection{Type systems}
 \begin{frame}
-  \frametitle{Some common difficulties in interop}
+  \frametitle{Types (and untypes)}
+  
+  \begin{columns}
+  \begin{column}{0.6\textwidth}
+  \begin{itemize}
+  	\item Languages represent data in different ways %numbers: Java says "int!", JavaScript says "Number!". Ruby says "Whatever! I'll figure it out."
+	\item Languages act on data in different ways %This is most obvious in numbers, but Java and C# handle printing of NULL objects very differently
+	\item 
+	\item 
+	\item 
+  \end{itemize}
+  \end{column}
+  
+  \begin{column}{0.5\textwidth}
+  
+  \end{column}
+  \end{columns}
+\end{frame}
+%Numbers are really the easiest example, because there are so many ways of representing them. 
+
+\subsection{Data structures}
+\begin{frame}
+  \frametitle{Types (and untypes)}
   
   \begin{columns}
   \begin{column}{0.6\textwidth}
@@ -197,6 +229,23 @@
 	\item 
 	\item 
 	\item 
+  \end{itemize}
+  \end{column}
+  
+  \begin{column}{0.5\textwidth}
+  
+  \end{column}
+  \end{columns}
+\end{frame}
+
+\subsection{Data processing}
+\begin{frame}
+  \frametitle{Handling data}
+  
+  \begin{columns}
+  \begin{column}{0.5\textwidth}
+  \begin{itemize}
+  \item Languages 
   \end{itemize}
   \end{column}
   \end{columns}
@@ -221,6 +270,10 @@
 	\item metadata, added as above, is all user-controlled.
 	\end{itemize}
 \end{frame}
+%Metadata: data about data. Specifically, it's information beyond what the data itself can convey.
+%Say we had x = 5. all x knows is that it's a five. "Integer" is a storage mechanism, or representation in the language.
+%"Integer" is also context specific. Java knows about x's integer-ness, but JavaScript, or JSON, does not. 
+
 
 \begin{frame}
     \frametitle{Why Metadata?}
