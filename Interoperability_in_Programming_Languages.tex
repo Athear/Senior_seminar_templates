@@ -229,6 +229,20 @@ The real metadata in a markup language can be stored in many ways. In Starlink's
 \label{XMLexample}
 \end{figure}
 
+%\begin{figure}
+%\begin{verbatim}
+%{
+% "name": "Cliff",
+% "birthdate": "4/16/1978",
+% "height": "74",
+% "weight": "212";
+%}
+%\end{verbatim}
+%\caption{A JSON description of a person}
+%\label{JSONexample}
+%\end{figure}
+
+
 \subsection{Standards and Interfaces}\label{standards}
 Metadata is the core of successful interoperability. But if two systems attempting to communicate are expecting differently tagged data, they will still fail to interoperate. Metadata alone is not enough.
 
@@ -278,7 +292,42 @@ It should be noted that schema and similar mechanisms are themselves simply a st
 \label{XMLschema}
 \end{figure}
 
+%\begin{figure}
+%\begin{verbatim}
+%{
+% "name": "Person",
+% "properties": {
+%   "name": {
+%     "type": "string"
+%   },
+%   "birthdate": {
+%     "type": "date"
+%   },
+%   "height": {
+%     "type": "number"
+%   },
+%   "weight": {
+%     "type": "number"
+%   }
+% }
+%}
+%\end{verbatim}
+%\caption{A JSON schema for the person in Figure \ref{JSONexample}}
+%\label{JSONschema}
+%\end{figure}
 
+%\begin{figure}
+%\begin{verbatim}
+%<types>
+%  <name>string</name>
+%  <birthdate>date</birthdate>
+%  <height>integer</height>
+%  <weight>double</weight>
+%</types>
+%\end{verbatim}
+%\caption{A different method of defining types in XML}
+%\label{XMLMeta}
+%\end{figure}
 
 \section{Performance} \label{performance}
 Regardless of how the system is built or the interop implemented, an interoperating system will always accrue some overhead. There may be unexpected costs from translating between languages, which can appear in places such as execution speed or program storage space
