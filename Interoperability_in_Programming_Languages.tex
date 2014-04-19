@@ -50,8 +50,7 @@ The differences in these languages pose a serious barrier to creating an interop
 
 However, interoperability is important to many existing systems today, as particular programming languages have emerged to target particular problem domains. In particular, client/server architecture and many distributed computing systems utilize multiple languages for differing parts of their system.
 
-
-The problems inherent to cross language communication are myriad enough that no single single approach could address all the issues, several such tools have emerged which approach the problems from different directions.
+As no single approach is likely to address all problems that could arise, several tools and approaches have emerged to address different aspects of cross language communication.
 Two broad categories of these tools are virtual machines and markup languages. These two tools are used concurrently in many systems today, reflecting their different strengths.
 \end{abstract}
 
@@ -62,18 +61,19 @@ Interoperability, colloquially shortened to interop, is the ability for two or m
 
 For instance, web browsers frequently perform some kind of interop. Information to be displayed on a web page is handled by a browser's interpretation of HTML, while any real-time aspect of the page will be handled by a language like JavaScript, again run from within the browser. If there is more computation to be done, or if a database needs to be consulted, the client, the browser, will communicate with a server, often written in languages like Java or C.
 
-Likewise, these servers may be written in several languages themselves. A blog hosting service, Kidblog\footnote{kidblog.org}, uses a server written in both Java and Clojure, where Java handles translation between the client and server while Clojure handles the server-side logic.
+Likewise, these servers may be written in several languages themselves. A blog hosting service, Kidblog\footnote{kidblog.org}, uses a server written in both Java and Clojure, where Java handles translation between the client and server while Clojure handles the rest of the server-side logic.
 
-The challenges that arise when dealing with interoperability can be many, and sometimes surprising \cite{Chisnall:2013}. The tools and approaches used to overcome these challenges are likewise many. In the interest of brevity, we will look at a small subset of these challenges, along with several tools used to deal with them.
+The challenges that arise when dealing with interoperability can be many, and sometimes surprising \cite{Chisnall:2013}. The tools and approaches used to overcome these challenges are likewise many. In the interest of brevity, we will look at a small subset of these challenges, along with two primary tools used to deal with them.
 
 In Section \ref{Interop} we explore further why interoperability is desirable, what advantages it can confer, and where it can be useful. This will touch on differing language capabilities, ease of use, hardware independence, and implications for distributed computing.
 
-Next, Sections \ref{VM} and \ref{ML} will describe two particular tools that are commonly used to achieve interoperability. These tools will be virtual machines, paying particular attention to the Java Virtual Maching (JVM) and .NET's Common Language Runtime (CLR), and markup languages, with focus on two particular systems that make use of markup languages, Starlink and FML.
+Next, Sections \ref{VM} and \ref{ML} will describe two particular tools that are commonly used to achieve interoperability. These tools will be virtual machines, paying particular attention to the Java Virtual Maching (JVM) and .NET's Common Language Runtime (CLR), and markup languages, with focus on XML and Starlink, a markup language and a system that makes use of it.
 
-Section \ref{approaches} will detail particular challenges involved with interoperability and approaches to handling them. Following a general description of the approach, I will describe how each tool can be used to implement that approach, along with strengths and weaknesses of each setting.
+Section \ref{approaches} will detail particular challenges involved with interoperability and two approaches to handling them. Following a general description of the approach, I will describe how each tool can be used to implement that approach, along with strengths and weaknesses of each setting.
 
 Section \ref{performance} will look at a few of the performance implications of the tools discussed.
 
+We'll wrap up in Section \ref{conclusions} with
 
 \section{Interoperability}\label{Interop}
 The primary importance of interoperability lies in the varying capabilities of different languages. Programming languages are optimized for particular tasks, and different languages perform better in different situations.
@@ -348,7 +348,7 @@ Ultimately, the performance costs of achieving interoperability must be weighed 
 
 
 
-\section{Conclusions}
+\section{Conclusions}\label{conclusions}
 
 
 Virtual machines and markup languages each have strengths and weaknesses in different use cases.
