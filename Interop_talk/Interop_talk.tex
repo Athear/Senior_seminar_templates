@@ -191,24 +191,29 @@
 
 
 \section[Difficulties]{Common difficulties in interop}
-%Everything in this section is closely related: it's all about the data.
+%Everything in this section is closely related: it's all about the data. And differences between languages
 %The three main problems encountered in 
 
 
 \subsection{Type systems}
+%Languages represent data in different ways.
 \begin{frame}
-  \frametitle{Types (and untypes)}
+  \frametitle{Differences in type systems}
   
   \begin{columns}
   \begin{column}{0.6\textwidth}
   \begin{itemize}
   	\item Languages represent data in different ways %numbers: Java says "int!", JavaScript says "Number!". Ruby says "Whatever! I'll figure it out."
-	\item Languages act on data in different ways %This is most obvious in numbers, but Java and C# handle printing of NULL objects very differently
+	\item 
 	\item 
 	\item 
 	\item 
   \end{itemize}
   \end{column}
+  %One major source of difference, in all of these sections, is going to be numbers. Numbers get represented in a lot of ways, even within a single language.
+  %Java, for instance, has at least four(?) ways of representing number: Integers, Doubles, Floats (similar to doubles), and BigIntegers
+  %Javascript and Ruby will figure out what you mean later.
+  %How do we go from "X is a thing we'll deal with when we have to" to "X is an integer, and we know what we can do with it now"?
   
   \begin{column}{0.5\textwidth}
   
@@ -219,18 +224,23 @@
 
 \subsection{Data structures}
 \begin{frame}
-  \frametitle{Types (and untypes)}
+  \frametitle{Mismatched structures}
   
   \begin{columns}
   \begin{column}{0.6\textwidth}
   \begin{itemize}
-  	\item 
-	\item 
+  	\item Untyped lists can contain different types.
+  	\item Strongly typed lists can only contain the type given by the list.
+	\item A language might not have an analogous structure %need example. is there a language without maps?
 	\item 
 	\item 
 	\item 
   \end{itemize}
   \end{column}
+  %A list containing strings and integers is going to be hard to map to a strongly-typed list.
+  %
+  %A partial example here is C, which doesn't have a notion of Key/Value maps.
+  %It does have the building blocks for creating maps, and this will usually be the case. But 
   
   \begin{column}{0.5\textwidth}
   
@@ -239,17 +249,23 @@
 \end{frame}
 
 \subsection{Data processing}
+%In some cases, languages act differently when performing the same operations on the same data
 \begin{frame}
   \frametitle{Handling data}
   
   \begin{columns}
   \begin{column}{0.5\textwidth}
   \begin{itemize}
-  \item Languages 
+  \item Languages act on data in different ways %This is most obvious in numbers, but Java and C# handle printing of NULL objects very differently
+  \item
+  \item
   \end{itemize}
   \end{column}
   \end{columns}
 \end{frame}
+
+%The difference is most apparent when looking at numbers: Different languages have different default decimal precisions.
+%However, this can also show up in other types, such as handling NULL or NIL values
 
 \section[Handling interop]{Concepts in overcoming difficulties}
 
