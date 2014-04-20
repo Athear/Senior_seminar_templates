@@ -69,7 +69,7 @@ In Section \ref{Interop} we explore further why interoperability is desirable, w
 
 Next, Sections \ref{VM} and \ref{ML} will describe two particular tools that are commonly used to achieve interoperability. These tools will be virtual machines, paying particular attention to the Java Virtual Maching (JVM) and .NET's Common Language Runtime (CLR), and markup languages, with focus on XML and Starlink, a markup language and a system that makes use of it.
 
-Section \ref{approaches} will detail particular challenges involved with interoperability and two approaches to handling them. Following a general description of the approach, I will describe how each tool can be used to implement that approach, along with strengths and weaknesses of each setting.
+Section \ref{approaches} will detail particular challenges involved with interoperability and two approaches to handling them. Following a general description of the approach, we will look at how each tool can be used to implement that approach, along with strengths and weaknesses of each setting.
 
 Section \ref{performance} will look at a few of the performance implications of the tools discussed.
 
@@ -253,7 +253,7 @@ While they found several syntactic mismatches, such as the lack of unsigned numb
 Additionally, they found that precision of decimal, double, and float types differed between platforms. When asked to add and display 4.111111 and 8.999999, the Java client returned 12.999999 with full precision, while the .NET client returned 13.
 
 Though these two services were handling the same data, represented by the same types, they behaved differently \linebreak
- when asked to act upon that data. As Shetty and Vadivel point out, this has implications for clients who don't know which service architecture they will be interacting with\cite{Shetty:2009}.
+ when asked to act upon that data. As Shetty and Vadivel point out, this has implications for clients who don't know which service architecture they will be interacting with~\cite{Shetty:2009}.
 
 
 \subsubsection*{VMs and Standardization}
