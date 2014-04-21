@@ -99,21 +99,23 @@ In client/server architecture, such as in Kidblog, the client-side and server-si
 \end{figure}
 
 The term virtual machine (VM) refers to software that models the operating system of a computer or the underlying physical hardware. Effectively, VMs are indistinguishable from the OS or hardware they are emulating, which allows them to run programs not runable by the native OS, or with restrictions not enforced by the native OS or hardware.
-The focus of this paper will be on virtual machines that act as a runtime environment for a single process, sometimes called process VMs. These VMs in particular enforce restrictions on what system resources their hosted process has access to. Specifically, they typically provide restricted, VM managed memory spaces, ensuring that hosted processes can't access memory beyond what is allocated to it.~\cite{wiki:VM} \mycomment{is this relevant?}
+The focus of this paper will be on virtual machines that act as a runtime environment for a single process, sometimes called process VMs. These VMs in particular enforce restrictions on what system resources their hosted process has access to. Specifically, they typically provide restricted, VM managed memory spaces, ensuring that hosted processes can't access memory beyond what is allocated to it.~\cite{wiki:VM}
 
 There are two major advantages to virtual machines. The first of these is a type safety mechanism. Virtual machines such as the Java Virtual Machine (JVM) and .NET's Common Language Runtime (CLR) have a base set of types.\footnote{In the CLR, this is actually called the Common Type System, or CTS. It is implicit and unnamed in the JVM.} The VMs can use these type systems to ensure the correctness of participating languages and gives languages a common ground for their type information.
 
 The second advantage lies in the VM's intermediate language. These are low-level languages, designed to be both compact and efficiently compiled to machine code, and are what is actually run by the virtual machine. As shown in Figure \ref{VMmodel}, any high-level language can be run on a virtual machine, as long as there is a compiler to translate that language into the VM's intermediate language.
 
 These languages are still an abstraction of machine code, and so they still require an interpreter or a compiler for execution.
-The VMs also contain interpreters for their intermediate language, but also utilize a run-time optimization method called Just-In-Time (JIT) compilation. Most of the code is still interpreted, but portions of code are monitored for frequent use. High-usage sections of code are compiled to machine language for quicker access. This allows for specific optimizations based on the current input and hardware, which are rarely known before execution.~\cite{wiki:JIT}
+Virtual machines contain interpreters for their intermediate language, but also utilize a run-time optimization method called Just-In-Time (JIT) compilation. Most of the code is still interpreted, but portions of code are monitored for frequent use. High-usage sections of code are compiled to machine language for quicker access. This allows for specific optimizations based on the current input and hardware, which are rarely known before execution.~\cite{wiki:JIT}
 
 
 
 The JVM and CLR will be our main subjects when discussing virtual machines. While similar in certain ways, these two VMs were designed for different purposes.
 
 The JVM\footnote{References to "The JVM" refer to the general concept of Java's virtual machine. There are many implementations of JVMs, which follow certain specifications but implement certain concepts in different ways and may support different operating systems.~\cite{wiki:multiJVM, wiki:JVM}}
-was designed alongside Java for the purpose of hardware independence. Since the intent of Java was to be run on the web, there was no way of knowing what kind of hardware would end up running a piece of code, or even what kind of browser would be hosting that code. They needed to be able to compile to machine code only when the code was actually run, such that any hardware would be able to compile and run the code correctly. The solution was the JVM. Eventually, other languages began using the JVM for their runtime, but this was not the primary consideration of the original development team.
+was designed alongside Java for the purpose of hardware independence. Since the intent of Java was to be run on the web, there was no way of knowing what kind of hardware would end up running a piece of code, or even what kind of browser would be hosting that code.
+For Java to be able to run on any given hardware, \mycomment{this needs to be phrased better somehow}
+They needed to be able to compile to machine code only when the code was actually run, such that any hardware would be able to compile and run the code correctly. The solution was the JVM. Eventually, other languages began using the JVM for their runtime, but this was not the primary consideration of the original development team.
 
 In contrast, the CLR was developed to support a host of languages, and was designed in part with the intent of facilitating interoperability between them. The purpose of the virtual machine in this context was to intentionally provide the common ground for languages based on the CLR, giving them access to features promoting interop, such as the Common Type System and metadata engine (discussed further in Section \ref{metadata}).
 
@@ -122,8 +124,8 @@ In contrast, the CLR was developed to support a host of languages, and was desig
 Markup languages (MLs) are primarily used for describing data. There are a range of markup languages covering several use cases, from document display or creation to data transfer and storage. For instance, HTML (HyperText Markup Language) is used to convey content information for web pages, while \TeX~is a language used to describe the layout and formatting of text documents.
 Others, such as JSON and YAML, were designed for modeling data in ways consistent with object oriented design\footnote{JSON and YAML in particular are sometimes called Data Description Languages for this reason}. 
 
-One of the major players in the world of markup languages is XML, the Extensible Markup Language. XML's method of describing data is to enclose the relevant data with a tag (see Fig. \ref{MDL1}). Tags are easily distinguishable from the data they contain, and are considered separate from the data when the XML is read. In Figure \ref{MDL1}, the fields ({\tt Method, URI,} and {\tt Version}) are made distinct from the actual data with angled brackets.
-Also note that tags can be nested: lines 11 through 14 are contained within the {\tt Header} tag. This allows XML to describe full records or objects, which will be important in Section \ref{metadata}.
+One of the major players in the world of markup languages is XML, the Extensible Markup Language. XML's method of describing data is to enclose the relevant data within tags (see Fig. \ref{MDL1}). Tags are easily distinguishable from the data they contain, called elements. Tags and elements are considered separately when the XML is read. In Figure \ref{MDL1}, the fields ({\tt Method, URI,} and {\tt Version}) are made distinct from the actual data with angled brackets.
+Also note that elements can be nested: lines 11 through 14 are contained within the {\tt Header} tag. This allows XML to describe full records or objects, which will be important in Section \ref{metadata}.
 
 
 \begin{figure}
@@ -164,7 +166,7 @@ Class Person
   double weight = 212
 end
 \end{verbatim}
-\caption{A Person class strongly-typed language}
+\caption{A Person class in an abstract strongly-typed language}
 \label{typedExample}
 \end{figure}
 
@@ -177,7 +179,7 @@ Class Person
   var weight = 212
 end
 \end{verbatim}
-\caption{A Person class in an untyped language}
+\caption{A Person class in an abstract untyped language}
 \label{untypedExample}
 \end{figure}
 
@@ -261,11 +263,11 @@ Although the above study found issues between virtual machines, systems run on h
 This is not a perfect solution however, as it still requires that the high-level languages have conventions for accessing other high-level language components.
 These conventions are tied to compilers at least, so grammar for calling other languages on a particular VM can be included as part of a new compiler specification without affecting other implementations of that language.
 
-As an example of this, Java was not initially intended to call other languages, and making calls to non-Java languages can be a difficult proposition~\cite{Chisnall:2013}. However, new JVM languages like Clojure and JRuby inherently provide support for accessing Java classes. \mycomment{would this benefit from an explicit example?}
+As an example of this, Java was not initially intended to call other languages, and making calls to non-Java languages can be a difficult proposition~\cite{Chisnall:2013}. However, new JVM languages like Clojure and JRuby inherently provide support for accessing Java classes.
 
 
 \subsubsection*{MLs and Standardization}
-Semantic interop is somewhat more straight-forward to attain with markup languages. Although not built in, many markup languages have a notion of schema, such as in Fig. \ref{XMLschema}, which can be used to regulate correct formatting. Messages sent in the markup language can be checked against these schema to ensure both that they contain the right fields in the right places (ie, a nested field is contained by the correct super field), as well as that those fields contain the correct type of data. As Figure \ref{XMLschema} shows, type metadata can be stored within the schema specifications.
+Semantic interop is somewhat more straightforward to attain with markup languages. Although not built in, many markup languages have a notion of schema, such as in Fig. \ref{XMLschema}, which can be used to regulate correct formatting. Messages sent in the markup language can be checked against these schema to ensure both that they contain the right fields in the right places (ie, a nested field is contained by the correct super field), as well as that those fields contain the correct type of data. As Figure \ref{XMLschema} shows, type metadata can be stored within the schema specifications.
 
 It should be noted that schema and similar mechanisms are themselves simply a standard, and are not expressly enforced or singular. XML has several schema languages associated with it. Figure \ref{XMLschema} is an example of the W3C\footnote{World Wide Web Consortium} recommended standard.
 
@@ -315,18 +317,18 @@ It should be noted that schema and similar mechanisms are themselves simply a st
 %\label{JSONschema}
 %\end{figure}
 
-%\begin{figure}
-%\begin{verbatim}
-%<types>
-%  <name>string</name>
-%  <birthdate>date</birthdate>
-%  <height>integer</height>
-%  <weight>double</weight>
-%</types>
-%\end{verbatim}
-%\caption{A different method of defining types in XML}
-%\label{XMLMeta}
-%\end{figure}
+\begin{figure}
+\begin{verbatim}
+<types>
+  <name>string</name>
+  <birthdate>date</birthdate>
+  <height>integer</height>
+  <weight>double</weight>
+</types>
+\end{verbatim}
+\caption{The Starlink method of defining types in XML}
+\label{XMLMeta}
+\end{figure}
 
 \section{Performance} \label{performance}
 Regardless of how the system is built or the interop implemented, an interoperating system will always accrue some overhead. There may be unexpected costs from translating between languages, which can appear in places such as execution speed or program storage space
@@ -336,7 +338,7 @@ Li, White, and Singer \cite{Li:2013} show that in the Java Virtual Machine, non-
 For dynamically-typed languages like Ruby, these sequences are significantly longer than bytecode from an equivalent Java class. Additionally, JRuby bytecode contains none of the built-in type operators, which are used to optimize performance. This has some potential performance and space implications when comparing JRuby and Java.
 
 
-While I am not aware of a similar study focusing on languages on the CLR, the CLR was designed both with interoperability in mind and with an awareness that dynamically-typed languages would be running on it. From these two points, it seems reasonable to assume that CIL bytecode and the CLR interpreter are designed to handle dynamic types more efficiently or concisely.
+While we are not aware of a similar study focusing on languages on the CLR, the CLR was designed both with interoperability in mind and with an awareness that dynamically-typed languages would be running on it. From these two points, it seems reasonable to assume that CIL bytecode and the CLR interpreter are designed to handle dynamic types more efficiently or concisely.
 
 
 The primary concern for markup languages is in translation time. Because systems involving MLs usually also involve different languages at runtime, they also require translating between two or three languages during execution.
