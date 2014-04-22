@@ -82,7 +82,7 @@ Some languages are constructed to tackle specific problems, but provide reduced 
 
 Still others allow access in ways that are hidden in other languages. The memory access model in C, for instance, differs from many other high-level languages presently in use. C enables very fine-grained memory access and control, and places all of this control in the programmer's hands. Likewise, assembly languages allow direct access to hardware and the underlying storage mechanisms. This low-level control can be useful when dealing with systems with minimal memory or when access to device drivers is needed, such as in GPU computation.  However, these languages have high learning curves, and programs using them may have security concerns if not done correctly.
 
-The difficulty involved in learning a language is not a minor concern, either. Developer time and energy are important considerations when designing a system.
+The difficulty involved in learning a language is not a minor concern either. Developer time and energy are important considerations when designing a system.
 For example, if we have a system built in COBOL, and we want to build a web interface. If the system has been in the company for a while, it is distinctly possible that the original developers are no longer on staff, and that the new team is unfamiliar with both the code base and the language itself. In such a case, it may be faster or less expensive to have the developers create a bridge to the old system in a language they know, and build the web interface to interact with the bridge.
 
 Apart from the capabilities of the languages involved, interoperability is often related to hardware independence. The problems faced in achieving language independence and hardware independence are frequently similar, or have similar solutions. For instance, fuzzy controllers, which in part translate real-world input to fuzzy sets, are often strictly tied to the hardware they will be implemented upon. FML, the Fuzzy Markup Language, was developed as a way to fully describe such a controller in a hardware-independent manner. Part of this hardware independence involves independence from any particular implementing language; as such, a fuzzy controller specified in FML is capable of being implemented in or potentially across several different languages.~\cite{Acampora:2013}
@@ -198,7 +198,7 @@ end
 
 
 There are two primary ways virtual machines handle metadata: language type specifications and metadata files. Both of these are handled by a compiler at compile time.
-Once the system has been compiled to the intermediate language, each part will necessarily conform to the same syntax and language rules. Logic may be look different based on originating high-level language, but all will behave within the constraints of the intermediate language.
+Once the system has been compiled to the intermediate language, each part will necessarily conform to the same syntax and language rules. Logic may look different based on originating high-level language, but all will behave within the constraints of the intermediate language.
 
 As mentioned above, the explicit type information in \linebreak
 statically-typed languages, like Java or C\# is a kind of metadata. This metadata is entirely for use by their compilers, to assist with translation to the intermediate language.
@@ -265,7 +265,7 @@ As an example of this, Java was not initially intended to call other languages, 
 \subsubsection*{MLs and Standardization}
 Semantic interop is somewhat more straightforward to attain with markup languages. Although not built in, many markup languages have a notion of schema, such as in Fig. \ref{XMLschema}, which can be used to regulate correct formatting. Messages sent in the markup language can be checked against these schema to ensure both that they contain the right fields in the right places (ie, a nested field is contained by the correct super field), as well as that those fields contain the correct type of data. As Figure \ref{XMLschema} shows, type metadata can be stored within the schema specifications.
 
-It should be noted that schema and similar mechanisms are themselves simply a standard, and are not expressly enforced or singular. XML has several schema languages associated with it, one of which is the W3C\footnote{World Wide Web Consortium} recommended standard shown in Figure \ref{XMLschema}.
+It should be noted that schema and similar mechanisms are themselves simply a standard, and are not expressly enforced or singular. XML has several schema languages associated with it, one of which is the W3C\footnote{World Wide Web Consortium} recommended standard. Figure \ref{XMLschema} is a schema conforming to the W3C standard.
 
 
 \begin{figure}
@@ -347,13 +347,13 @@ Bromberg et al's report on the Starlink framework, which handles three translati
 \section{Conclusions}\label{conclusions}
 
 
-Virtual machines and markup languages each have strengths and weaknesses in different use cases.
+Virtual machines and markup languages have their own strengths and weaknesses in different use cases.
 
 Virtual machines are much more feasible for systems being built from scratch, where all language decisions are in the hands of the developers. They may also be available to existing programs on a VM which a developer wishes to extend to a larger system; in this case, the extended system merely need be built on the same virtual machine, and it will be able to interoperate with the pre-existing software.
 
 In comparison, markup languages are better suited to dealing with preexisting or legacy systems, where there is too much code to make rewriting a feasible option, or where parts of the source are simply unavailable, potentially due to working with a third-party software. Likewise, if the existing system cannot target a particular virtual machine, perhaps because a compiler from that language to that VM doesn't exist, recompiling the existing program is not feasible.
 
-Additionally, markup languages have an advantage in distributed system environments, where they can be used in sending data over the network. This is particularly important in client/server architecture, where servers have few, if any, guarantees about the hardware or sometimes even the software being run by the clients. A markup language can act as an intermediary, providing the data in a language and hardware free way.
+Additionally, markup languages have an advantage in distributed system environments, where they can be used in sending data over the network. This is particularly important in client/server architecture, where servers have few, if any, guarantees about the hardware or sometimes even the software being run by the clients. A markup language can act as an intermediary, providing the data in a language- and hardware-free way.
 
 These two tools are not mutually exclusive, and can even be complementary. A real-world system is more likely to make use of both virtual machines and markup languages to cover relevant aspects of their system than to rely on just a single approach.
 
