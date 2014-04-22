@@ -180,7 +180,10 @@
   \end{column}
 
   \begin{column}{0.5\textwidth}
-%this should be examples of Cliff in XML and JSON. If they don't fit, make them a new slide?
+   \includegraphics[scale=1]{graphics/XMLCliff.pdf}
+   \linespace
+   \linespace
+   \includegraphics[scale=1]{graphics/JSONCliff.pdf}
   \end{column}
   \end{columns}
   
@@ -228,12 +231,12 @@
   \frametitle{Mismatched structures}
   
   \begin{columns}
-  \begin{column}{0.6\textwidth}
+  \begin{column}{0.5\textwidth}
   \begin{itemize}
   	\item Untyped lists can contain different types.
   	\item Strongly typed lists can only contain the type given by the list.
-	\item A language might not have an analogous structure %need example. is there a language without maps?
-	\item 
+	\item A language might not have an analogous structure
+	\item A data structure in one language 
 	\item 
 	\item 
   \end{itemize}
@@ -241,10 +244,17 @@
   %A list containing strings and integers is going to be hard to map to a strongly-typed list.
   %
   %A partial example here is C, which doesn't have a notion of Key/Value maps.
-  %It does have the building blocks for creating maps, and this will usually be the case. But 
+  %It does have the building blocks for creating maps, and this will usually be the case. But Time and Effort!
   
-  \begin{column}{0.5\textwidth}
+  \begin{column}{0.6\textwidth}
+  {\tt [23, v, "hello", True]}
   
+  An untyped list
+  
+  \linespace
+  {\tt \{:name "Cliff", :age 32}\}
+  
+  A map
   \end{column}
   \end{columns}
 \end{frame}
@@ -258,9 +268,13 @@
   \begin{column}{0.5\textwidth}
   \begin{itemize}
   \item Languages act on data in different ways %This is most obvious in numbers, but Java and C# handle printing of NULL objects very differently
-  \item
+  \item 
   \item
   \end{itemize}
+  \end{column}
+  
+  \begin{column}{0.5\textwidth}
+  
   \end{column}
   \end{columns}
 \end{frame}
@@ -318,7 +332,7 @@
   \begin{columns}
   \begin{column}{0.6\textwidth}
   \begin{itemize}
-  	\item 
+  	\item Standards ensure agreement on what metadata means.
 	\item 
 	\item 
 	\item 
@@ -327,6 +341,7 @@
   \end{column}
   \end{columns}
 \end{frame}
+%metadata helps us communicate type information; standards help to ensure that all parties are expecting the same expression of type information.
 
 \section[Conclusions]{Conclusions}
 
