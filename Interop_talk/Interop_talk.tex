@@ -131,65 +131,7 @@
 %I'll be talking about two particular tools used for enabling interoperability,
 %as well as two particular concepts central to interop in programming languages
 
-\section[Interop Tools]{Tools used in achieving interoperability}
 
-\subsection{Virtual Machines}
-
-\begin{frame}
-  \frametitle{Virtual Machines}
-  
-  %add graphic: CLR VM
-  \begin{columns}
-  \begin{column}{0.6\textwidth}
-  \begin{itemize}
-	\item Virtual Machines (VMs) are a runtime environment for a program
-	\item High-level languages compile to an intermediate language
-	\item Intermediate language: Java bytecode or Common Intermediate Language
-	\item 
-  \end{itemize}
-  \end{column}
-  
-  \begin{column}{0.5\textwidth}
-  \includegraphics[width=1\textwidth]{graphics/CLR.png}
-    \\
-    \only{\tiny{Wikipedia \\ \url{https://en.wikipedia.org/wiki/Common_Language_Runtime}}}
-  \end{column}
-  \end{columns}
-\end{frame}
-%Briefly, VMs emulate an operating system, or computer hardware. We'll be talking about a specific kind of VM, the process VM, that acts as a runtime environment for a program.
-%Once in bytecode, all the parts adhere to the same syntax and language rules, regardless of the high-level language used. They might look different, but...
-
-\begin{frame}
-  \frametitle{High-level vs Bytecode}
-  \includegraphics[width=1\textwidth]{graphics/FibCompair.pdf}
-\end{frame}
-
-\subsection{Markup Languages}
-
-\begin{frame}[fragile]
-  \frametitle{Markup Languages}
-  
-  \begin{columns}
-  \begin{column}{0.5\textwidth}
-  \begin{itemize}
-	\item Markup languages are a way of modeling data.
-	\item XML and JSON can model data like objects.
-	\item Markup languages are independent of programming languages.
-  \end{itemize}
-  \end{column}
-
-  \begin{column}{0.5\textwidth}
-   \includegraphics[scale=1]{graphics/XMLCliff.pdf}
-   \linespace
-   \linespace
-   \includegraphics[scale=1]{graphics/JSONCliff.pdf}
-  \end{column}
-  \end{columns}
-  
-\end{frame}
-%MLs are mostly a way of annotating data in a way that another program can interpret that meaningfully, handle it accordingly.
-%one of the emergent properties of this, in the form of XML, is the ability to model data in a way that it can be converted to a data structure in the reciving program.
-%Several other languages have emerged to model data specifically in this way, like JSON. JSON is JavaScript's Object Notation, implying correctly that it models data like an object.
 
 
 \section[Difficulties]{Common difficulties in interop}
@@ -288,7 +230,7 @@
 %The difference is most apparent when looking at numbers: Different languages have different default decimal precisions.
 %However, this can also show up in other types, such as handling NULL or NIL values
 
-\section[Handling interop]{Concepts in overcoming difficulties}
+\section[Concepts]{Concepts in handling difficulties}
 
 \subsection{Metadata}
 
@@ -317,16 +259,15 @@
 \begin{frame}
     \frametitle{Why Metadata?}
   \begin{columns}
-  \begin{column}{0.6\textwidth}
-
+  \begin{column}{0.5\textwidth}
     \begin{itemize}   
     \item Decontextualized data can carry context with it
     \item Data transfer between languages with different type strictness.
     \end{itemize}
   \end{column}
-   %add example here...
+   
   \begin{column}{0.6\textwidth}
-  
+  \includegraphics[scale=0.9]{graphics/ForcedTypeCliff.pdf}
   \end{column}
   
   \end{columns}
@@ -343,8 +284,6 @@
   	\item Agreement on what metadata is being used, and how
 	\item Unsurprising data processing
 	\item Avoidance of data loss due to the above.
-	\item 
-	\item 
   \end{itemize}
   \end{column}
   \end{columns}
@@ -352,6 +291,65 @@
 %metadata helps us communicate type information; standards help to ensure that all parties are expecting the same expression of type information.
 
 
+\section[Interop Tools]{Tools used in achieving interoperability}
+
+\subsection{Virtual Machines}
+
+\begin{frame}
+  \frametitle{Virtual Machines}
+  
+  %add graphic: CLR VM
+  \begin{columns}
+  \begin{column}{0.6\textwidth}
+  \begin{itemize}
+	\item Virtual Machines (VMs) are a runtime environment for a program
+	\item High-level languages compile to an intermediate language
+	\item Intermediate language: Java bytecode or Common Intermediate Language
+	\item 
+  \end{itemize}
+  \end{column}
+  
+  \begin{column}{0.5\textwidth}
+  \includegraphics[width=1\textwidth]{graphics/CLR.png}
+    \\
+    \only{\tiny{Wikipedia \\ \url{https://en.wikipedia.org/wiki/Common_Language_Runtime}}}
+  \end{column}
+  \end{columns}
+\end{frame}
+%Briefly, VMs emulate an operating system, or computer hardware. We'll be talking about a specific kind of VM, the process VM, that acts as a runtime environment for a program.
+%Once in bytecode, all the parts adhere to the same syntax and language rules, regardless of the high-level language used. They might look different, but...
+
+\begin{frame}
+  \frametitle{High-level vs Bytecode}
+  \includegraphics[width=1\textwidth]{graphics/FibCompare.pdf}
+\end{frame}
+
+\subsection{Markup Languages}
+
+\begin{frame}[fragile]
+  \frametitle{Markup Languages}
+  
+  \begin{columns}
+  \begin{column}{0.5\textwidth}
+  \begin{itemize}
+	\item Markup languages are a way of modeling data.
+	\item XML and JSON can model data like objects.
+	\item Markup languages are independent of programming languages.
+  \end{itemize}
+  \end{column}
+
+  \begin{column}{0.5\textwidth}
+   \includegraphics[scale=1]{graphics/XMLCliff.pdf}
+   \linespace
+   \linespace
+   \includegraphics[scale=1]{graphics/JSONCliff.pdf}
+  \end{column}
+  \end{columns}
+  
+\end{frame}
+%MLs are mostly a way of annotating data in a way that another program can interpret that meaningfully, handle it accordingly.
+%one of the emergent properties of this, in the form of XML, is the ability to model data in a way that it can be converted to a data structure in the reciving program.
+%Several other languages have emerged to model data specifically in this way, like JSON. JSON is JavaScript's Object Notation, implying correctly that it models data like an object.
 
 
 \section[Conclusions]{Conclusions}
