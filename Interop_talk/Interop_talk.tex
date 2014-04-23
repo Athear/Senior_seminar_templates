@@ -66,30 +66,27 @@
 %   15 and 30 frames, all told.
 % Slide notes will be comment under each frame end, or under each column where appropriate.
 
-\section*{Interoperability}
+\section*{Introduction}
 
-\subsection*{Introduction to Interop}
+\subsection*{Defining Interoperability}
 
 \begin{frame}
   \frametitle{What is Interop?}
   
-  \begin{columns}
-  \begin{column}{0.6\textwidth}
+  %\begin{columns}
+  %\begin{column}{0.6\textwidth}
   \begin{itemize}
-  	\item Interoperability or Interop
-  	\item The ability for a system to use parts from another system
-	\item In programming languages: The ability of a language to call on code from another language
+  	\item Interoperability: The ability for a system to use parts from another system.
+  	\item  Often shortened to interop.
+	\item In programming languages: The ability of a language to call on code from another language.
   \end{itemize}
-  \end{column}
+  %\end{column}
 %mainly, a program running in one language has the ability to call on aspects of another program, written in a different language  
-  
-  \begin{column}{0.4\textwidth}
-   \includegraphics[width=0.90\textwidth]{graphics/Empty_cocoon_crop_by_Bluedrakon_from_Flickr.jpg}
-       \\
-    \only{\tiny{Bluedrakon \\ \url{http://tr.im/pWUi} }}
-  \end{column}
-  \end{columns}
+ 
+  %\end{columns}
 \end{frame}
+
+\subsection*{The Importance of Interop}
 
 \begin{frame}
   \frametitle{Why is Interop Important?}
@@ -108,11 +105,11 @@
   %sometimes, rewriting is an option, but there's just too much code and domain knowledge involved. (example: that a polygon doesn't cross itself) (if there's a lot, it would take a long time, too)
   %other time, you 
 
-  \begin{column}{0.5\textwidth}
-  Language Purpose:
+  \begin{column}{0.6\textwidth}
+  Language Strength:
   \begin{itemize}
-  	\item Low-level memory access (C)
-  	\item Parallel or distributed systems (Erlang, Clojure)
+  	\item Explicit memory access (C)
+  	\item Parallel or distributed systems (Clojure, Erlang)
   	\item Statistics (R)
   \end{itemize}
   \end{column}
@@ -148,6 +145,7 @@
 	\item Virtual Machines (VMs) are a runtime environment for a program
 	\item High-level languages compile to an intermediate language
 	\item Intermediate language: Java bytecode or Common Intermediate Language
+	\item 
   \end{itemize}
   \end{column}
   
@@ -159,6 +157,7 @@
   \end{columns}
 \end{frame}
 %Briefly, VMs emulate an operating system, or computer hardware. We'll be talking about a specific kind of VM, the process VM, that acts as a runtime environment for a program.
+%Once in bytecode, all the parts adhere to the same syntax and language rules, regardless of the high-level language used. They might look different, but...
 
 \begin{frame}
   \frametitle{High-level vs Bytecode}
@@ -208,9 +207,8 @@
   \begin{column}{0.6\textwidth}
   \begin{itemize}
   	\item Languages represent data in different ways %numbers: Java says "int!", JavaScript says "Number!". Ruby says "Whatever! I'll figure it out."
-	\item 
-	\item 
-	\item 
+	\item Statically-typed languages assign types as soon as data is collected.
+	\item Dynamically-typed languages only deal with types when evaluating data.
 	\item 
   \end{itemize}
   \end{column}
@@ -220,7 +218,10 @@
   %How do we go from "X is a thing we'll deal with when we have to" to "X is an integer, and we know what we can do with it now"?
 
   \begin{column}{0.5\textwidth}
-  
+  \includegraphics[scale=1]{graphics/StrongTypeCliff.pdf}
+  \linespace
+  \linespace
+  \includegraphics[scale=1]{graphics/UnTypeCliff.pdf}
   \end{column}
   \end{columns}
 \end{frame}
@@ -233,12 +234,11 @@
   \begin{columns}
   \begin{column}{0.5\textwidth}
   \begin{itemize}
-  	\item Untyped lists can contain different types.
+  	\item Untyped lists can contain different types,
   	\item Strongly typed lists can only contain the type given by the list.
-	\item A language might not have an analogous structure
-	\item A data structure in one language 
-	\item 
-	\item 
+  	
+	\item A data structure in one language may be absent in another
+	\item Maps are common data structures, but absent in C.
   \end{itemize}
   \end{column}
   %A list containing strings and integers is going to be hard to map to a strongly-typed list.
@@ -267,17 +267,23 @@
   \begin{columns}
   \begin{column}{0.5\textwidth}
   \begin{itemize}
-  \item Languages act on data in different ways %This is most obvious in numbers, but Java and C# handle printing of NULL objects very differently
-  \item 
-  \item
+  \item Languages act on data in different ways. %This is most obvious in numbers, but Java and C# handle printing of NULL objects very differently
+  \item Handling NULL or NIL objects.
+  \item Decimal precision: Java returns 12.999999, .NET returns 13
   \end{itemize}
   \end{column}
   
   \begin{column}{0.5\textwidth}
+  \includegraphics[scale=0.8]{graphics/JavaNull.pdf}
   
+  \includegraphics[scale=0.8]{graphics/NETNull.pdf}
+  \\ \cite{Shetty:2009}
   \end{column}
   \end{columns}
 \end{frame}
+% The different ways languages process data can be a little subtle, and finding differences can require direct testing.
+% Shetty and Vadivel looked at Java and .NET web services to find some of these differences
+
 
 %The difference is most apparent when looking at numbers: Different languages have different default decimal precisions.
 %However, this can also show up in other types, such as handling NULL or NIL values
@@ -290,6 +296,8 @@
   \frametitle{Metadata and type conversion}
 
 	Metadata: Data about data
+	
+	or: Information beyond what the data itself can convey
 	
 	{\tt (def mylist [1, 2, 3, 4])}
 	
@@ -328,13 +336,13 @@
 
 \begin{frame}
   \frametitle{The importance of Standards}
-  
   \begin{columns}
   \begin{column}{0.6\textwidth}
+  Standards are meant to ensure:
   \begin{itemize}
-  	\item Standards ensure agreement on what metadata means.
-	\item 
-	\item 
+  	\item Agreement on what metadata is being used, and how
+	\item Unsurprising data processing
+	\item Avoidance of data loss due to the above.
 	\item 
 	\item 
   \end{itemize}
@@ -342,6 +350,9 @@
   \end{columns}
 \end{frame}
 %metadata helps us communicate type information; standards help to ensure that all parties are expecting the same expression of type information.
+
+
+
 
 \section[Conclusions]{Conclusions}
 
@@ -388,12 +399,9 @@
 \begin{frame} 
 	\frametitle{References} 
 	
+	\bibliographystyle{abbrv}
 	\bibliography{bibliography}
 	
-	\linespace
-	\begin{center}
-	See the GECCO '09 paper for additional references.
-	\end{center}
 \end{frame} 
 
 \end{document}
