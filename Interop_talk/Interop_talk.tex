@@ -182,8 +182,15 @@
   
   {\tt [23, v, "hello", True]}
   
-    An untyped list
-    
+   An untyped list
+\linespace   
+  {\tt [1, 53, 13, 100]}
+  
+  a typed list 
+\linespace	
+  {\tt Object[] = [?, ?, ?, ?]} 
+  
+  A Java list of Objects
   \end{column}
   %A list containing strings and integers is going to be hard to map to a strongly-typed list.
   %
@@ -220,10 +227,10 @@
   \end{column}
   
   \begin{column}{0.5\textwidth}
-  \includegraphics[scale=0.8]{graphics/JavaNull.pdf}
-  
-  \includegraphics[scale=0.8]{graphics/NETNull.pdf}
-  \\ \tiny{images based on \cite{Shetty:2009}}
+  \includegraphics[scale=0.9]{graphics/JavaNullSmall.pdf}
+  \linespace
+  \includegraphics[scale=0.9]{graphics/NETNullSmall.pdf}
+  \\ \tiny{images based on Shetty and Vadivel\cite{Shetty:2009}}
   \end{column}
   \end{columns}
 \end{frame}
@@ -254,32 +261,75 @@
 	\item lists are untyped; can contain entries of different types.
 	\item metadata, added as above, is all user-controlled.
 	\end{itemize}
+	
+	
 \end{frame}
-%Metadata: data about data. Specifically, it's information beyond what the data itself can convey.
 %Say we had x = 5. all x knows is that it's a five. "Integer" is a storage mechanism, or representation in the language.
 %"Integer" is also context specific. Java knows about x's integer-ness, but JavaScript, or JSON, does not. 
 
-
-\begin{frame}
-    \frametitle{Why metadata?}
-  \begin{columns}
-  \begin{column}{0.5\textwidth}
-    \begin{itemize}   
-    \item Decontextualized data can carry context with it
-    \item Data transfer between languages with different type strictness.
-    \end{itemize}
-  \end{column}
-   
-  \begin{column}{0.6\textwidth}
-
-  \end{column}
-  
-  \end{columns}
-\end{frame}
 %Metadata can also be used to supply context to data that otherwise would not have it, such as data from a dynamically-typed languge,
 %as well as data being sent over a network.
 
+\begin{frame}
+\frametitle{Metadata and type conversion}
+ \begin{columns}
+ \begin{column}{0.5\textwidth}
+ no metadata
+ 
+ Clojure: {\tt [1, 2, 3, 4]}
+
+ (down arrow)
+ 
+ Java: {\tt [?, ?, ?, ?]}
+ 
+ \end{column}
+ 
+ \begin{column}{0.5\textwidth}
+ metadata: {\tt \{:type Integer\}}
+ 
+ Clojure {\tt [1, 2, 3, 4]}
+ 
+ (down arrow)
+ 
+ Java {\tt [1, 2, 3, 4]}
+ \end{column}
+ \end{columns}
+\end{frame}
+
+
 \subsection{Standards}
+
+\begin{frame}
+  \frametitle{Metadata and standards}
+  \begin{columns}
+  \begin{column}{0.5\textwidth}
+  Metadata: {\tt \{:type int\}}
+  
+  [1, 2, 3, 4]
+  \linespace
+  \linespace
+  Metadata: {\tt \{:type Integer\}}
+  
+  [1, 2, 3, 4]
+  \end{column}
+  \begin{column}{0.05\textwidth} 
+  {\tt->}
+  \linespace
+  \linespace
+  {\tt->}
+  \end{column}
+  \begin{column}{0.5\textwidth}
+  Metadata: {\tt \{:type Integer\}}
+  
+  [?, ?, ?, ?]
+  \linespace
+  \linespace
+  Metadata: {\tt \{:type Integer\}}
+  
+  [1, 2, 3, 4]
+  \end{column}
+  \end{columns}
+\end{frame}
 
 \begin{frame}
   \frametitle{The importance of standards}
@@ -290,6 +340,7 @@
   	\item Agreement on what metadata is being used, and how.
 	\item All involved parties know how data will be represented.
 	\item Future parties will know how data is represented.
+	\item In general, that correct communication happens.
   \end{itemize}
   \end{column}
 
@@ -300,7 +351,9 @@
 \end{frame}
 %metadata helps us communicate type information; standards help to ensure that all parties are expecting the same expression of type information.
 %having a standard also ensures that future parties who want to use the system, or add to the system, will know how to do so gracefully.
-%Schema are one way to enforce standards, which we'll discuss later.
+%Schema are one way to enforce standards, which we'll discuss later. Schema are tools that can be 
+
+%Metadata ensures that correct communication *can* occur, and standards ensure correct communication *does* occur.
 
 
 \section[Interop Tools]{Tools used in achieving interoperability}
@@ -317,7 +370,6 @@
 	\item Virtual Machines (VMs) are a runtime environment for a program
 	\item High-level languages compile to an intermediate language
 	\item Intermediate language: Java bytecode or Common Intermediate Language
-	\item 
   \end{itemize}
   \end{column}
   
@@ -343,19 +395,35 @@
  \begin{itemize}
  \item Usually some overheard associated with calling other languages.
  \item Overhead can be lessened when all languages are on one VM.
- \item High-level languages can call other high-level languages on the same VM.
+ \item High-level languages can have conventions to call other high-level languages on the same VM.
  \item Common language ensures common syntax and behavior.
  \end{itemize}
  \end{column}
   %Languages on a VM can call one another, as long as they have a calling convention for the other language.
   %This is mainly a syntactic way to access other .class files.
-  %There should be no additional overhead, since the actual call will be in 
+  %There should be no additional overhead, since the actual call will be in the intermediate language
  
  \begin{column}{0.5\textwidth}
+ 
+ A Java method of object cliff:
+
+ {\tt cliff.getAge();}
+ \linespace
+ \linespace
+ Clojure calling Java:
+ 
+ {\tt (. getAge cliff)}
+ \linespace
+ \linespace
+ JRuby calling Java:
+ 
+ {\tt require `java'
+ 
+ cliff.getAge()}
  \end{column}
  \end{columns}
 \end{frame}
-
+%Cliff is 36. Both of these would return that
 \subsection{Markup Languages}
 
 \begin{frame}
@@ -370,7 +438,7 @@
   \end{itemize}
   \end{column}
 
-  \begin{column}{0.5\textwidth}
+  \begin{column}{0.55\textwidth}
    \includegraphics[scale=1]{graphics/XMLCliff.pdf}
    \linespace
    \linespace
@@ -388,13 +456,13 @@
   \begin{columns}
   \begin{column}{0.5\textwidth}
   \begin{itemize}
-  \item Useful across networks or between VMs.
   \item Act as Metadata.
+  \item Can be used to communicate across networks or between VMs.
   \item Schema provide both standardization and additional metadata.
   \end{itemize}
   \end{column}
   
-  \begin{column}{0.5\textwidth}  
+  \begin{column}{0.66\textwidth}  
   \includegraphics[scale=0.8]{graphics/XMLSchemaW3C.pdf}
   \end{column}
   \end{columns}
