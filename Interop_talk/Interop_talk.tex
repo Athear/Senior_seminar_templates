@@ -183,6 +183,7 @@
   {\tt [23, v, "hello", True]}
   
     An untyped list
+    
   \end{column}
   %A list containing strings and integers is going to be hard to map to a strongly-typed list.
   %
@@ -222,7 +223,7 @@
   \includegraphics[scale=0.8]{graphics/JavaNull.pdf}
   
   \includegraphics[scale=0.8]{graphics/NETNull.pdf}
-  \\ \cite{Shetty:2009}
+  \\ \tiny{images based on \cite{Shetty:2009}}
   \end{column}
   \end{columns}
 \end{frame}
@@ -275,7 +276,8 @@
   
   \end{columns}
 \end{frame}
-%Metadata can also be used to supply context to data that otherwise would not have it, such as data from a dynamically-typed languge
+%Metadata can also be used to supply context to data that otherwise would not have it, such as data from a dynamically-typed languge,
+%as well as data being sent over a network.
 
 \subsection{Standards}
 
@@ -286,12 +288,19 @@
   Standards are meant to ensure:
   \begin{itemize}
   	\item Agreement on what metadata is being used, and how.
-	\item Unsurprising data processing
+	\item All involved parties know how data will be represented.
+	\item Future parties will know how data is represented.
   \end{itemize}
+  \end{column}
+
+  \begin{column}{0.5\textwidth}
+    \includegraphics[scale=0.9]{graphics/JSONSchema.pdf}
   \end{column}
   \end{columns}
 \end{frame}
 %metadata helps us communicate type information; standards help to ensure that all parties are expecting the same expression of type information.
+%having a standard also ensures that future parties who want to use the system, or add to the system, will know how to do so gracefully.
+%Schema are one way to enforce standards, which we'll discuss later.
 
 
 \section[Interop Tools]{Tools used in achieving interoperability}
@@ -329,11 +338,27 @@
 
 \begin{frame}
  \frametitle{Interoperability with virtual machines}
+ \begin{columns}
+ \begin{column}{0.5\textwidth}
+ \begin{itemize}
+ \item Usually some overheard associated with calling other languages.
+ \item Overhead can be lessened when all languages are on one VM.
+ \item High-level languages can call other high-level languages on the same VM.
+ \item Common language ensures common syntax and behavior.
+ \end{itemize}
+ \end{column}
+  %Languages on a VM can call one another, as long as they have a calling convention for the other language.
+  %This is mainly a syntactic way to access other .class files.
+  %There should be no additional overhead, since the actual call will be in 
+ 
+ \begin{column}{0.5\textwidth}
+ \end{column}
+ \end{columns}
 \end{frame}
 
 \subsection{Markup Languages}
 
-\begin{frame}[fragile]
+\begin{frame}
   \frametitle{Markup languages}
   
   \begin{columns}
@@ -360,8 +385,22 @@
 
  \begin{frame}
   \frametitle{Interoperability with markup languages}
+  \begin{columns}
+  \begin{column}{0.5\textwidth}
+  \begin{itemize}
+  \item Useful across networks or between VMs.
+  \item Act as Metadata.
+  \item Schema provide both standardization and additional metadata.
+  \end{itemize}
+  \end{column}
+  
+  \begin{column}{0.5\textwidth}  
+  \includegraphics[scale=0.8]{graphics/XMLSchemaW3C.pdf}
+  \end{column}
+  \end{columns}
  \end{frame}
-
+%MLs are most useful when data will be decontextualized for whatever reason
+%Since MLs can act as metadata
 
 \section[Conclusions]{Conclusions}
 
