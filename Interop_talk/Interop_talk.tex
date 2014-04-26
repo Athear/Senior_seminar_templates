@@ -97,8 +97,9 @@
   Developer time and effort
   \begin{itemize}
 	\item Existing and working code is easier to use as-is.
-  	\item Third-party systems: source code is unavailable
 	\item Legacy systems: extensive or little-understood code base.
+  	\item Third-party systems: source code is unavailable
+
   \end{itemize}
   \end{column}
   %existing (and working) code that does the thing you need it to do, it's easier to use as it is than it is to rewrite it.
@@ -173,7 +174,7 @@
 \begin{frame}
   \frametitle{Mismatched structures}
   
-  \begin{columns}
+  \begin{columns}[t]
   \begin{column}{0.5\textwidth}
   \begin{itemize}
   	\item Untyped lists can contain different types,
@@ -241,7 +242,7 @@
 %The difference is most apparent when looking at numbers: Different languages have different default decimal precisions.
 %However, this can also show up in other types, such as handling NULL or NIL values
 
-\section[Concepts]{Concepts in handling difficulties}
+\section[Concepts]{Concepts in interoperability}
 
 \subsection{Metadata}
 
@@ -303,7 +304,7 @@
   \frametitle{Metadata and standards}
   \begin{columns}
   \begin{column}{0.5\textwidth}
-  Metadata: {\tt \{:type int\}}
+  Metadata: {\tt \{:type number\}}
   
   [1, 2, 3, 4]
   \linespace
