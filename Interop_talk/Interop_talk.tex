@@ -4,6 +4,7 @@
 {
   \usetheme{Antibes}
   \setbeamercovered{transparent}
+  \setbeamertemplate{navigation symbols}
 }
 
 \usepackage[english]{babel}
@@ -176,15 +177,17 @@
 
 \subsection{Data structures}
 \begin{frame}
-  \frametitle{Mismatched structures}
+  \frametitle{Types in data structures}
   
-  \begin{columns}[t]
+  \begin{columns}
   \begin{column}{0.5\textwidth}
   \begin{itemize}
   	\item Untyped lists can contain different types,
   	\item Strongly typed lists can only contain the type given by the list.
   \end{itemize}
+  \end{column}
   
+  \begin{column}{0.5\textwidth}
   {\tt [23, v, "hello", True]}
   
    An untyped list
@@ -193,26 +196,31 @@
   
   a typed list 
 \linespace	
-  {\tt Object[] = [?, ?, ?, ?]} 
+  {\tt Object[] = [?, ?, ?, ?]}
   
   A Java list of Objects
   \end{column}
+  \end{columns}
+\end{frame}
   %A list containing strings and integers is going to be hard to map to a strongly-typed list.
   %
   %A partial example here is C, which doesn't have a notion of Key/Value maps.
   %It does have the building blocks for creating maps, and this will usually be the case. But Time and Effort!
-  
-  \begin{column}{0.6\textwidth}
-
-  
+\begin{frame}
+  \frametitle{Missing data structures}
+  \begin{columns}
+  \begin{column}{0.5\textwidth}
   \begin{itemize}
-  \item A data structure in one language may be absent in another
-  \item Maps are common data structures, but absent in C.
+  \item A data structure in one language may be absent in another.
+  \item Any language can build any data structure, but it may be more difficult in certain languages.
+  \item Building a non-native data structure takes time and effort.
   \end{itemize}
-  \linespace
+  
+  \end{column}
+  \begin{column}{0.6\textwidth}
   {\tt \{:name "Cliff", :age 32}\}
   
-  A map
+  Maps are common data structures, but absent in C.
   \end{column}
   \end{columns}
 \end{frame}
@@ -227,12 +235,11 @@
   \begin{itemize}
   \item Languages act on data in different ways. %This is most obvious in numbers, but Java and C# handle printing of NULL objects very differently
   \item Handling NULL or NIL objects.
-  \item Decimal precision: Java returns 12.999999, .NET returns 13
   \end{itemize}
   \end{column}
   
   \begin{column}{0.5\textwidth}
-  \includegraphics[scale=0.9]{graphics/JavaNullSmall.pdf}
+  \includegraphics[scale=0.35]{graphics/modifiedJavaNull.pdf}
   \linespace
   \includegraphics[scale=0.9]{graphics/NETNullSmall.pdf}
   \\ \tiny{images based on Shetty and Vadivel\cite{Shetty:2009}}
@@ -346,9 +353,17 @@
 %Briefly, VMs emulate an operating system, or computer hardware. We'll be talking about a specific kind of VM, the process VM, that acts as a runtime environment for a program.
 %Once in bytecode, all the parts adhere to the same syntax and language rules, regardless of the high-level language used. They might look different, but...
 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{High-level vs Bytecode}
-  \includegraphics[width=1\textwidth]{graphics/FibCompare.pdf}
+  \begin{columns}
+  \begin{column}{0.65\textwidth}
+  \includegraphics[scale=0.8]{graphics/JavaFib.pdf}
+  \end{column}
+  
+  \begin{column}{0.4\textwidth}
+  \includegraphics[scale=0.8]{graphics/bytecodeFib.pdf}
+  \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -396,7 +411,7 @@
   \begin{columns}
   \begin{column}{0.5\textwidth}
   \begin{itemize}
-	\item Markup languages are a way of modeling data.
+	\item Markup languages are a way of modeling data, and act as metadata
 	\item XML and JSON can model data like objects.
 	\item Markup languages are independent of programming languages.
   \end{itemize}
@@ -420,13 +435,12 @@
 %Several other languages have emerged to model data specifically in this way, like JSON. JSON is JavaScript's Object Notation, implying correctly that it models data like an object.
 
  \begin{frame}
-  \frametitle{Interoperability with markup languages}
+  \frametitle{Schema and standardization}
   \begin{columns}
   \begin{column}{0.5\textwidth}
   \begin{itemize}
-  \item Act as Metadata.
-  \item Can be used to communicate across networks or between VMs.
   \item Schema provide both standardization and additional metadata.
+  \item Libraries exist to check incoming data against a schema.
   \end{itemize}
   \end{column}
   
@@ -439,8 +453,10 @@
 %Since MLs can act as metadata
 
  \begin{frame}
+ \frametitle{Client/server interop with markup languages}
  \includegraphics[scale=0.6]{graphics/ClientServer.pdf}
  
+ Communication across a network using XML
  
  \end{frame}
 
@@ -448,19 +464,14 @@
 
 \begin{frame}
   \frametitle{Conclusions}
-  
-  \begin{columns}
-  \begin{column}{0.6\textwidth}
   \begin{itemize}
-  	\item Interop can make system design simpler by allowing programmers to use otherwise incompatible languages.
-  	\item Interop gives programmers 
-	\item Metadata and standards are core concepts that can make interop possilbe.
+  	\item Interop allows programmers to not have to worry about what language existing systems are written in.
+  	\item Also allows programmers access to the strengths of languages other than the main system language.
+	\item Metadata and standards allow programmers to reason about interop, and to communicate how their system 
 	\item Virtual machines and markup languages make use of these concepts to enable interop in ways.
 	\item 
 	\item 
   \end{itemize}
-  \end{column}
-  \end{columns}
 \end{frame}
 
 
@@ -471,18 +482,21 @@
 	
 	
 		
+
 	\linespace
-	\linespace
-	
-	Contact:  
-		\texttt{malone153@morris.umn.edu}
-	
 	\linespace
 	\linespace
 	
 	\begin{center}
 	{\huge Questions?}
 	\end{center}
+	
+    \linespace
+	\linespace
+	\linespace
+	
+	Contact:  
+		\texttt{malone153@morris.umn.edu}
 \end{frame}
 
 \section*{References}
