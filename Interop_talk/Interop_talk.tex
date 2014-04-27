@@ -76,12 +76,13 @@
   %\begin{columns}
   %\begin{column}{0.6\textwidth}
   \begin{itemize}
-  	\item Interoperability: The ability for a system to use parts from another system.
+  	\item Interoperability: The ability for two systems to interact.
   	\item Often shortened to interop.
 	\item In programming languages: The ability of a language to call on code from another language.
   \end{itemize}
   %\end{column}
 %mainly, a program running in one language has the ability to call on aspects of another program, written in a different language  
+%the ability for a program written in one language to call on a program written in another lanugage.
  
   %\end{columns}
 \end{frame}
@@ -94,7 +95,7 @@
   
   \begin{columns}[t]
   \begin{column}{0.5\textwidth}
-  Developer time and effort
+  Developer time and effort:
   \begin{itemize}
 	\item Existing and working code is easier to use as-is.
 	\item Legacy systems: extensive or little-understood code base.
@@ -152,7 +153,6 @@
   	\item Languages represent data in different ways %numbers: Java says "int!", JavaScript says "Number!". Ruby says "Whatever! I'll figure it out."
 	\item Statically-typed languages assign types as soon as data is collected.
 	\item Dynamically-typed languages only deal with types when evaluating data.
-	\item 
   \end{itemize}
   \end{column}
   %One major source of difference, in all of these sections, is going to be numbers. Numbers get represented in a lot of ways, even within a single language.
@@ -162,9 +162,13 @@
 
   \begin{column}{0.5\textwidth}
   \includegraphics[scale=1]{graphics/StrongTypeCliff.pdf}
+  
+  \tiny{statically-typed person}
   \linespace
   \linespace
   \includegraphics[scale=1]{graphics/UnTypeCliff.pdf}
+  
+  \tiny{dynamically-typed person}
   \end{column}
   \end{columns}
 \end{frame}
@@ -260,7 +264,7 @@
 	In Clojure:
 	\begin{itemize}
 	\item lists are untyped; can contain entries of different types.
-	\item metadata, added as above, is all user-controlled.
+	\item metadata use and checking is up to the programmer.
 	\end{itemize}
 	
 	
@@ -273,28 +277,9 @@
 
 \begin{frame}
 \frametitle{Metadata and type conversion}
- \begin{columns}
- \begin{column}{0.5\textwidth}
- no metadata
- 
- Clojure: {\tt [1, 2, 3, 4]}
-
- (down arrow)
- 
- Java: {\tt [?, ?, ?, ?]}
- 
- \end{column}
- 
- \begin{column}{0.5\textwidth}
- metadata: {\tt \{:type Integer\}}
- 
- Clojure {\tt [1, 2, 3, 4]}
- 
- (down arrow)
- 
- Java {\tt [1, 2, 3, 4]}
- \end{column}
- \end{columns}
+ \begin{center}
+ \includegraphics[scale=0.7]{graphics/metadataExample.pdf}
+ \end{center}
 \end{frame}
 
 
@@ -302,34 +287,10 @@
 
 \begin{frame}
   \frametitle{Metadata and standards}
-  \begin{columns}
-  \begin{column}{0.5\textwidth}
-  Metadata: {\tt \{:type number\}}
-  
-  [1, 2, 3, 4]
-  \linespace
-  \linespace
-  Metadata: {\tt \{:type Integer\}}
-  
-  [1, 2, 3, 4]
-  \end{column}
-  \begin{column}{0.05\textwidth} 
-  {\tt->}
-  \linespace
-  \linespace
-  {\tt->}
-  \end{column}
-  \begin{column}{0.5\textwidth}
-  Metadata: {\tt \{:type Integer\}}
-  
-  [?, ?, ?, ?]
-  \linespace
-  \linespace
-  Metadata: {\tt \{:type Integer\}}
-  
-  [1, 2, 3, 4]
-  \end{column}
-  \end{columns}
+  \begin{center}
+  \includegraphics[scale=0.7]{graphics/metadataStandards.pdf}
+  \end{center}
+
   
 \end{frame}
 
@@ -443,9 +404,13 @@
 
   \begin{column}{0.55\textwidth}
    \includegraphics[scale=1]{graphics/XMLCliff.pdf}
+   
+   \tiny{XML model of a person}
    \linespace
    \linespace
    \includegraphics[scale=1]{graphics/JSONCliff.pdf}
+   
+   \tiny{JSON model of a person}
   \end{column}
   \end{columns}
   
@@ -488,6 +453,7 @@
   \begin{column}{0.6\textwidth}
   \begin{itemize}
   	\item Interop can make system design simpler by allowing programmers to use otherwise incompatible languages.
+  	\item Interop gives programmers 
 	\item Metadata and standards are core concepts that can make interop possilbe.
 	\item Virtual machines and markup languages make use of these concepts to enable interop in ways.
 	\item 
